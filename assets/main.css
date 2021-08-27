@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700&display=swap');
+
+body {
+  background: url(img/bg.svg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+h1 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-size: 1.15em;
+  font-weight: bold;
+  align-items: center;
+  letter-spacing: -0.017em;
+
+  color: #0B585A;
+}
+
+h2 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-size: 1em;
+  font-weight: medium;
+  align-items: center;
+  letter-spacing: -0.017em;
+
+  color: #0B585A;
+}
+
+.card {
+  background: #FFFFFF;
+  box-shadow: 0px 1px 33px #56E7E0;
+  border-radius: 50px;
+}
+
+.card-content {
+  height: auto;
+  padding: 1.5em;
+  padding-top: 0;
+}
+
+.center-item {
+  align-items: center;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.logo {
+  width: 100%;
+}
+
+.spacer-2 {
+  margin-top: 2em;
+}
+
+.button-yellow {
+  background: linear-gradient(0deg, #FDAF19, #FDAF19), #B8B6B6;
+  border-radius: 30px;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1em;
+  line-height: 2em;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.017em;
+
+  color: #FFFFFF;
+}
+
+.button-yellow:hover {
+  color: #FDAF19;
+  background: transparent;
+}

@@ -118,7 +118,12 @@ h2 {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
 
+.breadcrumb {
+  margin-top: 1rem;
+}
+
 .services {
+  margin-top: 3rem;
   padding: 2rem;
   background: #E7F7F2;
   border-radius: 20px;
@@ -173,5 +178,5 @@ h2 {
 }
 
 .report {
-  margin-top: 1rem;
+  margin-top: 3rem;
 }

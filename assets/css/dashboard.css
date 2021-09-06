@@ -8,6 +8,19 @@ body {
   vertical-align: text-bottom;
 }
 
+h1 {
+
+font-family: Inter;
+font-style: normal;
+font-weight: 600;
+font-size: 3rem;
+align-items: center;
+
+color: #0B585A;
+
+
+}
+
 h2 {
   font-family: Inter;
   font-style: normal;
@@ -120,6 +133,13 @@ h2 {
 
 .breadcrumb {
   margin-top: 1rem;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1rem;
+  align-items: center;
+
+  color: #0B585A;
 }
 
 .services {
@@ -179,4 +199,19 @@ h2 {
 
 .report {
   margin-top: 3rem;
+}
+
+.table-green {
+  padding: 1rem;
+  background-color: #E7F7F2;
+}
+
+.table {
+  padding: auto;
+}
+
+.notif-img {
+  border-radius: 50%;
+  width: 6rem;
+  height: 6rem;
 }

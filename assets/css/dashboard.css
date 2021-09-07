@@ -201,17 +201,53 @@ h2 {
   margin-top: 3rem;
 }
 
-.table-green {
-  padding: 1rem;
+.notification {
+  padding: 1.5rem;
   background-color: #E7F7F2;
-}
-
-.table {
-  padding: auto;
+  margin-bottom: 2rem;
+  height: calc(100vh - 202px);
+  overflow: auto;
 }
 
 .notif-img {
   border-radius: 50%;
   width: 6rem;
   height: 6rem;
+}
+
+.notif-text {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1rem;
+  align-items: center;
+
+  color: #000000;
+  margin-top: 1.6rem;
+}
+
+.notif-subtext {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.9rem;
+  align-items: center;
+
+  color: #0B585A;
+}
+
+.notif-date {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.7rem;
+  align-items: center;
+
+  color: #000000;
+
+  opacity: 0.7;
+}
+
+.notification .border-bottom {
+  margin: 1.8rem 0 1rem 0;
 }

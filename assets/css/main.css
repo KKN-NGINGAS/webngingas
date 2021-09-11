@@ -49,6 +49,13 @@ label {
   border-radius: 50px;
 }
 
+.card-reg {
+  border: 2px solid;
+  border-color:  #22C2C6; 
+  background: #FFFFFF;
+  border-radius: 10px;
+}
+
 .card-content {
   height: auto;
   padding: 1.5em;
@@ -111,7 +118,7 @@ label {
   padding-left: 1.5em;
   font-family: Inter;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 500;
   font-size: 1em;
   line-height: 1em;
   display: flex;
@@ -122,6 +129,6 @@ label {
 
   opacity: 0.5;
 
-  background: #F1F1F1;
+  background: #DFDFDF;
 
 }

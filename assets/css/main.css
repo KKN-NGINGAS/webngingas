@@ -108,6 +108,28 @@ label {
   background: transparent;
 }
 
+.button-red {
+  background: linear-gradient(0deg, #fd1919, #fd1919), #B8B6B6;
+  border: 0px;
+
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1em;
+  line-height: 2em;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.017em;
+
+  color: #FFFFFF;
+}
+
+.button-red:hover {
+  color: #fd1919;
+  background: transparent;
+}
+
 .form-control {
   border-radius: 3em;
   height: 3.5em;

@@ -136,38 +136,40 @@
                 <div class="col-11 mx-auto">
                   <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;">
                     <div class="mb-3">
-                      <label for="tanggal" class="form-label">Tanggal</label>
-                      <input type="date" class="form-control input-field" id="tanggal" placeholder="Contoh: 15/09/20">
+                      <label for="tanggal_produksi" class="form-label">Tanggal</label>
+                      <input type="date" class="form-control input-field" id="tanggal_produksi" placeholder="Contoh: 15/09/20">
                     </div>
                     <div class="row">
                       <div class="col-lg-6 mb-3">
-                        <label for="namadepan" class="form-label">Nama Depan</label>
-                        <input type="text" class="form-control input-field" id="namadepan" placeholder="Contoh: Robert">
+                        <label for="jenis_produksi" class="form-label">Jenis Produk</label>
+                        <select name="Pilih Jenis Produk" id="jenis_produksi" class="form-control input-field" placeholder="Confirm Password">
+                          <option class="dropdown-item disabled" value="Kosong">Pilih Jenis Produk</option>
+                          <option value="Mesin Kasir">Mesin Kasir</option>
+                          <option value="Mesin Pemanggang">Mesin Pemanggang</option>
+                          <option value="Mesin Sampah">Mesin Sampah</option>
+                        </select>
+                        
                       </div>
-                      <div class="col-lg-6 mb-3">
-                        <label for="namabelakang" class="form-label">Nama Belakang</label>
-                        <input type="text" class="form-control input-field" id="namabelakang" placeholder="Contoh: Harnold">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-6 mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control input-field" id="username" placeholder="Contoh: Robert1">
-                      </div>
-                      <div class="col-lg-6 mb-3">
-                        <label for="peranjabatan" class="form-label">Peran/Jabatan</label>
-                        <select name="Pilih Peran/Jabatan" id="peranjabatan" class="form-control input-field" placeholder="Confirm Password">
-                          <option class="dropdown-item disabled" value="Kosong">Pilih Peran/Jabatan</option>
-                          <option value="Saab">Saab</option>
-                          <option value="Mercedes">Mercedes</option>
-                          <option value="Audi">Audi</option>
+                      <div class="col-lg-6 mb-3">                        
+                        <label for="jenis_bahan_mentah_produksi" class="form-label">Jenis Bahan Mentah</label>
+                        <select name="Pilih Jenis Bahan Mentah" id="jenis_bahan_mentah_produksi" class="form-control input-field" placeholder="Confirm Password">
+                          <option class="dropdown-item disabled" value="Kosong">Pilih Jenis Bahan Mentah</option>
+                          <option value="Besi">Besi</option>
+                          <option value="Pasir">Pasir</option>
+                          <option value="Tanah">Tanah</option>
                         </select>
                       </div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="namaikm" class="form-label">Nama IKM</label>
-                      <input type="text" class="form-control input-field" id="namaikm" placeholder="Contoh: Sugih Waras">
-                    </div>
+                    </div> 
+                    <div class="row">
+                      <div class="col-lg-6 mb-3">
+                        <label for="harga_satuan_produksi" class="form-label">Harga Satuan</label>
+                        <input type="text" class="form-control input-field" id="harga_satuan_produksi" placeholder="Contoh: 69.000">
+                      </div>
+                      <div class="col-lg-6 mb-3">
+                        <label for="kuantitas_produksi" class="form-label">Kuantitas (Kg)</label>
+                        <input type="text" class="form-control input-field" id="kuantitas_produksi" placeholder="Contoh: 10">
+                      </div>
+                    </div>                   
                     <div class="row">
                       <div class="col mb-3">
                         <input class="form-control button-red" style="justify-content: center;" type="reset" name="reset" value="Reset">

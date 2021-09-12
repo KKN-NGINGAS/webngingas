@@ -154,3 +154,14 @@ label {
   background: #DFDFDF;
 
 }
+
+td, th {
+  text-align: center;
+}
+
+#button-tambah {
+  margin-left: auto;
+  margin-right: 0;
+  margin-right: 10px;
+  border-radius: 20px;
+}

@@ -28,20 +28,6 @@ h2 {
   color: #0B585A;
 }
 
-
-label {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1em;
-  line-height: 1.2em;
-  display: flex;
-  align-items: center;
-  letter-spacing: -0.017em;
-
-  color: #0B585A;
-}
-
 #loginPage {
   background: url(../img/bg.svg) no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -143,7 +129,20 @@ label {
   background: transparent;
 }
 
-.form-control {
+.label-rounded {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1em;
+  line-height: 1.2em;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.017em;
+
+  color: #0B585A;
+}
+
+.form-rounded {
   border-radius: 3em;
   height: 3.5em;
   margin-bottom: 1.5em;
@@ -166,6 +165,17 @@ label {
 
   background: #DFDFDF;
 
+}
+
+.form-dashboard {
+
+}
+
+.input-field-dashboard {
+  border: 2px solid #40B5B0;
+  box-sizing: border-box;
+  border-radius: 10px;
+  color: #40B5B0;
 }
 
 

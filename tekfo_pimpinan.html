@@ -23,7 +23,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/dashboard.css" rel="stylesheet">
 
   </head>
   <body>
@@ -75,7 +75,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link" href="#">
                   <span data-feather="layers"></span>
                   Keuangan dan Akuntansi
                 </a>
@@ -95,7 +95,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link active" href="#">
                   <span data-feather="file-text"></span>
                   Teknologi Informasi
                 </a>
@@ -120,24 +120,28 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page">Halaman Utama</li>
-              <li class="breadcrumb-item active" aria-current="page">Keuangan dan Akuntansi</li>              
+              <li class="breadcrumb-item active" aria-current="page">Teknologi Informasi</li>              
             </ol>
           </nav>
           
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1>Keuangan dan Akuntansi</h1>
-            <span data-feather="bell"></span>
-          </div>          
+          <div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1>Teknologi Informasi</h1>
+              <!-- <span data-feather="bell"></span> -->
+            </div>   
+            <p>Berisi data inventaris yang dimiliki oleh masing-masing IKM</p>   
+          </div class="">
 
           <div class="data-user">
             <table class="table table-striped" id="myTable-keuangan">
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Bulan</th>
-                  <th scope="col">Tahun</th>
-                  <th scope="col">Total Debit/Kredit (Rp)</th>
-                  <th scope="col">Nama IKM</th>
+                  <th scope="col">No</th>
+                  <th scope="col">Nama Barang</th>
+                  <th scope="col">Tipe/Merk/Label</th>
+                  <th scope="col">Jumlah Barang</th>
+                  <th scope="col">Kondisi</th>
+                  <th scope="col">Sumber Dana</th>
                   <th scope="col">Keterangan</th>
                 </tr>
               </thead>
@@ -148,6 +152,7 @@
                   <td>Otto</td>
                   <td>@mdo</td>
                   <td>IMK</td>
+                  <td></td>
                   <td><button class="btn btn-warning" type="submit"><a href="keuangan_detail_pimpinan.html" style="text-decoration: none; color: white;">Info Detail</a></button></td>
                 </tr>
                 <tr>
@@ -156,6 +161,7 @@
                   <td>Thornton</td>
                   <td>@fat</td>
                   <td>IMK</td>
+                  <td></td>
                   <td><button class="btn btn-warning" type="submit"><a href="keuangan_detail_pimpinan.html" style="text-decoration: none; color: white;">Info Detail</a></button></td>
                 </tr>
                 <tr>
@@ -164,6 +170,7 @@
                   <td>tes</td>
                   <td>@twitter</td>
                   <td>IMK</td>
+                  <td></td>
                   <td><button class="btn btn-warning" type="submit"><a href="keuangan_detail_pimpinan.html" style="text-decoration: none; color: white;">Info Detail</a></button></td>
                 </tr>
               </tbody>

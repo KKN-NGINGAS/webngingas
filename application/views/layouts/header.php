@@ -23,7 +23,8 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="<?php echo base_url()?>/assets/css/main.css" rel="stylesheet">    
+
 
 </head>
 <body>
@@ -39,7 +40,7 @@
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
         <div class="row">
           <div class="col-lg-6 col-sm-4 mx-auto">
-            <img class="logo-sidebar" src="assets/img/Logo.png">
+            <img class="logo-sidebar" src="<?php echo base_url()?>/assets/img/Logo.png">
           </div>
         </div>
         <div class="position-sticky pt-3">

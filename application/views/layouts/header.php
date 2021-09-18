@@ -1,32 +1,22 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.87.0">
-  <title>Dashboard Template · Bootstrap v5.1</title>
-  
-  <script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
-  <script src="/js/jquery-ui.min.js" type="text/javascript"></script>    
-  <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" type="text/javascript"></script>    
-  <link href="/css/jquery-ui.css" rel="stylesheet">    
-  <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.87.0">
+    <title>Dashboard Template · Bootstrap v5.1</title>
 
-  <script>
-      $(document).ready( function () {
-          $('#myTable').DataTable();
-      } );
-  </script>
-  
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="/css/jquery-ui.css" rel="stylesheet"> -->
+    
+    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="<?php echo base_url()?>/assets/css/main.css" rel="stylesheet">    
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
-
-</head>
+  </head>
 <body>
 
   <header class="navbar navbar-light sticky-top bg-light flex-md-nowrap p-0 shadow">

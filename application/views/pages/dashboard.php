@@ -119,9 +119,8 @@
                 </div>
             </div>
             <div class="carousel-nav text-end">
-                <a class="carousel-nav-button" data-bs-target="#services" data-bs-slide="prev">
-                    << /a>
-                        <a class="carousel-nav-button" data-bs-target="#services" data-bs-slide="next">></a>
+                <a class="carousel-nav-button" data-bs-target="#services" data-bs-slide="prev"><</a>
+                <a class="carousel-nav-button" data-bs-target="#services" data-bs-slide="next">></a>
             </div>
         </div>
     </div>

@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'user';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
@@ -57,6 +57,12 @@ $route['index'] = 'NgingasController/index';
 $route['dashboard'] = 'NgingasController/dashboard';
 $route['notifikasi'] = 'NgingasController/notifikasi';
 $route['signup_ikm'] = 'NgingasController/signup_ikm';
+
+//
+// User Route
+//
+$route['Login']	= 'User/LoginAct';
+$route['Logout'] = 'User/Logout';
 
 //
 // Data User

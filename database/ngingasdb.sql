@@ -282,7 +282,7 @@ INSERT INTO `produksi` (`id_produksi`, `tanggal_produksi`, `jumlah_produksi`, `i
 CREATE TABLE `tb_user` (
   `id_user` int(11) NOT NULL,
   `username` varchar(15) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `user_pwd` varchar(255) DEFAULT NULL,
   `tanggal_dibuat` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -290,11 +290,11 @@ CREATE TABLE `tb_user` (
 -- Dumping data for table `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `username`, `password`, `tanggal_dibuat`) VALUES
-(1, 'admin', NULL, '2020-09-07 00:00:00'),
-(2, 'pimpinan1', NULL, '2020-09-08 00:00:00'),
-(3, 'pimpinan2', NULL, '2020-09-09 00:00:00'),
-(4, 'operator', NULL, '2020-09-10 00:00:00');
+INSERT INTO `tb_user` (`id_user`, `username`, `user_pwd`, `tanggal_dibuat`) VALUES
+(1, 'admin', md5(12341234), '2020-09-07 00:00:00'),
+(2, 'pimpinan1', md5(12341234), '2020-09-08 00:00:00'),
+(3, 'pimpinan2', md5(12341234), '2020-09-09 00:00:00'),
+(4, 'operator', md5(12341234), '2020-09-10 00:00:00');
 
 -- --------------------------------------------------------
 

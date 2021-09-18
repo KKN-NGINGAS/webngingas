@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en">
+  <html lang="en">
 
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -9,44 +9,44 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/main.css">
 
     <title>Bumdes Ngingas</title>
-</head>
+  </head>
 
-<body id="loginPage">
+  <body id="loginPage">
     <div class="container-fluid centered">
-        <div class="row">
-            <div class="col-lg-4 mx-auto">
-                <div class="card-form">
-                    <div class="card-content">
-                        <div class="row center-item">
-                            <div class="col-3 ms-auto">
-                                <img class="logo" src="<?php echo base_url()?>/assets/img/Logo.png">
-                            </div>
-                            <div class="col-8">
-                                <h2>NGINGAS DASHBOARD <br>Masuk</h2>
-                            </div>
-                            <div class="col-10 mx-auto">
-                                <form class="spacer-2">
-                                    <div class="mb-3">
-                                        <label for="username" class="form-label label-rounded">Username</label>
-                                        <input type="text" class="form-control form-rounded input-field" id="username" placeholder="Username">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="password" class="form-label label-rounded">Password</label>
-                                        <input type="password" class="form-control form-rounded input-field" id="password" placeholder="Password">
-                                    </div>
-                                    <div class="mb-3">
-                                        <input class="form-control form-rounded button-yellow" type="submit" name="submit" value="Login">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+      <div class="row">
+        <div class="col-lg-4 mx-auto">
+          <div class="card-form">
+            <div class="card-content">
+              <div class="row center-item">
+                <div class="col-3 ms-auto">
+                  <img class="logo" src="<?php echo base_url()?>/assets/img/Logo.png">
                 </div>
+                <div class="col-8">
+                  <h2>NGINGAS DASHBOARD <br>Masuk</h2>
+                </div>
+                <div class="col-10 mx-auto">
+                  <form class="spacer-2" action="<?= base_url().'Login' ?>" method="POST">
+                    <div class="mb-3">
+                      <label for="username" class="form-label label-rounded">Username</label>
+                      <input type="text" class="form-control form-rounded input-field" id="username" name="username" placeholder="Username">
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label label-rounded">Password</label>
+                      <input type="password" class="form-control form-rounded input-field" id="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="mb-3">
+                      <input class="form-control form-rounded button-yellow" type="submit" name="submit" value="Login">
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-</body>
+  </body>
 
-</html>
+  </html>

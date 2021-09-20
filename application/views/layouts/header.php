@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.87.0">
-    <title>Dashboard Template · Bootstrap v5.1</title>
+    <title><?= $title ?></title>
 
     <!-- <link href="/css/jquery-ui.css" rel="stylesheet"> -->
     
@@ -36,37 +36,37 @@
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">
+              <a class="nav-link <?php echo ($page == 'dashboard') ? 'active' : '' ?>" aria-current="page" href="#">
                 <span data-feather="home"></span>
                 Halaman Utama
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link <?php echo ($page == 'data user') ? 'active' : '' ?>" href="#">
                 <span data-feather="file"></span>
                 Data User
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link <?php echo ($page == 'data master') ? 'active' : '' ?>" href="#">
                 <span data-feather="shopping-cart"></span>
                 Data Master
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link <?php echo ($page == 'pemasaran') ? 'active' : '' ?>" href="#">
                 <span data-feather="users"></span>
                 Pemasaran dan Periklanan
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link <?php echo ($page == 'pelayanan') ? 'active' : '' ?>" href="#">
                 <span data-feather="bar-chart-2"></span>
                 Pelayanan Konsumen
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link <?php echo ($page == 'keuangan') ? 'active' : '' ?>" href="#">
                 <span data-feather="layers"></span>
                 Keuangan dan Akuntansi
               </a>
@@ -74,26 +74,26 @@
           </ul>
           <ul class="nav flex-column mb-2">
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link <?php echo ($page == 'sdm') ? 'active' : '' ?>" href="#">
                 <span data-feather="file-text"></span>
                 Sumber Daya Manusia
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link <?php echo ($page == 'produksi') ? 'active' : '' ?>" href="#">
                 <span data-feather="file-text"></span>
                 Produksi
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link <?php echo ($page == 'tekfo') ? 'active' : '' ?>" href="#">
                 <span data-feather="file-text"></span>
                 Teknologi Informasi
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
+              <a class="nav-link <?php echo ($page == 'pengaturan') ? 'active' : '' ?>" href="#">
+                <span data-feather="settings"></span>
                 Pengaturan
               </a>
             </li>

@@ -21,7 +21,13 @@ class AdminBumdes extends CI_Controller {
 	public function index()
 	{
 		// $this->load->view('welcome_message');
-		echo "Hai ".$this->session->userdata('nama')." - Sang ".$this->session->userdata('role');
-		echo "<br><a href='".base_url()."Logout'>Logout</a>";
+		// echo "Hai ".$this->session->userdata('nama')." - Sang ".$this->session->userdata('role');
+		// echo "<br><a href='".base_url()."Logout'>Logout</a>";
+		$header['title']	= 'Dashboard - Admin';
+		$header['page']	= 'dashboard';
+		$data['name']	= $this->session->userdata('nama');
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/dashboard', $data);
+		$this->load->view('layouts/footer');
 	}
 }

@@ -79,7 +79,7 @@ class User extends CI_Controller {
 			} 
 
 		} else {
-			echo "<script>alert('username atau password anda salah');window.location.href = '.';</script>";
+			echo "<script>alert('username atau password anda salah');window.location.href = '".base_url()."';</script>";
 				// redirect('home');
 				// print('username atau password anda salah');
 		}

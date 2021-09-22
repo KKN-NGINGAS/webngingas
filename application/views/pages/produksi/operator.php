@@ -1,7 +1,3 @@
-<?= $this->section('title') ?>
-Operator
-<?= $this->endSection() ?>
-
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">

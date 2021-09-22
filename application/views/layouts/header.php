@@ -13,7 +13,7 @@
     <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="<?= base_url()?>/assets/css/main.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
   </head>

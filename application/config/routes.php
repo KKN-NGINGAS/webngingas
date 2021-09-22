@@ -74,18 +74,18 @@ $route['data_user/create'] = 'NgingasController/data_user_create';
 // Produksi
 //
 $route['produksi/pimpinan'] = 'NgingasController/produksi_pimpinan';
-$route['produksi/operator'] = 'NgingasController/produksi_operator';
+$route['produksi/operator'] = 'Operator/produksi_operator';
 $route['produksi/detail_pimpinan'] = 'NgingasController/produksi_detail_pimpinan';
-$route['produksi/tambah_operator'] = 'NgingasController/produksi_tambah_operator';
-$route['produksi/tambah_berhasil_operator'] = 'NgingasController/produksi_tambah_berhasil_operator';
+$route['produksi/tambah_operator'] = 'Operator/produksi_tambah_operator';
+$route['produksi/tambah_berhasil_operator'] = 'Operator/produksi_tambah_berhasil_operator';
 
 //
 // Keuangan
 //
 $route['keuangan/pimpinan'] = 'NgingasController/keuangan_pimpinan';
-$route['keuangan/operator'] = 'NgingasController/keuangan_operator';
+$route['keuangan/operator'] = 'Operator/keuangan_operator';
 $route['keuangan/detail_pimpinan'] = 'NgingasController/keuangan_detail_pimpinan';
-$route['keuangan/detail_operator'] = 'NgingasController/keuangan_detail_operator';
+$route['keuangan/detail_operator'] = 'Operator/keuangan_detail_operator';
 
 //
 // SDM

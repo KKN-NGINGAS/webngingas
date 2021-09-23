@@ -77,6 +77,9 @@ $route['produksi/pimpinan'] = 'NgingasController/produksi_pimpinan';
 $route['produksi/operator'] = 'Operator/produksi_operator';
 $route['produksi/detail_pimpinan'] = 'NgingasController/produksi_detail_pimpinan';
 $route['produksi/tambah_operator'] = 'Operator/produksi_tambah_operator';
+$route['produksi/tambah_operator/insert'] = 'Operator/produksi_tambah_operator_insert';
+$route['produksi/edit_operator/:id'] = 'Operator/produksi_edit_operator';
+$route['produksi/edit_operator/:id/update'] = 'Operator/produksi_edit_operator_update';
 $route['produksi/tambah_berhasil_operator'] = 'Operator/produksi_tambah_berhasil_operator';
 
 //

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 17, 2021 at 10:23 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.6
+-- Host: 127.0.0.1:3306
+-- Generation Time: Sep 23, 2021 at 02:52 PM
+-- Server version: 5.7.31
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,13 +27,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin_bumdes`
 --
 
-CREATE TABLE `admin_bumdes` (
+DROP TABLE IF EXISTS `admin_bumdes`;
+CREATE TABLE IF NOT EXISTS `admin_bumdes` (
   `id_admin` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `nama` varchar(80) DEFAULT NULL,
   `no_telp` varchar(15) DEFAULT NULL,
   `alamat` varchar(255) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL
+  `email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_admin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -49,13 +51,15 @@ INSERT INTO `admin_bumdes` (`id_admin`, `id_user`, `nama`, `no_telp`, `alamat`, 
 -- Table structure for table `data_ikm`
 --
 
-CREATE TABLE `data_ikm` (
-  `id_ikm` int(11) NOT NULL,
+DROP TABLE IF EXISTS `data_ikm`;
+CREATE TABLE IF NOT EXISTS `data_ikm` (
+  `id_ikm` int(11) NOT NULL AUTO_INCREMENT,
   `nama_ikm` varchar(80) NOT NULL,
   `no_telp_ikm` varchar(15) NOT NULL,
   `status` varchar(10) NOT NULL,
-  `tanggal_terdaftar` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `tanggal_terdaftar` datetime NOT NULL,
+  PRIMARY KEY (`id_ikm`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `data_ikm`
@@ -74,7 +78,8 @@ INSERT INTO `data_ikm` (`id_ikm`, `nama_ikm`, `no_telp_ikm`, `status`, `tanggal_
 -- Table structure for table `data_karyawan`
 --
 
-CREATE TABLE `data_karyawan` (
+DROP TABLE IF EXISTS `data_karyawan`;
+CREATE TABLE IF NOT EXISTS `data_karyawan` (
   `id_karyawan` int(11) NOT NULL,
   `nik` bigint(20) DEFAULT NULL,
   `nama_karyawan` varchar(80) DEFAULT NULL,
@@ -86,7 +91,8 @@ CREATE TABLE `data_karyawan` (
   `id_ikm` int(11) DEFAULT NULL,
   `jobdesk` varchar(25) DEFAULT NULL,
   `tanggal_terdaftar` datetime DEFAULT NULL,
-  `pas_foto` varchar(50) DEFAULT NULL
+  `pas_foto` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_karyawan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -116,7 +122,8 @@ INSERT INTO `data_karyawan` (`id_karyawan`, `nik`, `nama_karyawan`, `Kelamin`, `
 -- Table structure for table `data_pelanggan`
 --
 
-CREATE TABLE `data_pelanggan` (
+DROP TABLE IF EXISTS `data_pelanggan`;
+CREATE TABLE IF NOT EXISTS `data_pelanggan` (
   `id_perusahaan` int(11) NOT NULL,
   `nama_perusahaan` varchar(50) DEFAULT NULL,
   `nama_kontak_perusahaan` varchar(50) DEFAULT NULL,
@@ -124,7 +131,8 @@ CREATE TABLE `data_pelanggan` (
   `no_telp_kontak_perusahaan` varchar(15) DEFAULT NULL,
   `no_telp_perusahaan` varchar(15) DEFAULT NULL,
   `jenis_perusahaan` varchar(20) DEFAULT NULL,
-  `tanggal_terdaftar` datetime DEFAULT NULL
+  `tanggal_terdaftar` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_perusahaan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -143,12 +151,14 @@ INSERT INTO `data_pelanggan` (`id_perusahaan`, `nama_perusahaan`, `nama_kontak_p
 -- Table structure for table `data_produk`
 --
 
-CREATE TABLE `data_produk` (
+DROP TABLE IF EXISTS `data_produk`;
+CREATE TABLE IF NOT EXISTS `data_produk` (
   `id_data_produk` int(11) NOT NULL,
   `nama_produk` varchar(50) DEFAULT NULL,
   `harga_satuan` int(11) DEFAULT NULL,
   `stok_awal` int(11) DEFAULT NULL,
-  `stok_akhir` int(11) DEFAULT NULL
+  `stok_akhir` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_data_produk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -167,15 +177,44 @@ INSERT INTO `data_produk` (`id_data_produk`, `nama_produk`, `harga_satuan`, `sto
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `data_produksi`
+--
+
+DROP TABLE IF EXISTS `data_produksi`;
+CREATE TABLE IF NOT EXISTS `data_produksi` (
+  `id_data_produksi` int(11) NOT NULL AUTO_INCREMENT,
+  `tanggal` date NOT NULL,
+  `jenis_produk` varchar(128) NOT NULL,
+  `jenis_bahan_mentah` varchar(128) NOT NULL,
+  `harga_satuan` bigint(20) NOT NULL,
+  `kuantitas` int(11) NOT NULL,
+  `jumlah_produksi` int(11) NOT NULL,
+  PRIMARY KEY (`id_data_produksi`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `data_produksi`
+--
+
+INSERT INTO `data_produksi` (`id_data_produksi`, `tanggal`, `jenis_produk`, `jenis_bahan_mentah`, `harga_satuan`, `kuantitas`, `jumlah_produksi`) VALUES
+(1, '2021-09-23', 'Mesin Sampah', 'Besi', 10000000, 3, 3),
+(2, '2021-09-01', 'Mesin Super', 'Batu Bata, Apa lagi ya', 100000, 111, 111),
+(3, '2021-06-09', 'Tes', 'Hehe', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `laporan_keuangan`
 --
 
-CREATE TABLE `laporan_keuangan` (
+DROP TABLE IF EXISTS `laporan_keuangan`;
+CREATE TABLE IF NOT EXISTS `laporan_keuangan` (
   `id_laporan` int(11) NOT NULL,
   `tanggal` datetime DEFAULT NULL,
   `id_ikm` int(11) DEFAULT NULL,
   `laba` int(11) DEFAULT NULL,
-  `keterangan` varchar(30) DEFAULT NULL
+  `keterangan` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id_laporan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -200,7 +239,8 @@ INSERT INTO `laporan_keuangan` (`id_laporan`, `tanggal`, `id_ikm`, `laba`, `kete
 -- Table structure for table `operator_ikm`
 --
 
-CREATE TABLE `operator_ikm` (
+DROP TABLE IF EXISTS `operator_ikm`;
+CREATE TABLE IF NOT EXISTS `operator_ikm` (
   `id_operator` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_ikm` int(11) DEFAULT NULL,
@@ -208,7 +248,8 @@ CREATE TABLE `operator_ikm` (
   `nama` varchar(80) DEFAULT NULL,
   `no_telp` varchar(15) DEFAULT NULL,
   `alamat` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL
+  `email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_operator`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -224,14 +265,16 @@ INSERT INTO `operator_ikm` (`id_operator`, `id_user`, `id_ikm`, `id_ketua`, `nam
 -- Table structure for table `pimpinan_ikm_bumdes`
 --
 
-CREATE TABLE `pimpinan_ikm_bumdes` (
+DROP TABLE IF EXISTS `pimpinan_ikm_bumdes`;
+CREATE TABLE IF NOT EXISTS `pimpinan_ikm_bumdes` (
   `id_pimpinan` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_ikm` int(11) DEFAULT NULL,
   `nama` varchar(80) DEFAULT NULL,
   `no_telp` varchar(15) DEFAULT NULL,
   `alamat` varchar(255) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL
+  `email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_pimpinan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -248,14 +291,16 @@ INSERT INTO `pimpinan_ikm_bumdes` (`id_pimpinan`, `id_user`, `id_ikm`, `nama`, `
 -- Table structure for table `produksi`
 --
 
-CREATE TABLE `produksi` (
+DROP TABLE IF EXISTS `produksi`;
+CREATE TABLE IF NOT EXISTS `produksi` (
   `id_produksi` int(11) NOT NULL,
   `tanggal_produksi` datetime DEFAULT NULL,
   `jumlah_produksi` int(11) DEFAULT NULL,
   `id_data_produk` int(11) DEFAULT NULL,
   `kuantitas` int(11) DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
-  `id_ikm` int(11) DEFAULT NULL
+  `id_ikm` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_produksi`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -279,11 +324,13 @@ INSERT INTO `produksi` (`id_produksi`, `tanggal_produksi`, `jumlah_produksi`, `i
 -- Table structure for table `tb_user`
 --
 
-CREATE TABLE `tb_user` (
+DROP TABLE IF EXISTS `tb_user`;
+CREATE TABLE IF NOT EXISTS `tb_user` (
   `id_user` int(11) NOT NULL,
   `username` varchar(15) DEFAULT NULL,
   `user_pwd` varchar(255) DEFAULT NULL,
-  `tanggal_dibuat` datetime DEFAULT NULL
+  `tanggal_dibuat` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -291,10 +338,10 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id_user`, `username`, `user_pwd`, `tanggal_dibuat`) VALUES
-(1, 'admin', md5(12341234), '2020-09-07 00:00:00'),
-(2, 'pimpinan1', md5(12341234), '2020-09-08 00:00:00'),
-(3, 'pimpinan2', md5(12341234), '2020-09-09 00:00:00'),
-(4, 'operator', md5(12341234), '2020-09-10 00:00:00');
+(1, 'admin', 'ed2b1f468c5f915f3f1cf75d7068baae', '2020-09-07 00:00:00'),
+(2, 'pimpinan1', 'ed2b1f468c5f915f3f1cf75d7068baae', '2020-09-08 00:00:00'),
+(3, 'pimpinan2', 'ed2b1f468c5f915f3f1cf75d7068baae', '2020-09-09 00:00:00'),
+(4, 'operator', 'ed2b1f468c5f915f3f1cf75d7068baae', '2020-09-10 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -302,7 +349,8 @@ INSERT INTO `tb_user` (`id_user`, `username`, `user_pwd`, `tanggal_dibuat`) VALU
 -- Table structure for table `teknologi_informasi`
 --
 
-CREATE TABLE `teknologi_informasi` (
+DROP TABLE IF EXISTS `teknologi_informasi`;
+CREATE TABLE IF NOT EXISTS `teknologi_informasi` (
   `id_ti` int(11) NOT NULL,
   `tanggal` datetime DEFAULT NULL,
   `nama_barang` varchar(80) DEFAULT NULL,
@@ -310,7 +358,8 @@ CREATE TABLE `teknologi_informasi` (
   `jumlah_barang` int(11) DEFAULT NULL,
   `kondisi` varchar(10) DEFAULT NULL,
   `sumber_dana` varchar(30) DEFAULT NULL,
-  `id_ikm` int(11) DEFAULT NULL
+  `id_ikm` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_ti`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -333,7 +382,8 @@ INSERT INTO `teknologi_informasi` (`id_ti`, `tanggal`, `nama_barang`, `tipe_bara
 -- Table structure for table `transaksi_penjualan`
 --
 
-CREATE TABLE `transaksi_penjualan` (
+DROP TABLE IF EXISTS `transaksi_penjualan`;
+CREATE TABLE IF NOT EXISTS `transaksi_penjualan` (
   `id_penjualan` int(11) NOT NULL,
   `no_transaksi` int(11) DEFAULT NULL,
   `tanggal` datetime DEFAULT NULL,
@@ -347,7 +397,8 @@ CREATE TABLE `transaksi_penjualan` (
   `harga_total` int(11) DEFAULT NULL,
   `nama_penerima_brg` varchar(80) DEFAULT NULL,
   `no_telp_pelanggan` varchar(15) DEFAULT NULL,
-  `keterangan` varchar(10) DEFAULT NULL
+  `keterangan` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id_penjualan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -365,92 +416,6 @@ INSERT INTO `transaksi_penjualan` (`id_penjualan`, `no_transaksi`, `tanggal`, `n
 (8, 223, '2020-09-23 00:00:00', 'Sumber Kencana', 'Zulfikar', 1, 4, 3, 10000000, 30000000, 33000000, 'duni', '+85228233232', 'berhasil'),
 (9, 224, '2020-09-24 00:00:00', 'Sumber Kencana', 'Faza', 4, 5, 4, 1750000, 7000000, 7700000, 'danu', '+85235553346', 'berhasil'),
 (10, 225, '2020-09-25 00:00:00', 'Sumber Kencana', 'Fachrizal', 3, 3, 2, 500000, 1000000, 1100000, 'dena', '+85234233999', 'berhasil');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `admin_bumdes`
---
-ALTER TABLE `admin_bumdes`
-  ADD PRIMARY KEY (`id_admin`);
-
---
--- Indexes for table `data_ikm`
---
-ALTER TABLE `data_ikm`
-  ADD PRIMARY KEY (`id_ikm`);
-
---
--- Indexes for table `data_karyawan`
---
-ALTER TABLE `data_karyawan`
-  ADD PRIMARY KEY (`id_karyawan`);
-
---
--- Indexes for table `data_pelanggan`
---
-ALTER TABLE `data_pelanggan`
-  ADD PRIMARY KEY (`id_perusahaan`);
-
---
--- Indexes for table `data_produk`
---
-ALTER TABLE `data_produk`
-  ADD PRIMARY KEY (`id_data_produk`);
-
---
--- Indexes for table `laporan_keuangan`
---
-ALTER TABLE `laporan_keuangan`
-  ADD PRIMARY KEY (`id_laporan`);
-
---
--- Indexes for table `operator_ikm`
---
-ALTER TABLE `operator_ikm`
-  ADD PRIMARY KEY (`id_operator`);
-
---
--- Indexes for table `pimpinan_ikm_bumdes`
---
-ALTER TABLE `pimpinan_ikm_bumdes`
-  ADD PRIMARY KEY (`id_pimpinan`);
-
---
--- Indexes for table `produksi`
---
-ALTER TABLE `produksi`
-  ADD PRIMARY KEY (`id_produksi`);
-
---
--- Indexes for table `tb_user`
---
-ALTER TABLE `tb_user`
-  ADD PRIMARY KEY (`id_user`);
-
---
--- Indexes for table `teknologi_informasi`
---
-ALTER TABLE `teknologi_informasi`
-  ADD PRIMARY KEY (`id_ti`);
-
---
--- Indexes for table `transaksi_penjualan`
---
-ALTER TABLE `transaksi_penjualan`
-  ADD PRIMARY KEY (`id_penjualan`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `data_ikm`
---
-ALTER TABLE `data_ikm`
-  MODIFY `id_ikm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

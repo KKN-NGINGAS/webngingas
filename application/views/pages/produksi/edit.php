@@ -3,12 +3,12 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item active" aria-current="page">Home</li>
       <li class="breadcrumb-item active" aria-current="page">Produksi</li>
-      <li class="breadcrumb-item active" aria-current="page">Tambah Data Produksi</li>
+      <li class="breadcrumb-item active" aria-current="page">Edit Data Produksi</li>
     </ol>
   </nav>
 
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1>Tambah Data Produksi</h1>
+    <h1>Edit Data Produksi</h1>
     <span data-feather="bell"></span>
   </div>
 
@@ -16,10 +16,10 @@
   <!-- <div class="card"> -->
   <div class="card-content">
     <div class="col-11 mx-auto">
-      <form action="<?php echo base_url() . 'produksi/tambah_operator/insert'; ?>" method="post" class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;">
+      <form action="<?= site_url('produksi/edit_operator/'.$data->id_data_produksi.'/update'); ?>" method="post" class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;">
         <div class="mb-3">
           <label for="tanggal_produksi" class="form-label">Tanggal</label>
-          <input type="date" class="form-control input-field" name="tanggal_produksi" id="tanggal_produksi" placeholder="Contoh: 15/09/20">
+          <input type="date" class="form-control input-field" name="tanggal_produksi" id="tanggal_produksi" placeholder="<?= $data['date'] ?>">
         </div>
         <div class="row">
           <div class="col-lg-6 mb-3">

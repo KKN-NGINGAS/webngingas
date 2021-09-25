@@ -11,6 +11,6 @@
     <!-- <script src="/js/jquery-ui.min.js" type="text/javascript"></script> -->
     <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
 
-    <script src="<?php echo base_url()?>assets/js/dashboard.js"></script>
+    <script src="<?= base_url()?>assets/js/dashboard.js"></script>
 </body>
 </html>

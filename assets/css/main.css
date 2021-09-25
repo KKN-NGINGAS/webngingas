@@ -150,6 +150,7 @@ h2 {
 
 .input-field {
   padding-left: 1.5em;
+  padding-top: 0.7em;
   font-family: Inter;
   font-style: normal;
   font-weight: 500;
@@ -462,9 +463,4 @@ tr {
 
 .btn-cari-text {
   margin-left: 0.6rem;
-}
-
-table {
-  height: calc(40vh - 202px);
-  overflow: auto;
 }

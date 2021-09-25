@@ -37,46 +37,44 @@ class User extends CI_Controller {
 			'username' => $username,
 			'user_pwd' => md5($password)
 		);
-		$cek = $this->ModelUser->getWhere("tb_user", $where);
-		$result = $cek->num_rows();
-		if ($result > 0) {
-			$cek 	= $cek->row_array();
+		$cek = $this->ModelUser->getWhere("data_user", $where);
+		$num_row = $cek->num_rows();
+		if ($num_row > 0) {
+			$result = $cek->row_array();
 
-			$cek2	= $this->ModelUser->getWhere("admin_bumdes", array("id_user" => $cek['id_user']));
-			$result2 = $cek2->num_rows();
-			$cek3	= $this->ModelUser->getWhere("pimpinan_ikm_bumdes", array("id_user" => $cek['id_user']));
-			$result3 = $cek3->num_rows();
-			$cek4	= $this->ModelUser->getWhere("operator_ikm", array("id_user" => $cek['id_user']));
-			$result4 = $cek4->num_rows();
+			if ($result['id_user'] == 1) {
+				$data_user['nama_karyawan'] = "Admin Bumdes";
+			} else if ($result['id_user'] == 2) {
+				$data_user['nama_karyawan'] = "Pimpinan Bumdes";
+			} else {
 
-			if ($result2 > 0) {
-				$data = $cek2->row_array();
-				$role = 'admin';
-			} else if ($result3 > 0) {
-				$data = $cek3->row_array();
-				$role = 'pimpinan';
-			} else if ($result4 > 0) {
-				$data = $cek4->row_array();
-				$role = 'operator';
+				$whereuser = array(
+					'id_user' => $result['id_user']
+				);
+
+				$data_user = $this->ModelUser->getWhere("data_karyawan", $whereuser)->row_array();
 			}
 
 			$data_session = array(
-				'id'		=>	$id_user,
-				'nama'		=>	$data['nama'],
-				'email'		=>	$data['email'],
-				'role'		=>	$role,
+				'id'		=>	$result['id_user'],
+				'nama'		=>	$data_user['nama_karyawan'],
+				'role'		=>	$result['role'],
 				'status'	=>	'login'
 			);
 
 			$this->session->set_userdata($data_session);
 
-			if ($role == 'admin') {
+			if ($result['role'] == 'admin_bumdes') {
 				redirect('AdminBumdes');
-			} else if ($role == 'pimpinan') {
-				redirect('Pimpinan');
-			} else if ($role == 'operator') {
-				redirect('Operator');
-			} 
+			} else if ($result['role'] == 'pimpinan_bumdes') {
+				echo "pimpinan_bumdes";
+			} else if ($result['role'] == 'pimpinan_ikm') {
+				echo "pimpinan_ikm";
+			} else if ($result['role'] == 'admin_ikm') {
+				echo "admin_ikm";
+			} else if ($result['role'] == 'operator_ikm') {
+				echo "operator_ikm";
+			}
 
 		} else {
 			echo "<script>alert('username atau password anda salah');window.location.href = '".base_url()."';</script>";

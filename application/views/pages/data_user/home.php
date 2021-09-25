@@ -1,7 +1,7 @@
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Halaman Utama</li>
+            <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
             <li class="breadcrumb-item active" aria-current="page">Data User</li>
         </ol>
     </nav>
@@ -9,9 +9,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>Data User</h1>
         <div>
-            <a href="data_user_create.html" style="text-decoration: none; color: white;">
-                <button type="button" class="btn btn-success btn-lg">Buat User</button>
-            </a>
+            <a class="btn btn-success" href="<?= base_url().'AdminBumdes/tambah_user' ?>" style="text-decoration: none; color: white;">Buat User</a>
             <!-- <span data-feather="bell"></span> -->
         </div>
     </div>
@@ -20,9 +18,8 @@
         <table class="table" id="myTable">
             <thead>
                 <tr class="bg-green">
-                    <th scope="col">ID</th>
-                    <th scope="col">Nama Depan</th>
-                    <th scope="col">Nama Belakang</th>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama</th>
                     <th scope="col">Username</th>
                     <th scope="col">Jabatan</th>
                     <th scope="col">Nama IKM</th>
@@ -30,33 +27,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>IMK</td>
-                    <td></td>
-                    <td><button class="btn btn-warning" type="submit"><a href="#" style="text-decoration: none; color: white;">Info Detail</a></button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>IMK</td>
-                    <td></td>
-                    <td><button class="btn btn-warning" type="submit"><a href="#" style="text-decoration: none; color: white;">Info Detail</a></button></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Larry the Bird</td>
-                    <td>tes</td>
-                    <td>@twitter</td>
-                    <td>IMK</td>
-                    <td></td>
-                    <td><button class="btn btn-warning" type="submit"><a href="#" style="text-decoration: none; color: white;">Info Detail</a></button></td>
-                </tr>
+                <?php 
+                $i = 1;
+                foreach ($listUser as $row) { ?>
+                    <tr>
+                        <td><?= $i++ ?></td>
+                        <td><?= $row->nama ?></td>
+                        <td><?= $row->username ?></td>
+                        <td>
+                            <?php echo ($row->role == 2) ? 'Pimpinan' : (($row->role == 4) ? 'Operator' : '-') ?>
+                        </td>
+                        <td><?= $row->id_ikm ?></td>
+                        <td><a class="btn btn-warning" href="<?= base_url().'AdminBumdes/detail_user/'.$row->id_user ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>

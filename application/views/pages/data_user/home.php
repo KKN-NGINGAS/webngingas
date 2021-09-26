@@ -32,10 +32,10 @@
                 foreach ($listUser as $row) { ?>
                     <tr>
                         <td><?= $i++ ?></td>
-                        <td><?= $row->nama ?></td>
+                        <td><?= $row->nama_karyawan ?></td>
                         <td><?= $row->username ?></td>
                         <td>
-                            <?php echo ($row->role == 2) ? 'Pimpinan' : (($row->role == 4) ? 'Operator' : '-') ?>
+                            <?php echo ($row->role == 'pimpinan_ikm') ? 'Pimpinan IKM' : (($row->role == 'admin_ikm') ? 'Admin IKM' : (($row->role == 'operator_ikm') ? 'Operator IKM' : '-')) ?>
                         </td>
                         <td><?= $row->id_ikm ?></td>
                         <td><a class="btn btn-warning" href="<?= base_url().'AdminBumdes/detail_user/'.$row->id_user ?>" style="text-decoration: none; color: white;">Info Detail</a></td>

@@ -42,24 +42,25 @@ class User extends CI_Controller {
 		if ($num_row > 0) {
 			$result = $cek->row_array();
 
-			if ($result['id_user'] == 1) {
+			if ($result['role'] == 'admin_bumdes') {
 				$data_user['nama_karyawan'] = "Admin Bumdes";
-			} else if ($result['id_user'] == 2) {
+			} else if ($result['id_user'] == 'pimpinan_bumdes') {
 				$data_user['nama_karyawan'] = "Pimpinan Bumdes";
 			} else {
 
 				$whereuser = array(
-					'id_user' => $result['id_user']
+					'id_karyawan' => $result['id_karyawan']
 				);
 
 				$data_user = $this->ModelUser->getWhere("data_karyawan", $whereuser)->row_array();
 			}
 
 			$data_session = array(
-				'id'		=>	$result['id_user'],
-				'nama'		=>	$data_user['nama_karyawan'],
-				'role'		=>	$result['role'],
-				'status'	=>	'login'
+				'id_user'		=>	$result['id_user'],
+				'id_karyawan'	=>	$result['id_karyawan'],
+				'nama'			=>	$data_user['nama_karyawan'],
+				'role'			=>	$result['role'],
+				'status'		=>	'login'
 			);
 
 			$this->session->set_userdata($data_session);

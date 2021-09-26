@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2021 at 09:01 PM
+-- Generation Time: Sep 26, 2021 at 06:48 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -37,6 +37,13 @@ CREATE TABLE `data_ikm` (
   `tanggal_update` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `data_ikm`
+--
+
+INSERT INTO `data_ikm` (`id_ikm`, `nama_ikm`, `alamat_ikm`, `no_telp_ikm`, `email_ikm`, `tanggal_terdaftar`, `tanggal_update`) VALUES
+(1, 'Untung Dadi', 'Alamatnya masih sama disitu kok, nomer 15', '+62816683193', 'dida@dida.dida', '2021-09-26 01:28:01', '2021-09-26 01:28:01');
+
 -- --------------------------------------------------------
 
 --
@@ -53,10 +60,18 @@ CREATE TABLE `data_karyawan` (
   `email` varchar(80) NOT NULL,
   `no_telp` varchar(15) NOT NULL,
   `id_ikm` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL DEFAULT 0,
   `tanggal_terdaftar` datetime NOT NULL DEFAULT current_timestamp(),
   `tanggal_update` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `data_karyawan`
+--
+
+INSERT INTO `data_karyawan` (`id_karyawan`, `nik`, `nama_karyawan`, `kelamin`, `jabatan`, `alamat`, `email`, `no_telp`, `id_ikm`, `tanggal_terdaftar`, `tanggal_update`) VALUES
+(1, 3304222222222222, 'Dida', 'Pria', 'Ketua', 'Kan aku tinggal di kantor, jadi alamatnya sama kek kantor', 'dida@dida.dida', '+62916683193', 1, '2021-09-26 01:28:01', '2021-09-26 01:28:01'),
+(2, 3304222222222244, 'Yae-sama', 'Pria', 'Karyawan', 'Numpang dirumah dida', 'dida@dida.dida', '+62916683193', 1, '2021-09-26 01:28:01', '2021-09-26 01:28:01'),
+(3, 3304222222222111, 'Raiden-sama', 'Wanita', 'Karyawan', 'Tenshukaku', 'raiden@gmail.com', '+62816683193', 1, '2021-09-26 09:17:36', '2021-09-26 09:17:36');
 
 -- --------------------------------------------------------
 
@@ -97,6 +112,7 @@ CREATE TABLE `data_produk` (
 
 CREATE TABLE `data_user` (
   `id_user` int(11) NOT NULL,
+  `id_karyawan` int(11) NOT NULL,
   `username` varchar(15) NOT NULL,
   `user_pwd` varchar(255) NOT NULL,
   `role` varchar(15) NOT NULL,
@@ -108,11 +124,11 @@ CREATE TABLE `data_user` (
 -- Dumping data for table `data_user`
 --
 
-INSERT INTO `data_user` (`id_user`, `username`, `user_pwd`, `role`, `tanggal_dibuat`, `tanggal_update`) VALUES
-(1, 'admin', 'ed2b1f468c5f915f3f1cf75d7068baae', 'admin_bumdes', '2021-09-25 14:18:23', '2021-09-25 14:18:23'),
-(2, 'pimpinan', 'ed2b1f468c5f915f3f1cf75d7068baae', 'pimpinan_bumdes', '2021-09-25 14:18:54', '2021-09-25 14:18:54'),
-(3, '330422222222222', '12698ebab394c4d7cf5fa0eb17970844', 'pimpinan_ikm', '2021-09-26 01:28:01', '2021-09-26 01:28:01'),
-(4, '330422222222224', '6d631971c6eef149a3546d17dbd42cf3', 'admin_ikm', '2021-09-26 01:28:01', '2021-09-26 01:28:01');
+INSERT INTO `data_user` (`id_user`, `id_karyawan`, `username`, `user_pwd`, `role`, `tanggal_dibuat`, `tanggal_update`) VALUES
+(1, 0, 'admin', 'ed2b1f468c5f915f3f1cf75d7068baae', 'admin_bumdes', '2021-09-25 14:18:23', '2021-09-25 14:18:23'),
+(2, 0, 'pimpinan', 'ed2b1f468c5f915f3f1cf75d7068baae', 'pimpinan_bumdes', '2021-09-25 14:18:54', '2021-09-25 14:18:54'),
+(3, 1, '330422222222222', '12698ebab394c4d7cf5fa0eb17970844', 'pimpinan_ikm', '2021-09-26 01:28:01', '2021-09-26 01:28:01'),
+(4, 2, '330422222222224', '6d631971c6eef149a3546d17dbd42cf3', 'admin_ikm', '2021-09-26 01:28:01', '2021-09-26 01:28:01');
 
 -- --------------------------------------------------------
 
@@ -252,13 +268,13 @@ ALTER TABLE `transaksi_penjualan`
 -- AUTO_INCREMENT for table `data_ikm`
 --
 ALTER TABLE `data_ikm`
-  MODIFY `id_ikm` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ikm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `data_karyawan`
 --
 ALTER TABLE `data_karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `data_pelanggan`

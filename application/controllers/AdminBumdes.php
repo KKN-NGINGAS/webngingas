@@ -35,7 +35,7 @@ class AdminBumdes extends CI_Controller {
 	{
 		$header['title']	= 'Data User - Admin';
 		$header['page']		= 'data user';
-		$data['listUser']	= $this->MainModel->getUser();
+		$data['listUser']	= $this->MainModel->getUserList('data_user')->result();
 		// die(var_dump($data['listUser']));
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/data_user/home', $data);
@@ -88,7 +88,7 @@ class AdminBumdes extends CI_Controller {
 
 	public function tambah_ikm($msg = '')
 	{
-		$header['title']	= 'Data Master - Admin';
+		$header['title']	= 'Tambah IKM - Admin';
 		$header['page']		= 'data master';
 		$data['msg']		= $msg;
 		$this->load->view('layouts/header', $header);
@@ -190,10 +190,7 @@ class AdminBumdes extends CI_Controller {
 					$this->MainModel->insertGetId('data_karyawan', $data_admin);
 				} else {
 					$this->tambah_ikm('Gagal menyimpan informasi admin');
-				}
-
-
-				
+				}			
 			} else {
 				$this->tambah_ikm('Gagal menyimpan informasi IKM');
 			}
@@ -204,11 +201,12 @@ class AdminBumdes extends CI_Controller {
 
 	public function detail_ikm($id_ikm, $msg = '')
 	{
-		$header['title']	= 'Data Master - Admin';
+		$header['title']	= 'Detail IKM - Admin';
 		$header['page']		= 'data master';
 		$data['msg']		= $msg;
 		$data['ikm']		= $this->MainModel->getDetailIKM($id_ikm)->result();
-		die(var_dump($data['ikm']));
+		$data['pimpinan']	= $this->MainModel->getPemimpinAdminIKM($id_ikm, 'pimpinan_ikm')->result();
+		$data['admin']		= $this->MainModel->getPemimpinAdminIKM($id_ikm, 'admin_ikm')->result();
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/data_master/edit_data', $data);
 		$this->load->view('layouts/footer');

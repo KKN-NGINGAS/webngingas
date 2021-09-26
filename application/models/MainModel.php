@@ -30,29 +30,26 @@ class MainModel extends CI_Model{
 	{
 		$this->db->select('*');
 		$this->db->from('data_ikm');
-		$this->db->join('data_karyawan','data_ikm.id_ikm = data_karyawan.id_ikm');
-		$this->db->join('data_user', 'data_karyawan.id_user = data_user.id_user');
-		$this->db->where('data_karyawan.id_ikm', $id_ikm);
-		$this->db->where('data_karyawan.id_user is NOT NULL');
+		$this->db->where('id_ikm', $id_ikm);
 		return $this->db->get();
 	}
 
-	function getUser()
+	function getPemimpinAdminIKM($id_ikm, $role)
 	{
-		// $this->db->select('*');
-		// $this->db->from('tb_user');
-		// $this->db->join('pimpinan_ikm_bumdes', 'pimpinan_ikm_bumdes.id_user = tb_user.id_user OR');
-		// $this->db->join('operator_ikm', 'operator_ikm.id_user = tb_user.id_user');
-		// $this->db->where('pimpinan_ikm_bumdes.id_ikm !=', '0');
-		// $this->db->where('tb_user.role !=', '1');
-		$query = "SELECT * FROM tb_user 
-		INNER JOIN (SELECT id_user, id_ikm, nama 
-		FROM pimpinan_ikm_bumdes 
-		UNION ALL 
-		SELECT id_user, id_ikm, nama 
-		FROM operator_ikm) 
-		sub on tb_user.id_user = sub.id_user WHERE sub.id_ikm != 0";
-		return $this->db->query($query)->result();
+		$this->db->select('*');
+		$this->db->from('data_karyawan');
+		$this->db->join('data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan');
+		$this->db->where('data_karyawan.id_ikm',$id_ikm);
+		$this->db->where('data_user.role',$role);
+		return $this->db->get();
+	}
+
+	function getUserList()
+	{
+		$this->db->select('*');
+		$this->db->from('data_karyawan');
+		$this->db->join('data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan');
+		return $this->db->get();
 	}
 
 	function getUserDetail()

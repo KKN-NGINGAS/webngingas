@@ -13,14 +13,14 @@ class ModelOperator extends CI_Model{
         $query = $this->db->get($table);
         return $query->result();
     }
-	function getbyid($table,$id){
-		$this->db->where('id_data_produksi', $id);		
+	function getbyid($id_table, $table, $id){
+		$this->db->where($id_table, $id);		
 		$query = $this->db->get($table);
         return $query->result();
 	}
-	public function getById_hehe($id)
+	public function getById_hehe($id_table, $id)
     {
-        return $this->db->get_where($this->table, ["id_data_produksi" => $id])->row();
+        return $this->db->get_where($this->table, [$id_table => $id])->row();
     }
 	function input_data($table,$data){
 		$this->db->insert($table,$data);

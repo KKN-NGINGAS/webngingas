@@ -9,13 +9,16 @@
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1>Keuangan dan Akuntansi</h1>
 
-    <!-- <div id="button-tambah">                      
+    <div id="button-tambah">                      
             <button type="button" class="btn btn-success">
               <span data-feather="plus"></span>
-              Tambah
+              <a href="<?php echo base_url('keuangan/tambah_operator') ?>">
+                <span style="color: white;">Tambah Laporan</span>  
+              
+            </a>              
             </button>
           </div>
-          <span data-feather="bell"></span> -->
+          <!-- <span data-feather="bell"></span> -->
   </div>
 
   <div class="data-user">
@@ -36,60 +39,57 @@
           <th scope="col">ID</th>
           <th scope="col">Bulan</th>
           <th scope="col">Tahun</th>
-          <th scope="col">Jenis Produk</th>
-          <th scope="col">Jumlah Produksi</th>
-          <th scope="col">Total Produksi (Rp)</th>
-          <th scope="col">Keterangan</th>
+          <th scope="col">Total Pengeluaran/Pemasukan (Rp)</th>
+          <th scope="col">Nama IKM</th>
+          <th scope="col">Edit</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Januari</td>
-          <td>2021</td>
-          <td>Mesin Sampah</td>
-          <td>5</td>
-          <td>10.000.000</td>
-          <td>
-            <div>
-              <a href="#">
-                <img src="<?php echo base_url() ?>assets/img/edit.png" alt="Edit" style="width: 30px; height: 30x">
-              </a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Januari</td>
-          <td>2020</td>
-          <td>Mesin Sampah</td>
-          <td>69</td>
-          <td>10.000.000</td>
-          <td>
-            <div>
-              <a href="#">
-                <img src="<?php echo base_url() ?>assets/img/edit.png" alt="Edit" style="width: 30px; height: 30x">
-              </a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Februari</td>
-          <td>2021</td>
-          <td>Mesin Sampah</td>
-          <td>420</td>
-          <td>10.000.000</td>
-          <td>
-            <div>
-              <a href="#">
-                <img src="<?php echo base_url() ?>assets/img/edit.png" alt="Edit" style="width: 30px; height: 30x">
-              </a>
-            </div>
-          </td>
-        </tr>
+        <?php
+          $i = 0;
+          foreach($laporan_keuangan as $keuangan){
+          $i++;
+        ?>
+          <tr>
+            <th scope="row"><?= $keuangan->id_laporan?></th>
+            <td><?= $keuangan->bulan?></td>
+            <td><?= $keuangan->tahun?></td>
+            <td><?= $keuangan->pengeluaran?></td>
+            <td><?= $keuangan->nama_ikm?></td>          
+            <td>
+              <div>
+                <a href="<?= base_url('keuangan/detail_operator/'.$keuangan->id_laporan)?>">
+                  <img src="<?php echo base_url() ?>assets/img/edit.png" alt="Edit" style="width: 30px; height: 30x">
+                </a>
+              </div>
+            </td>
+          </tr>
+        <?php
+          }        
+        ?>
       </tbody>
-    </table>
+    </table>    
+
+    <!-- <button type="button" onclick="myFunction()">Try it</button> -->
+
+    <!-- <script>
+      function myFunction() {
+        var table = document.getElementById("myTable");
+        var row = table.insertRow(3);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        cell1.innerHTML = "NEW CELL1";
+        cell2.innerHTML = "NEW CELL2";
+        cell3.innerHTML = "NEW CELL3";
+        cell4.innerHTML = "NEW CELL4";
+        cell5.innerHTML = "NEW CELL5";
+        cell6.innerHTML = "NEW CELL6";
+      }
+    </script> -->
   </div>
 
 </main>

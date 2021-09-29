@@ -65,17 +65,7 @@ class User extends CI_Controller {
 
 			$this->session->set_userdata($data_session);
 
-			if ($result['role'] == 'admin_bumdes') {
-				redirect('AdminBumdes');
-			} else if ($result['role'] == 'pimpinan_bumdes') {
-				echo "pimpinan_bumdes";
-			} else if ($result['role'] == 'pimpinan_ikm') {
-				echo "pimpinan_ikm";
-			} else if ($result['role'] == 'admin_ikm') {
-				echo "admin_ikm";
-			} else if ($result['role'] == 'operator_ikm') {
-				echo "operator_ikm";
-			}
+			redirect('MainController');
 
 		} else {
 			echo "<script>alert('username atau password anda salah');window.location.href = '".base_url()."';</script>";

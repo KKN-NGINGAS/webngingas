@@ -10,6 +10,23 @@ class MainModel extends CI_Model{
 		return $this->db->get_where($table,$where);
 	}
 
+	function getJoin($table, $join, $join_param)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->join($join,$join_param);
+		return $this->db->get();
+	}
+
+	function getJoinWhere($table, $join, $join_param, $where)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->join($join,$join_param);
+		$this->db->where($where);
+		return $this->db->get();
+	}
+
 	function getListIKM()
 	{
 		$this->db->select('*');
@@ -34,7 +51,7 @@ class MainModel extends CI_Model{
 		return $this->db->get();
 	}
 
-	function getPemimpinAdminIKM($id_ikm, $role)
+	function getDataRoleIKM($id_ikm, $role)
 	{
 		$this->db->select('*');
 		$this->db->from('data_karyawan');

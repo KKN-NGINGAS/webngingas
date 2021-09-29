@@ -1,16 +1,17 @@
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Halaman Utama</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
             <li class="breadcrumb-item active" aria-current="page">Sumber Daya Manusia</li>
         </ol>
     </nav>
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>Sumber Daya Manusia</h1>
-        <div class="btn-group">
-            <!-- <a href="#" class="btn-cari"><i data-feather="search" class="icon-btn"></i><span class="btn-cari-text">Cari</span></a> -->
-            <a href="#" class="btn-tambah"><i data-feather="plus" class="icon-btn"></i><span class="btn-cari-text">Tambah</span></a>
+        <div>
+            <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                <a class="btn btn-success" href="<?= base_url().'MainController/tambah_sdm' ?>" style="text-decoration: none; color: white;">Tambah SDM</a>
+            <?php } ?>
         </div>
     </div>
 
@@ -18,235 +19,27 @@
         <table class="table" id="myTable">
             <thead>
                 <tr class="bg-green">
-                    <th scope="col">ID</th>
+                    <th scope="col">No</th>
                     <th scope="col">NIK</th>
                     <th scope="col">Nama</th>
                     <th scope="col">IKM</th>
-                    <th scope="col">Jobdesk</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Jabatan</th>
+                    <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>12345</td>
-                    <td>12345678901</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12345</td>
-                    <td>12345678901</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12345</td>
-                    <td>12345678901</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12345</td>
-                    <td>12345678901</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12345</td>
-                    <td>12345678901</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12345</td>
-                    <td>12345678901</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12345</td>
-                    <td>12345678901</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12345</td>
-                    <td>12345678901</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12346</td>
-                    <td>12345678901</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12346</td>
-                    <td>12345678901</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12346</td>
-                    <td>12345678901</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12345</td>
-                    <td>1234567890</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>Lorem Ipsum</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>121212</td>
-                    <td>1234567891</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>121212</td>
-                    <td>1234567891</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>121212</td>
-                    <td>1234567891</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>121212</td>
-                    <td>1234567891</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>121212</td>
-                    <td>1234567891</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>121212</td>
-                    <td>1234567891</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>121212</td>
-                    <td>1234567891</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>121212</td>
-                    <td>1234567891</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>Lorem Ipsum1</td>
-                    <td>
-                        <a href="#" class="icon-action"><i data-feather="edit" style="color: blue;"></i></a>
-                        <a href="#" class="icon-action"><i data-feather="trash" style="color: red;"></i></a>
-                    </td>
-                </tr>
+                <?php 
+                $i = 1;
+                foreach ($data_sdm as $row) { ?>
+                    <tr>
+                        <td><?= $i++ ?></td>
+                        <td><?= ucwords($row->nik) ?></td>
+                        <td><?= ucwords($row->nama_karyawan) ?></td>
+                        <td><?= ucwords($row->nama_ikm) ?></td>
+                        <td><?= $row->jabatan ?></td>
+                        <td><a class="btn btn-warning" href="<?= base_url().'MainController/detail_sdm/'.$row->id_karyawan ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                    </tr>
+                <?php }?>
             </tbody>
         </table>
     </div>

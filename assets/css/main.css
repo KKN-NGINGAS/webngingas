@@ -410,8 +410,8 @@ table {
   text-align: center;
 }
 
-tr {
-  background-color: #E7F7F2;
+td {
+  vertical-align: top;
 }
 
 #button-tambah {

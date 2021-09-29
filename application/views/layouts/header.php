@@ -76,7 +76,7 @@
           </ul>
           <ul class="nav flex-column mb-2">
             <li class="nav-item">
-              <a class="nav-link <?php echo ($page == 'sdm') ? 'active' : '' ?>" href="#">
+              <a class="nav-link <?php echo ($page == 'sdm') ? 'active' : '' ?>" href="<?= base_url().'MainController/data_sdm' ?>">
                 <span data-feather="users"></span>
                 Sumber Daya Manusia
               </a>

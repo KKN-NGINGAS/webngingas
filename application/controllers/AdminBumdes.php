@@ -18,22 +18,9 @@ class AdminBumdes extends CI_Controller {
 		}
 	}
 
-	public function index()
-	{
-		// $this->load->view('welcome_message');
-		// echo "Hai ".$this->session->userdata('nama')." - Sang ".$this->session->userdata('role');
-		// echo "<br><a href='".base_url()."Logout'>Logout</a>";
-		$header['title']	= 'Dashboard - Admin';
-		$header['page']		= 'dashboard';
-		$data['name']		= $this->session->userdata('nama');
-		$this->load->view('layouts/header', $header);
-		$this->load->view('pages/dashboard', $data);
-		$this->load->view('layouts/footer');
-	}
-
 	public function data_user()
 	{
-		$header['title']	= 'Data User - Admin';
+		$header['title']	= 'Data User';
 		$header['page']		= 'data user';
 		$data['listUser']	= $this->MainModel->getUserList('data_user')->result();
 		// die(var_dump($data['listUser']));
@@ -78,7 +65,7 @@ class AdminBumdes extends CI_Controller {
 
 	public function data_master()
 	{
-		$header['title']	= 'Data Master - Admin';
+		$header['title']	= 'Data Master';
 		$header['page']		= 'data master';
 		$data['data_ikm']	= $this->MainModel->getListIKM()->result();
 		$this->load->view('layouts/header', $header);
@@ -88,7 +75,7 @@ class AdminBumdes extends CI_Controller {
 
 	public function tambah_ikm($msg = '')
 	{
-		$header['title']	= 'Tambah IKM - Admin';
+		$header['title']	= 'Tambah IKM';
 		$header['page']		= 'data master';
 		$data['msg']		= $msg;
 		$this->load->view('layouts/header', $header);
@@ -188,6 +175,10 @@ class AdminBumdes extends CI_Controller {
 					);
 
 					$this->MainModel->insertGetId('data_karyawan', $data_admin);
+
+					var_dump($data_ikm);
+					var_dump($data_ketua);
+					var_dump($data_admin);
 				} else {
 					$this->tambah_ikm('Gagal menyimpan informasi admin');
 				}			
@@ -201,14 +192,19 @@ class AdminBumdes extends CI_Controller {
 
 	public function detail_ikm($id_ikm, $msg = '')
 	{
-		$header['title']	= 'Detail IKM - Admin';
+		$header['title']	= 'Detail IKM';
 		$header['page']		= 'data master';
 		$data['msg']		= $msg;
 		$data['ikm']		= $this->MainModel->getDetailIKM($id_ikm)->result();
-		$data['pimpinan']	= $this->MainModel->getPemimpinAdminIKM($id_ikm, 'pimpinan_ikm')->result();
-		$data['admin']		= $this->MainModel->getPemimpinAdminIKM($id_ikm, 'admin_ikm')->result();
+		$data['pimpinan']	= $this->MainModel->getDataRoleIKM($id_ikm, 'pimpinan_ikm')->result();
+		$data['admin']		= $this->MainModel->getDataRoleIKM($id_ikm, 'admin_ikm')->result();
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/data_master/edit_data', $data);
 		$this->load->view('layouts/footer');
+	}
+
+	public function reset_pass($id_user)
+	{
+		echo "reset";
 	}
 }

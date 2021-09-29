@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Operator extends CI_Controller {
+class OperatorController extends CI_Controller {
 
 	/**
 	 Controller untuk Operator IKM
@@ -14,7 +14,7 @@ class Operator extends CI_Controller {
 		$this->load->model('ModelOperator');
 		date_default_timezone_set("Asia/Jakarta");
 
-		if ($this->session->userdata('role') != 'operator') {
+		if ($this->session->userdata('role') != 'admin_ikm') {
 			redirect(base_url());
 		}
 	}
@@ -116,23 +116,55 @@ class Operator extends CI_Controller {
 		redirect('produksi/operator');
     }
 
-	//
+	// VIEW
 	// Keuangan
 	//
 
 	public function keuangan_operator(){
 		$header['title']	= 'Keuangan';
 		$header['page']	= 'keuangan';
+
+		$result['laporan_keuangan'] = $this->ModelOperator->getAll("laporan_keuangan");				
+
         $this->load->view('layouts/header', $header);
-        $this->load->view('pages/keuangan/operator');
+        $this->load->view('pages/keuangan/operator', $result);
         $this->load->view('layouts/footer');
     }
 	
-    public function keuangan_detail_operator(){
+    public function keuangan_detail_operator($id){
 		$header['title']	= 'Keuangan Detail';
 		$header['page']	= 'keuangan';
+
+		$result['keuangan'] = $this->ModelOperator->getbyid("id_laporan","laporan_keuangan", $id);
+		
         $this->load->view('layouts/header', $header);
-        $this->load->view('pages/keuangan/detail_operator');
+        $this->load->view('pages/keuangan/detail_operator', $result);
         $this->load->view('layouts/footer');
+    }
+
+	public function tambah_operator(){
+		$header['title']	= 'Tambah Data Keuangan';
+		$header['page']	= 'keuangan';
+        $this->load->view('layouts/header', $header);
+        $this->load->view('pages/keuangan/tambah_operator');
+        $this->load->view('layouts/footer');
+    }
+
+	// FORM
+	// Keuangan
+	//
+
+	public function tambah_operator_insert(){
+		$nama_ikm_keuangan = $this->input->post('nama_ikm_keuangan');
+		$bulan_keuangan = $this->input->post('bulan_keuangan');
+		$tahun_keuangan = $this->input->post('tahun_keuangan');		
+ 
+		$data = array(
+			'nama_ikm' => $nama_ikm_keuangan,
+			'bulan' => $bulan_keuangan,
+			'tahun' => $tahun_keuangan,
+		);
+		$this->ModelOperator->input_data('laporan_keuangan',$data);
+		redirect('keuangan/operator');
     }
 }

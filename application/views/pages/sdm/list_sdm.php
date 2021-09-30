@@ -15,6 +15,12 @@
         </div>
     </div>
 
+    <?php if ($msg != '') { ?>
+        <div class="alert alert-success" role="alert">
+            <?= $msg ?>
+        </div>
+    <?php } ?>
+
     <div class="data-user">
         <table class="table" id="myTable">
             <thead>

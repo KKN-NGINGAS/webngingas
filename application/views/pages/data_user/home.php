@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>Data User</h1>
         <div>
-            <a class="btn btn-success" href="<?= base_url().'AdminBumdes/tambah_user' ?>" style="text-decoration: none; color: white;">Buat User</a>
+            <a class="btn btn-success" href="<?= base_url().'MainController/tambah_user' ?>" style="text-decoration: none; color: white;">Buat User</a>
             <!-- <span data-feather="bell"></span> -->
         </div>
     </div>
@@ -38,7 +38,7 @@
                             <?php echo ($row->role == 'pimpinan_ikm') ? 'Pimpinan IKM' : (($row->role == 'admin_ikm') ? 'Admin IKM' : (($row->role == 'operator_ikm') ? 'Operator IKM' : '-')) ?>
                         </td>
                         <td><?= $row->id_ikm ?></td>
-                        <td><a class="btn btn-warning" href="<?= base_url().'AdminBumdes/detail_user/'.$row->id_user ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                        <td><a class="btn btn-warning" href="<?= base_url().'MainController/detail_user/'.$row->id_user ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
                     </tr>
                 <?php } ?>
             </tbody>

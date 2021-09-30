@@ -18,32 +18,6 @@ class AdminBumdes extends CI_Controller {
 		}
 	}
 
-	public function data_user()
-	{
-		$header['title']	= 'Data User';
-		$header['page']		= 'data user';
-		$data['listUser']	= $this->MainModel->getUserList('data_user')->result();
-		// die(var_dump($data['listUser']));
-		$this->load->view('layouts/header', $header);
-		$this->load->view('pages/data_user/home', $data);
-		$this->load->view('layouts/footer');
-	}
-
-	public function detail_user($id_user)
-	{
-		echo "detail_user";
-	}
-
-	public function edit_user($id_user)
-	{
-		echo "edit_user";
-	}
-
-	public function tambah_user()
-	{
-		echo "tambah_user";
-	}
-
 	public function input_user()
 	{
 		$nama 			= $this->input->post('nama');

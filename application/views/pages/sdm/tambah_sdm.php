@@ -12,9 +12,9 @@
         <!-- <span data-feather="bell"></span> -->
     </div>
 
-            <div class="card-content">
-                <div class="col-10 mx-auto">
-                    <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/input_sdm' ?>" method="POST">
+    <div class="card-content">
+        <div class="col-10 mx-auto">
+            <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/input_sdm' ?>" method="POST">
                 <p style="color: red; font-size: 1.3rem; text-align: center; font-weight: bold;"><?= $msg ?></p>
                 <div class="row">
                     <div class="col-lg-12 mb-3">

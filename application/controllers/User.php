@@ -16,14 +16,8 @@ class User extends CI_Controller {
 
 	public function index()
 	{
-		if ($this->session->userdata('status') == "login") {
-			if ($this->session->userdata('role') == "admin") {
-				redirect('AdminBumdes');
-			} else if ($this->session->userdata('role') == "pimpinan") {
-				redirect('Pimpinan');
-			} else if ($this->session->userdata('role') == "operator") {
-				redirect('Operator');
-			}
+		if ($this->session->userdata('status') == "login") {			
+			redirect('MainController');
 		} else {
 			$this->load->view('pages/index');
 		}
@@ -59,6 +53,7 @@ class User extends CI_Controller {
 				'id_user'		=>	$result['id_user'],
 				'id_karyawan'	=>	$result['id_karyawan'],
 				'nama'			=>	$data_user['nama_karyawan'],
+				'id_ikm'		=>	$data_user['id_ikm'],
 				'role'			=>	$result['role'],
 				'status'		=>	'login'
 			);

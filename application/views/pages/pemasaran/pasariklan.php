@@ -12,13 +12,13 @@
   </div>          
 
   <div class="row">
-      <div class="col-lg-3 card">
+      <div class="col-lg-3 card" style="background: #E7F7F2;">
           <a href=# style="position: sticky;top: 50%;"><div class="card-body">
               <img class="mx-auto d-block" src="<?= base_url()?>/assets/img/transaksi.png" style="margin-top: 20px;margin-bottom: 20px;">
               <p class="card-text text-center" style="margin-bottom: 20px;">Data Transaksi</p>
           </div></a>
       </div>
-      <div class="col-lg-3 card">
+      <div class="col-lg-3 card" style="background: #E7F7F2;">
           <a href=# style="position: sticky;top: 50%;"><div class="card-body">
               <img class="mx-auto d-block" src="<?= base_url()?>/assets/img/produk.png" style="margin-top: 20px;margin-bottom: 20px;">
               <p class="card-text text-center" style="margin-bottom: 20px;">Data Produk</p>

@@ -14,13 +14,18 @@
         </div>
     </div>
 
+    <?php if ($msg != '') { ?>
+        <div class="alert alert-success" role="alert">
+            <?= $msg ?>
+        </div>
+    <?php } ?>
+
     <div class="data-user">
         <table class="table" id="myTable">
             <thead>
                 <tr class="bg-green">
                     <th scope="col" width="5%">No</th>
                     <th scope="col">Nama IKM</th>
-                    <th scope="col">Nama Ketua</th>
                     <th scope="col">Nomor Telepon</th>
                     <th scope="col">Aksi</th>
                 </tr>
@@ -32,7 +37,6 @@
                     <tr>
                         <td><?= $i++ ?></td>
                         <td><?= ucwords($row->nama_ikm) ?></td>
-                        <td><?= ucwords($row->nama_karyawan) ?></td>
                         <td><?= $row->no_telp_ikm ?></td>
                         <td><a class="btn btn-warning" href="<?= base_url().'AdminBumdes/detail_ikm/'.$row->id_ikm ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
                     </tr>

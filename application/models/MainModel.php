@@ -38,15 +38,6 @@ class MainModel extends CI_Model{
 		return $this->db->get();
 	}
 
-	function getListIKM()
-	{
-		$this->db->select('*');
-		$this->db->from('data_ikm');
-		$this->db->join('data_karyawan','data_ikm.id_ikm = data_karyawan.id_ikm');
-		$this->db->where('data_karyawan.jabatan','ketua');
-		return $this->db->get();
-	}
-
 	function getDetailIKM($id_ikm)
 	{
 		$this->db->select('*');

@@ -49,7 +49,7 @@ class MainController extends CI_Controller {
 		$data['listUser']	= $this->MainModel->getUserList('data_user')->result();
 		// die(var_dump($data['listUser']));
 		$this->load->view('layouts/header', $header);
-		$this->load->view('pages/data_user/home', $data);
+		$this->load->view('pages/data_user/list_user', $data);
 		$this->load->view('layouts/footer');
 	}
 

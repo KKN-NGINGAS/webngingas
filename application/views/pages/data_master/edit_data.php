@@ -20,7 +20,7 @@
                         <p style="color: red; font-size: 1.3rem; text-align: center; font-weight: bold;"><?= $msg ?></p>
                         <h2>Informasi IKM</h2>
                         <?php foreach ($ikm as $row) { ?>
-                            <input type="text" id="id_ikm" name="id_ikm" value="<?= $row->id_ikm?>" disabled hidden>
+                            <input type="text" id="id_ikm" name="id_ikm" value="<?= $row->id_ikm?>" readonly hidden>
                             <div class="row">
                                 <div class="col-lg-12 mb-3">
                                     <label for="nama_ikm" class="form-label">Nama IKM</label>
@@ -47,101 +47,119 @@
                                 <a href="" class="form-control button-red" style="justify-content: center;">Batal</a>
                             </div> -->
                             <div class="col-12 mb-3">
-                                <input class="form-control button-yellow" style="justify-content: center;" type="submit" name="submit" value="Simpan Perubahan Informasi IKM">
+                                <input class="form-control button-yellow" style="justify-content: center;" type="submit" name="submit" value="Perbarui Informasi IKM">
                             </div>
                         </div>
                     </form>
                     <div class="row">
                         <div class="col-4 mx-auto">
                             <h2>Informasi Ketua</h2>
-                            <?php foreach ($pimpinan as $row) { ?>
-                                <table style="text-align: left;">
-                                    <tr>
-                                        <td width="15%">Nama</td>
-                                        <td width="5%">:</td>
-                                        <td width="60%"><?= $row->nama_karyawan ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nik</td>
-                                        <td>:</td>
-                                        <td><?= $row->nik ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jenis Kelamin</td>
-                                        <td>:</td>
-                                        <td><?= $row->kelamin ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>No. Telp</td>
-                                        <td>:</td>
-                                        <td><?= $row->no_telp ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td>:</td>
-                                        <td><?= $row->email ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alamat</td>
-                                        <td>:</td>
-                                        <td><?= $row->alamat ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Username</td>
-                                        <td>:</td>
-                                        <td><?= $row->username ?></td>
-                                    </tr>
-                                </table>
+                            <?php 
+                            if ($pimpinan) {
+                                foreach ($pimpinan as $row) { ?>
+                                    <table style="text-align: left;">
+                                        <tr>
+                                            <td width="15%">Nama</td>
+                                            <td width="5%">:</td>
+                                            <td width="60%"><?= $row->nama_karyawan ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nik</td>
+                                            <td>:</td>
+                                            <td><?= $row->nik ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jenis Kelamin</td>
+                                            <td>:</td>
+                                            <td><?= $row->kelamin ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>No. Telp</td>
+                                            <td>:</td>
+                                            <td><?= $row->no_telp ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>:</td>
+                                            <td><?= $row->email ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Alamat</td>
+                                            <td>:</td>
+                                            <td><?= $row->alamat ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Username</td>
+                                            <td>:</td>
+                                            <td><?= $row->username ?></td>
+                                        </tr>
+                                    </table>
+                                    <div class="row" style="padding-top:1rem;">
+                                        <div class="col mb-3">
+                                            <a href="<?= base_url('AdminBumdes/reset_pass/').$row->id_user ?>" class="form-control button-yellow" style="justify-content: center;">Reset Password</a>
+                                        </div>
+                                    </div>
+                                <?php }
+                            } else { ?>
                                 <div class="row" style="padding-top:1rem;">
                                     <div class="col mb-3">
-                                        <a href="<?= base_url('AdminBumdes/reset_pass/').$row->id_user ?>" class="form-control button-yellow" style="justify-content: center;">Reset Password</a>
+                                        <a href="<?= base_url('AdminBumdes/tambah_user') ?>" class="form-control button-yellow" style="justify-content: center;">Tambah Ketua</a>
                                     </div>
                                 </div>
                             <?php } ?>
                         </div>
                         <div class="col-4 mx-auto">
                             <h2>Informasi Admin</h2>
-                            <?php foreach ($admin as $row) { ?>
-                                <table style="text-align: left;">
-                                    <tr>
-                                        <td width="15%">Nama</td>
-                                        <td width="5%">:</td>
-                                        <td width="60%"><?= $row->nama_karyawan ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nik</td>
-                                        <td>:</td>
-                                        <td><?= $row->nik ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jenis Kelamin</td>
-                                        <td>:</td>
-                                        <td><?= $row->kelamin ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>No. Telp</td>
-                                        <td>:</td>
-                                        <td><?= $row->no_telp ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td>:</td>
-                                        <td><?= $row->email ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alamat</td>
-                                        <td>:</td>
-                                        <td><?= $row->alamat ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Username</td>
-                                        <td>:</td>
-                                        <td><?= $row->username ?></td>
-                                    </tr>
-                                </table>
+                            <?php 
+                            if ($admin) {
+                                foreach ($admin as $row) { ?>
+                                    <table style="text-align: left;">
+                                        <tr>
+                                            <td width="15%">Nama</td>
+                                            <td width="5%">:</td>
+                                            <td width="60%"><?= $row->nama_karyawan ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nik</td>
+                                            <td>:</td>
+                                            <td><?= $row->nik ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jenis Kelamin</td>
+                                            <td>:</td>
+                                            <td><?= $row->kelamin ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>No. Telp</td>
+                                            <td>:</td>
+                                            <td><?= $row->no_telp ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>:</td>
+                                            <td><?= $row->email ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Alamat</td>
+                                            <td>:</td>
+                                            <td><?= $row->alamat ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Username</td>
+                                            <td>:</td>
+                                            <td><?= $row->username ?></td>
+                                        </tr>
+                                    </table>
+                                    <div class="row" style="padding-top:1rem;">
+                                        <div class="col mb-3">
+                                            <a href="<?= base_url('AdminBumdes/reset_pass/').$row->id_user ?>" class="form-control button-yellow" style="justify-content: center;">Reset Password</a>
+                                        </div>
+                                    </div>
+                                <?php }
+                            } else { ?>
                                 <div class="row" style="padding-top:1rem;">
                                     <div class="col mb-3">
-                                        <a href="<?= base_url('AdminBumdes/reset_pass/').$row->id_user ?>" class="form-control button-yellow" style="justify-content: center;">Reset Password</a>
+                                        <a href="<?= base_url('AdminBumdes/tambah_user') ?>" class="form-control button-yellow" style="justify-content: center;">Tambah Admin</a>
                                     </div>
                                 </div>
                             <?php } ?>

@@ -58,7 +58,7 @@
                 </li>
               <?php } ?>
               <li class="nav-item">
-                <a class="nav-link <?= ($page == 'pemasaran') ? 'active' : '' ?>" href="#">
+                <a class="nav-link <?= ($page == 'pemasaran') ? 'active' : '' ?>" href="<?= base_url().'MainController/pemasaran' ?>">
                   <span data-feather="shopping-bag"></span>
                   Pemasaran dan Periklanan
                 </a>

@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends CI_Controller {
 
 	/**
-	 Controller untuk login dan register ikm
+	 Controller untuk login dan logout
 	 */
 
 	function __construct()

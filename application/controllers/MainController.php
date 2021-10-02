@@ -88,6 +88,90 @@ class MainController extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
+	public function data_produk($msg = '')
+	{
+		$header['title']	= 'Pemasaran dan Periklanan';
+		$header['page']		= 'pemasaran';
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['data_produk']	= $this->MainModel->getJoin('data_produk', 'data_ikm', 'data_produk.id_ikm = data_ikm.id_ikm')->result();
+		} else {
+			$data['data_produk']	= $this->MainModel->getJoinWhere('data_produk', 'data_ikm', 'data_produk.id_ikm = data_ikm.id_ikm', array('data_produk.id_ikm' => $this->session->userdata('id_ikm')))->result();
+		}
+		$data['msg']		= $msg;
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/pemasaran/list_produk.php', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function tambah_produk($msg = '')
+	{
+		if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) {
+			redirect('MainController/no_access');
+		}
+		$header['title']	= 'Pemasaran dan Periklanan';
+		$header['page']		= 'pemasaran';
+		$data['msg']		= $msg;
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/pemasaran/tambah_produk', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function input_produk()
+	{
+		$nama_produk = $this->input->post('nama_produk');
+		$harga_satuan = $this->input->post('harga_satuan');
+		$stok = $this->input->post('stok');
+
+		$cek = $this->MainModel->getWhere('data_produk', array('nama_produk' => $nama_produk))->num_rows();
+
+		if ($cek > 0) {
+			$this->tambah_produk('Produk dengan nama '.$nama_produk.' sudah terdaftar');
+		} else {
+			$data = array(
+				'nama_produk'	=> $nama_produk,
+				'id_ikm'		=> $this->session->userdata('id_ikm'),
+				'harga_satuan'	=> $harga_satuan,
+				'stok'			=> $stok
+			);
+
+			$this->MainModel->inputData('data_produk', $data);
+
+			$this->data_produk('Data Produk Berhasil ditambahkan');
+		}
+	}
+
+	public function detail_produk($id_produk)
+	{
+		$header['title']	= 'Pemasaran dan Periklanan';
+		$header['page']		= 'pemasaran';
+		$data['data_produk']	= $this->MainModel->getJoinWhere('data_produk', 'data_ikm', 'data_produk.id_ikm = data_ikm.id_ikm', array('data_produk.id_data_produk' => $id_produk))->result();
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/pemasaran/detail_produk', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function update_produk($id_produk)
+	{
+		$nama_produk = $this->input->post('nama_produk');
+		$harga_satuan = $this->input->post('harga_satuan');
+		$stok = $this->input->post('stok');
+
+		$data = array(
+				'nama_produk'	=> $nama_produk,
+				'harga_satuan'	=> $harga_satuan,
+				'stok'			=> $stok
+			);
+
+		$where = array(
+			'id_data_produk' => $id_produk
+		);
+
+		$this->MainModel->updateData('data_produk', $data, $where);
+
+		$this->data_produk('Data Produk berhasil diubah');
+
+	}
+
 	// Fungsi SDM
 
 	public function data_sdm($msg = '')
@@ -113,13 +197,12 @@ class MainController extends CI_Controller {
 
 	public function tambah_sdm($msg = '')
 	{
-		if ($this->session->userdata('role') != 'admin_ikm') {
+		if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) {
 			redirect('MainController/no_access');
 		}
 		$header['title']	= 'Sumber Daya Manusia';
 		$header['page']		= 'sdm';
 		$data['msg']		= $msg;
-		$data['ikm']		= $this->MainModel->get('data_ikm')->result();
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/sdm/tambah_sdm', $data);
 		$this->load->view('layouts/footer');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2021 at 02:58 PM
+-- Generation Time: Oct 02, 2021 at 10:40 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -122,25 +122,30 @@ INSERT INTO `data_pelanggan` (`id_perusahaan`, `nama_perusahaan`, `nama_kontak_p
 DROP TABLE IF EXISTS `data_produk`;
 CREATE TABLE IF NOT EXISTS `data_produk` (
   `id_data_produk` int(11) NOT NULL AUTO_INCREMENT,
-  `nama_produk` varchar(50) DEFAULT NULL,
-  `harga_satuan` int(11) DEFAULT NULL,
-  `stok_awal` int(11) DEFAULT NULL,
-  `stok_akhir` int(11) DEFAULT NULL,
+  `id_ikm` int(11) NOT NULL,
+  `nama_produk` varchar(80) DEFAULT NULL,
+  `harga_satuan` int(11) DEFAULT 0,
+  `stok` int(11) DEFAULT 0,
+  `tanggal_dibuat` datetime NOT NULL DEFAULT current_timestamp(),
+  `tanggal_update` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_data_produk`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `data_produk`
 --
 
-INSERT INTO `data_produk` (`id_data_produk`, `nama_produk`, `harga_satuan`, `stok_awal`, `stok_akhir`) VALUES
-(1, 'Barang Berat 1', 10000000, 15, 12),
-(2, 'Barang Berat 2', 2000000, 15, 5),
-(3, 'Barang Berat 3', 500000, 15, 13),
-(4, 'Barang Berat 4', 1500000, 15, 15),
-(5, 'barang Berat 5', 1750000, 15, 15),
-(6, 'Barang Berat 6', 560000, 15, 15),
-(7, 'Barang Berat 7', 22500000, 15, 15);
+INSERT INTO `data_produk` (`id_data_produk`, `id_ikm`, `nama_produk`, `harga_satuan`, `stok`, `tanggal_dibuat`, `tanggal_update`) VALUES
+(1, 1, 'Barang Berat 1', 50000, 20, '2021-10-03 02:36:04', '2021-10-03 02:36:04'),
+(2, 1, 'Barang Berat 2', 2000000, 15, '2021-10-03 02:36:04', '2021-10-03 02:36:04'),
+(3, 2, 'Barang Berat 3', 500000, 15, '2021-10-03 02:36:04', '2021-10-03 02:36:04'),
+(4, 3, 'Barang Berat 4', 1500000, 15, '2021-10-03 02:36:04', '2021-10-03 02:36:04'),
+(5, 1, 'barang Berat 5', 1750000, 15, '2021-10-03 02:36:04', '2021-10-03 02:36:04'),
+(6, 2, 'Barang Berat 6', 560000, 15, '2021-10-03 02:36:04', '2021-10-03 02:36:04'),
+(7, 3, 'Barang Berat 7', 22500000, 15, '2021-10-03 02:36:04', '2021-10-03 02:36:04'),
+(8, 1, 'Mesin Berat 1', 0, 0, '2021-10-03 03:03:49', '2021-10-03 03:03:49'),
+(9, 1, 'Mesin Pencincang', 0, 0, '2021-10-03 03:06:15', '2021-10-03 03:06:15'),
+(10, 1, 'Mesin Pencincang 2', 0, 0, '2021-10-03 03:06:50', '2021-10-03 03:06:50');
 
 -- --------------------------------------------------------
 

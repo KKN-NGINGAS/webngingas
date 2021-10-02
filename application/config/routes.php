@@ -83,6 +83,10 @@ $route['produksi/edit_operator/:id/update'] = 'OperatorController/produksi_edit_
 $route['produksi/tambah_berhasil_operator'] = 'OperatorController/produksi_tambah_berhasil_operator';
 
 //
+// Pemasaran dan Periklanan
+//
+
+//
 // Keuangan
 //
 $route['keuangan/pimpinan'] = 'NgingasController/keuangan_pimpinan';

@@ -77,6 +77,17 @@ class MainController extends CI_Controller {
 		echo "tambah_user";
 	}
 
+	// Pemasaran
+
+	public function pemasaran()
+	{
+		$header['title']	= 'Pemasaran dan Periklanan';
+		$header['page']		= 'pemasaran';
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/pemasaran/pasariklan.php');
+		$this->load->view('layouts/footer');
+	}
+
 	// Fungsi SDM
 
 	public function data_sdm($msg = '')

@@ -46,16 +46,19 @@
       </thead>
       <tbody>
         <?php
-          $i = 0;
-          foreach($laporan_keuangan as $keuangan){
+          $i = -1;
+          foreach($laporan_keuangan as $keuangan){          
           $i++;
+          $time=strtotime($keuangan->tanggal);
+          $month=date("F",$time);
+          $year=date("Y",$time);
         ?>
           <tr>
             <th scope="row"><?= $keuangan->id_laporan?></th>
-            <td><?= $keuangan->bulan?></td>
-            <td><?= $keuangan->tahun?></td>
-            <td><?= $keuangan->pengeluaran?></td>
-            <td><?= $keuangan->nama_ikm?></td>          
+            <td><?= $month?></td>
+            <td><?= $year?></td>
+            <td><?= $keuangan->laba?></td>
+            <td><?= $laporan_keuangan_2[$i]->nama_ikm?></td>          
             <td>
               <div>
                 <a href="<?= base_url('keuangan/detail_operator/'.$keuangan->id_laporan)?>">

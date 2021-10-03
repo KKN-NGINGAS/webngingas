@@ -18,34 +18,47 @@
     <div class="col-11 mx-auto">
       <form action="<?php echo base_url() . 'keuangan/tambah_operator_insert'; ?>" method="post" class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;">
         <div class="mb-3">
-          <label for="nama_ikm_keuangan" class="form-label">Nama IKM</label>
-          <input type="text" class="form-control input-field" name="nama_ikm_keuangan" id="nama_ikm_keuangan" placeholder="Input Nama IKM">
+          <label for="id_ikm" class="form-label">Nama IKM</label>
+          <!-- <input type="text" class="form-control input-field" name="nama_ikm_keuangan" id="nama_ikm_keuangan" placeholder="Input Nama IKM"> -->
+          <select id="id_ikm" name="id_ikm" class="form-control input-field">
+              <?php
+                foreach($data_ikm as $ikm){
+              ?>
+                <option value=<?= $ikm->id_ikm?>><?= $ikm->nama_ikm?></option>
+              <?php
+                }
+              ?>              
+            </select>
         </div>
-        <div class="row">
+        <div class="mb-3">
+          <label for="tanggal_keuangan" class="form-label">Tanggal Pembuatan Laporan</label>
+          <input type="date" class="form-control input-field" name="tanggal_keuangan" id="tanggal_keuangan">
+        </div>
+        <!-- <div class="row">
           <div class="col-lg-6 mb-3">
             <label for="bulan_keuangan" class="form-label">Bulan</label>
             <select id="bulan_keuangan" name="bulan_keuangan" class="form-control input-field">
-                    <option value="Januari">Januari</option>
-                    <option value="Februari">Februari</option>
-                    <option value="Maret">Maret</option>
-                    <option value="April">April</option>
-                    <option value="Mei">Mei</option>
-                    <option value="Juni">Juni</option>
-                    <option value="Juli">Juli</option>
-                    <option value="Agustus">Agustus</option>
-                    <option value="September">September</option>
-                    <option value="Oktober">Oktober</option>
-                    <option value="Nopember">Nopember</option>
-                    <option value="Desember">Desember</option>
-                </select>              
+              <option value="Januari">Januari</option>
+              <option value="Februari">Februari</option>
+              <option value="Maret">Maret</option>
+              <option value="April">April</option>
+              <option value="Mei">Mei</option>
+              <option value="Juni">Juni</option>
+              <option value="Juli">Juli</option>
+              <option value="Agustus">Agustus</option>
+              <option value="September">September</option>
+              <option value="Oktober">Oktober</option>
+              <option value="Nopember">Nopember</option>
+              <option value="Desember">Desember</option>
+            </select>
           </div>
           <div class="col-lg-6 mb-3">
 
             <label for="tahun_keuangan" class="form-label">Tahun</label>
-            <input type="number" id="tahun_keuangan" name="tahun_keuangan" class="form-control input-field" min="1900" max="2099" step="1" value="2021" />            
+            <input type="number" id="tahun_keuangan" name="tahun_keuangan" class="form-control input-field" min="1900" max="2099" step="1" value="2021" />
 
           </div>
-        </div>
+        </div> -->
         <!-- <div class="row">
           <div class="col-lg-6 mb-3">
             <label for="harga_satuan_produksi" class="form-label">Harga Satuan</label>

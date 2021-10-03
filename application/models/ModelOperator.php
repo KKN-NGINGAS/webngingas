@@ -13,6 +13,11 @@ class ModelOperator extends CI_Model{
         $query = $this->db->get($table);
         return $query->result();
     }
+	function getAllSortBy($table,$sort_by){
+        $this->db->order_by($sort_by);
+		$query = $this->db->get($table);
+        return $query->result();
+    }
 	function getbyid($id_table, $table, $id){
 		$this->db->where($id_table, $id);		
 		$query = $this->db->get($table);
@@ -24,5 +29,13 @@ class ModelOperator extends CI_Model{
     }
 	function input_data($table,$data){
 		$this->db->insert($table,$data);
+	}
+
+	function getJoin($table, $join, $join_param)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->join($join,$join_param);
+		return $this->db->get();
 	}
 }

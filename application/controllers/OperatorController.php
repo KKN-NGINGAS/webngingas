@@ -124,7 +124,10 @@ class OperatorController extends CI_Controller {
 		$header['title']	= 'Keuangan';
 		$header['page']	= 'keuangan';
 
-		$result['laporan_keuangan'] = $this->ModelOperator->getAll("laporan_keuangan");				
+		$result['laporan_keuangan'] = $this->ModelOperator->getAll("laporan_keuangan");
+		// getJoin($table, $join, $join_param)				
+		// $result['laporan_keuangan_join_data_ikm'] = $this->ModelOperator->getJoin("laporan_keuangan", "data_ikm", "laporan_keuangan.data_ikm = data_ikm.id_ikm");	
+		$result['laporan_keuangan_2']	= $this->ModelOperator->getJoin('laporan_keuangan', 'data_ikm', 'laporan_keuangan.id_ikm = data_ikm.id_ikm')->result();
 
         $this->load->view('layouts/header', $header);
         $this->load->view('pages/keuangan/operator', $result);
@@ -145,8 +148,11 @@ class OperatorController extends CI_Controller {
 	public function tambah_operator(){
 		$header['title']	= 'Tambah Data Keuangan';
 		$header['page']	= 'keuangan';
+
+		$result['data_ikm'] = $this->ModelOperator->getAllSortBy("data_ikm", "nama_ikm");
+
         $this->load->view('layouts/header', $header);
-        $this->load->view('pages/keuangan/tambah_operator');
+        $this->load->view('pages/keuangan/tambah_operator', $result);
         $this->load->view('layouts/footer');
     }
 
@@ -155,14 +161,18 @@ class OperatorController extends CI_Controller {
 	//
 
 	public function tambah_operator_insert(){
-		$nama_ikm_keuangan = $this->input->post('nama_ikm_keuangan');
-		$bulan_keuangan = $this->input->post('bulan_keuangan');
-		$tahun_keuangan = $this->input->post('tahun_keuangan');		
+		$id_ikm = $this->input->post('id_ikm');
+		$tanggal_keuangan = $this->input->post('tanggal_keuangan');
+
+		// current time stamp
+		date_default_timezone_set("Asia/Jakarta");		
+		$date = date("Y-m-d H:i:s");				
  
 		$data = array(
-			'nama_ikm' => $nama_ikm_keuangan,
-			'bulan' => $bulan_keuangan,
-			'tahun' => $tahun_keuangan,
+			'id_ikm' => $id_ikm,
+			'tanggal' => $tanggal_keuangan,
+			'created_at' => $date,
+			'updated_at' => $date,
 		);
 		$this->ModelOperator->input_data('laporan_keuangan',$data);
 		redirect('keuangan/operator');

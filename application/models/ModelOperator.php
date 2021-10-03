@@ -38,4 +38,22 @@ class ModelOperator extends CI_Model{
 		$this->db->join($join,$join_param);
 		return $this->db->get();
 	}
+
+	function getJoinWhere($table, $join, $join_param, $where)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->join($join,$join_param);
+		$this->db->where($where);
+		return $this->db->get();
+	}
+
+	function updateData($table, $data, $where)
+	{
+		$this->db->update($table, $data, $where);
+	}
+
+	function deleteBy($table, $column, $column_value){
+		$this->db->delete($table, array($column => $column_value));
+	}
 }

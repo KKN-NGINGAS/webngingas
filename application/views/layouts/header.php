@@ -70,7 +70,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link <?= ($page == 'keuangan') ? 'active' : '' ?>" href="#">
+                <a class="nav-link <?= ($page == 'keuangan') ? 'active' : '' ?>" href="<?= base_url('keuangan/operator')?>">
                   <span data-feather="dollar-sign"></span>
                   Keuangan dan Akuntansi
                 </a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 03, 2021 at 02:20 PM
+-- Generation Time: Oct 03, 2021 at 05:12 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.4.9
 
@@ -222,7 +222,17 @@ CREATE TABLE IF NOT EXISTS `detail_laporan_keuangan` (
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
   PRIMARY KEY (`id_detail`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `detail_laporan_keuangan`
+--
+
+INSERT INTO `detail_laporan_keuangan` (`id_detail`, `id_laporan`, `tanggal`, `aktivitas`, `pemasukan`, `pengeluaran`, `created_at`, `updated_at`) VALUES
+(2, 1, '2021-10-03', 'tambah DB lagi', 69000, 10000, '2021-10-03', '2021-10-03'),
+(3, 2, '2021-10-03', 'aktivitas orang 2', 100000, 40232, '2021-10-03', '2021-10-03'),
+(4, 1, '2021-10-03', 'Coba tambah laporan', 69000, 10000, '2021-10-03', '2021-10-03'),
+(5, 1, '2021-10-01', 'hehe coba lagi', 1111, 2312, '2021-10-03', '2021-10-03');
 
 -- --------------------------------------------------------
 
@@ -240,15 +250,15 @@ CREATE TABLE IF NOT EXISTS `laporan_keuangan` (
   `created_at` date DEFAULT NULL,
   `updated_at` date DEFAULT NULL,
   PRIMARY KEY (`id_laporan`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `laporan_keuangan`
 --
 
 INSERT INTO `laporan_keuangan` (`id_laporan`, `tanggal`, `id_ikm`, `laba`, `keterangan`, `created_at`, `updated_at`) VALUES
-(1, '2020-09-07 00:00:00', 1, -500000, 'Barang Rusak', NULL, NULL),
-(2, '2020-09-07 00:00:00', 2, 150000, 'Penjualan laku', NULL, NULL),
+(1, '2020-09-07 00:00:00', 1, 116799, 'Barang Rusak', NULL, '2021-10-04'),
+(2, '2020-09-07 00:00:00', 2, 59768, 'Penjualan laku', NULL, '2021-10-04'),
 (3, '2020-09-09 00:00:00', 3, 4550000, 'Penjualan laku', NULL, NULL),
 (4, '2020-09-12 00:00:00', 4, -120000, 'Barang Hilang', NULL, NULL),
 (5, '2020-09-16 00:00:00', 5, 450000, 'Penjualan laku', NULL, NULL),

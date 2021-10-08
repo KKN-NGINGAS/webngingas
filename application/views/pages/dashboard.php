@@ -10,7 +10,7 @@
         <span data-feather="bell"></span>
     </div>
 
-    <div class="services">
+    <!-- <div class="services">
         <h2>Layanan</h2>
         <div id="services" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -122,7 +122,7 @@
                 <a class="carousel-nav-button" data-bs-target="#services" data-bs-slide="next">></a>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="report">
         <h2>REKAP CAPAIAN BUMDES NGINGAS</h2>

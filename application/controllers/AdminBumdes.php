@@ -78,6 +78,19 @@ class AdminBumdes extends CI_Controller {
 		$this->data_master('IKM Berhasil Ditambahkan');
 	}
 
+	public function detail_ikm($id_ikm, $msg = '')
+	{
+		$header['title']	= 'Detail IKM';
+		$header['page']		= 'data master';
+		$data['msg']		= $msg;
+		$data['ikm']		= $this->MainModel->getDetailIKM($id_ikm)->result();
+		$data['pimpinan']	= $this->MainModel->getDataRoleIKM($id_ikm, 'pimpinan_ikm')->result();
+		$data['admin']		= $this->MainModel->getDataRoleIKM($id_ikm, 'admin_ikm')->result();
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/data_master/edit_data', $data);
+		$this->load->view('layouts/footer');
+	}
+
 	public function update_ikm()
 	{
 		$id_ikm = $this->input->post('id_ikm');
@@ -97,20 +110,6 @@ class AdminBumdes extends CI_Controller {
 		$this->MainModel->updateData('data_ikm', $data_ikm, array('id_ikm' => $id_ikm));
 
 		$this->data_master('Data IKM Berhasil Diupdate');
-	}
-
-
-	public function detail_ikm($id_ikm, $msg = '')
-	{
-		$header['title']	= 'Detail IKM';
-		$header['page']		= 'data master';
-		$data['msg']		= $msg;
-		$data['ikm']		= $this->MainModel->getDetailIKM($id_ikm)->result();
-		$data['pimpinan']	= $this->MainModel->getDataRoleIKM($id_ikm, 'pimpinan_ikm')->result();
-		$data['admin']		= $this->MainModel->getDataRoleIKM($id_ikm, 'admin_ikm')->result();
-		$this->load->view('layouts/header', $header);
-		$this->load->view('pages/data_master/edit_data', $data);
-		$this->load->view('layouts/footer');
 	}
 
 	public function reset_pass($id_user)

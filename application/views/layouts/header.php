@@ -84,7 +84,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link <?= ($page == 'produksi') ? 'active' : '' ?>" href="#">
+                <a class="nav-link <?= ($page == 'produksi') ? 'active' : '' ?>" href="<?= base_url().'MainController/data_produksi' ?>">
                   <span data-feather="package"></span>
                   Produksi
                 </a>

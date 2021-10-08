@@ -63,6 +63,8 @@ class MainModel extends CI_Model{
 		$this->db->join('data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan');
 		if ($this->session->userdata('role') == 'admin_ikm') {
 			$this->db->where(array('data_karyawan.id_ikm' => $this->session->userdata('id_ikm')));
+		} else if ($this->session->userdata('role') == 'admin_bumdes') {
+			$this->db->join('data_ikm', 'data_karyawan.id_ikm = data_ikm.id_ikm');
 		}
 		return $this->db->get();
 	}

@@ -14,7 +14,7 @@ class OperatorController extends CI_Controller {
 		$this->load->model('ModelOperator');
 		date_default_timezone_set("Asia/Jakarta");
 
-		if ($this->session->userdata('role') != 'admin_ikm') {
+		if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) {
 			redirect(base_url());
 		}
 	}

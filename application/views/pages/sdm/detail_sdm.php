@@ -50,7 +50,7 @@
                         <textarea class="form-control input-field" id="alamat" name="alamat" placeholder="<?= $row->alamat ?>" value="<?= $row->alamat ?>" required></textarea>
                     </div>
                 </div>
-                <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm')) && $row->jabatan != 'Ketua') { ?>
+                <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
                     <div class="row" style="padding-top: 1rem;">
                         <div class="col mb-3">
                             <input class="form-control button-yellow" style="justify-content: center;" type="submit" name="submit" value="Simpan Perubahan">

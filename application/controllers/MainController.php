@@ -30,8 +30,8 @@ class MainController extends CI_Controller {
 
 	public function no_access()
 	{
-		$header['title']	= 'Dashboard';
-		$header['page']		= 'dashboard';
+		$header['title']	= 'Akses Ditangguhkan';
+		$header['page']		= '';
 		$this->load->view('layouts/header', $header);
 		$this->load->view('errors/no_access');
 		$this->load->view('layouts/footer');
@@ -178,20 +178,14 @@ class MainController extends CI_Controller {
 	{
 		$header['title']	= 'Sumber Daya Manusia';
 		$header['page']		= 'sdm';
-		$data['data_sdm']	= $this->MainModel->getJoin('data_karyawan', 'data_ikm', 'data_karyawan.id_ikm = data_ikm.id_ikm')->result();
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['data_sdm']	= $this->MainModel->getJoin('data_karyawan', 'data_ikm', 'data_karyawan.id_ikm = data_ikm.id_ikm')->result();
+		} else {
+			$data['data_sdm']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_ikm', 'data_karyawan.id_ikm = data_ikm.id_ikm', array('data_karyawan.id_ikm' => $this->session->userdata('id_ikm')))->result();
+		}
 		$data['msg']		= $msg;
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/sdm/list_sdm', $data);
-		$this->load->view('layouts/footer');
-	}
-
-	public function detail_sdm($id_karyawan)
-	{
-		$header['title']	= 'Sumber Daya Manusia';
-		$header['page']		= 'sdm';
-		$data['sdm']		= $this->MainModel->getJoinWhere('data_karyawan', 'data_ikm', 'data_karyawan.id_ikm = data_ikm.id_ikm', array('id_karyawan' => $id_karyawan))->result();
-		$this->load->view('layouts/header', $header);
-		$this->load->view('pages/sdm/detail_sdm', $data);
 		$this->load->view('layouts/footer');
 	}
 
@@ -205,6 +199,16 @@ class MainController extends CI_Controller {
 		$data['msg']		= $msg;
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/sdm/tambah_sdm', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function detail_sdm($id_karyawan)
+	{
+		$header['title']	= 'Sumber Daya Manusia';
+		$header['page']		= 'sdm';
+		$data['sdm']		= $this->MainModel->getJoinWhere('data_karyawan', 'data_ikm', 'data_karyawan.id_ikm = data_ikm.id_ikm', array('id_karyawan' => $id_karyawan))->result();
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/sdm/detail_sdm', $data);
 		$this->load->view('layouts/footer');
 	}
 
@@ -265,4 +269,82 @@ class MainController extends CI_Controller {
 
 	}
 
+	// Fungsi Produksi
+
+	public function data_produksi($msg = '')
+	{
+		$header['title']	= 'Produksi';
+		$header['page']		= 'produksi';
+		$data['msg']		= $msg;
+		$data['produksi']	= $this->MainModel->getJoinWhere('data_produksi', 'data_produk', 'data_produksi.id_produk = data_produk.id_data_produk', array('data_produksi.id_ikm' => $this->session->userdata('id_ikm')))->result();
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/produksi/list_produksi', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function tambah_produksi($msg = '')
+	{
+		$header['title']	= 'Produksi';
+		$header['page']		= 'produksi';
+		$data['msg']		= $msg;
+		$data['produk']	= $this->MainModel->getWhere('data_produk', array('id_ikm' => $this->session->userdata('id_ikm')))->result();
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/produksi/tambah_produksi', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function detail_produksi($id_produksi)
+	{
+		$header['title']	= 'Produksi';
+		$header['page']		= 'produksi';
+		$data['produk']	= $this->MainModel->getWhere('data_produk', array('id_ikm' => $this->session->userdata('id_ikm')))->result();
+		$data['data_produksi']	= $this->MainModel->getWhere('data_produksi', array('id_data_produksi' => $id_produksi))->result();
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/produksi/detail_produksi', $data);
+		$this->load->view('layouts/footer');
+	}
+
+
+	public function input_produksi()
+	{
+		$tgl = $this->input->post('tanggal_produksi');
+		$id_produk = $this->input->post('produk');
+		$jumlah = $this->input->post('jumlah_produksi');
+		$bahan_mentah = $this->input->post('bahan_mentah');
+
+		$data = array(
+			'id_ikm' => $this->session->userdata('id_ikm'),
+			'tanggal' => $tgl,
+			'id_produk' => $id_produk,
+			'jenis_bahan_mentah' => $bahan_mentah,
+			'jumlah_produksi' => $jumlah
+		);
+
+		$this->MainModel->inputData('data_produksi', $data);
+
+		$this->data_produksi('Data Produksi Berhasil ditambahkan');
+	}
+
+	public function update_produksi($id_produksi)
+	{
+		$tgl = $this->input->post('tanggal_produksi');
+		$id_produk = $this->input->post('produk');
+		$jumlah = $this->input->post('jumlah_produksi');
+		$bahan_mentah = $this->input->post('bahan_mentah');
+
+		$data = array(
+			'tanggal' => $tgl,
+			'id_produk' => $id_produk,
+			'jenis_bahan_mentah' => $bahan_mentah,
+			'jumlah_produksi' => $jumlah
+		);
+
+		$where = array(
+			'id_data_produksi' => $id_produksi
+		);
+
+		$this->MainModel->updateData('data_produksi', $data, $where);
+
+		$this->data_produksi('Data Produksi berhasil diubah');
+	}
 }

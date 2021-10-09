@@ -23,12 +23,10 @@
             <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/input_sdm' ?>" method="POST">
                 <p style="color: red; font-size: 1.3rem; text-align: center; font-weight: bold;"><?= $msg ?></p>
                 <div class="row">
-                    <div class="col-lg-12 mb-3">
+                    <div class="col-lg-6 mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <input type="text" class="form-control input-field" id="nama" name="nama" placeholder="Contoh: Bambang Pamungkas" minlength="4" maxlength="80" required>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-lg-6 mb-3">
                         <label for="nik" class="form-label">NIK</label>
                         <input type="text" class="form-control input-field" id="nik" name="nik" placeholder="Contoh: 3304XXXXXXXXXXXX" minlength="4" maxlength="16" required>
@@ -48,6 +46,18 @@
                     <div class="col-lg-6 mb-3">
                         <label for="email" class="form-label">Alamat Email</label>
                         <input type="email" class="form-control input-field" id="email" name="email" placeholder="Contoh: email@gmail.com" required>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <label for="pendidikan" class="form-label">Pendidikan Terakhir</label>
+                        <select name="pendidikan" id="pendidikan" class="form-control input-field" required>
+                            <option class="dropdown-item disabled" value="">Pilih Pendidikan Terakhir</option>
+                            <option value="SD">SD</option>
+                            <option value="SMP">SMP</option>
+                            <option value="SMA">SMA</option>
+                            <option value="D3">D3</option>
+                            <option value="D4/S1">D4/S1</option>
+                            <option value="S2">S2</option>
+                        </select>
                     </div>
                     <div class="col-lg-12 mb-3">
                         <label for="alamat" class="form-label">Alamat</label>

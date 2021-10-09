@@ -64,7 +64,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link <?= ($page == 'pelayanan') ? 'active' : '' ?>" href="#">
+                <a class="nav-link <?= ($page == 'pelayanan') ? 'active' : '' ?>" href="<?= base_url().'MainController/pelayanan_konsumen' ?>">
                   <span data-feather="heart"></span>
                   Pelayanan Konsumen
                 </a>
@@ -96,7 +96,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link <?= ($page == 'pengaturan') ? 'active' : '' ?>" href="#">
+                <a class="nav-link <?= ($page == 'pengaturan') ? 'active' : '' ?>" href="<?= base_url().'User/pengaturan' ?>">
                   <span data-feather="settings"></span>
                   Pengaturan
                 </a>

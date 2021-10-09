@@ -2,19 +2,26 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
-            <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_sdm' ?>">Sumber Daya Manusia</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Detail Sumber Daya Manusia</li>
+            <li class="breadcrumb-item active" aria-current="page">Pengaturan Akun</li>
         </ol>
     </nav>
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1>Detail Karyawan</h1>
-        <!-- <span data-feather="bell"></span> -->
+        <h1>Detail Akun</h1>
     </div>
     <div class="card-content">
         <?php foreach ($sdm as $row) { ?>
             <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/update_sdm/'.$row->id_karyawan ?>" method="POST">
                 <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control input-field" id="username" name="username" value="<?= $row->username ?>" minlength="4" maxlength="15" required>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control input-field" id="password" name="password" minlength="4" maxlength="20" required>
+                    </div>
+                    <div class="border-bottom" style="margin: 2rem;"></div>
                     <div class="col-lg-6 mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <input type="text" class="form-control input-field" id="nama" name="nama" placeholder="<?= $row->nama_karyawan ?>" value="<?= $row->nama_karyawan ?>" minlength="4" maxlength="80" required>
@@ -50,10 +57,6 @@
                             <option value="D4/S1" <?= ($row->pendidikan == 'D4/S1') ? 'selected' : '' ?>>D4/S1</option>
                             <option value="S2" <?= ($row->pendidikan == 'S2') ? 'selected' : '' ?>>S2</option>
                         </select>
-                    </div>
-                    <div class="col-lg-12 mb-3">
-                        <label for="ikm" class="form-label">Nama IKM</label>
-                        <input type="text" class="form-control input-field" id="ikm" name="ikm" placeholder="<?= $row->nama_ikm ?>" disabled>
                     </div>
                     <div class="col-lg-12 mb-3">
                         <label for="alamat" class="form-label">Alamat</label>

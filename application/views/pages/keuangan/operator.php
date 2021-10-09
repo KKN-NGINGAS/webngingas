@@ -39,7 +39,7 @@
           <th scope="col">ID</th>
           <th scope="col">Bulan</th>
           <th scope="col">Tahun</th>
-          <th scope="col">Total Pengeluaran/Pemasukan (Rp)</th>
+          <!-- <th scope="col">Total Pengeluaran/Pemasukan (Rp)</th> -->
           <th scope="col">Nama IKM</th>
           <th scope="col">Edit</th>
         </tr>
@@ -57,7 +57,7 @@
             <th scope="row"><?= $keuangan->id_laporan?></th>
             <td><?= $month?></td>
             <td><?= $year?></td>
-            <td><?= $keuangan->laba?></td>
+            <!-- <td><?= $keuangan->laba?></td> -->
             <td><?= $laporan_keuangan_2[$i]->nama_ikm?></td>          
             <td>
               <div>

@@ -132,12 +132,13 @@ class OperatorController extends CI_Controller {
         $this->load->view('layouts/footer');
     }
 	
-    public function keuangan_detail_operator($id){
+    public function keuangan_detail_operator($id, $id_ikm){
 		$header['title']	= 'Keuangan Detail';
 		$header['page']	= 'keuangan';
 
 		$result['detail_laporan_keuangan'] = $this->ModelOperator->getbyid('id_laporan', 'detail_laporan_keuangan', $id);
-		$result['data_ikm']	= $this->ModelOperator->getJoinWhere('laporan_keuangan', 'data_ikm', 'laporan_keuangan.id_ikm = data_ikm.id_ikm', array('laporan_keuangan.id_ikm' => $id))->result();
+		$result['data_ikm']	= $this->ModelOperator->getJoinWhere('laporan_keuangan', 'data_ikm', 'laporan_keuangan.id_ikm = data_ikm.id_ikm', array('laporan_keuangan.id_ikm' => $id_ikm))->result();		
+
 		$result['laporan_keuangan'] = $this->ModelOperator->getbyid('id_laporan', 'laporan_keuangan', $id);
 
 		// UPDATE kolom laba yang ada ditable page sebelumnya
@@ -281,4 +282,41 @@ class OperatorController extends CI_Controller {
 
 		redirect('keuangan/detail_operator/'.$id_laporan);
 	}
+
+	// VIEW
+	// TEKFO
+	//
+
+	public function tekfo_operator(){
+		$header['title']	= 'Teknologi Informasi';
+		$header['page']	= 'tekfo';
+
+		$result['teknologi_informasi'] = $this->ModelOperator->getAll("teknologi_informasi");		
+
+        $this->load->view('layouts/header', $header);
+        $this->load->view('pages/tekfo/operator', $result);
+        $this->load->view('layouts/footer');
+    }
+
+    public function tekfo_tambah_operator(){
+		$header['title']	= 'Tambah Data Teknologi Informasi';
+		$header['page']	= 'tekfo';
+
+        $this->load->view('layouts/header', $header);
+        $this->load->view('pages/tekfo/tambah_operator');
+        $this->load->view('layouts/footer');
+    }
+
+    public function tekfo_tambah_berhasil_operator(){
+		$header['title']	= 'Tambah Data Teknologi Informasi';
+		$header['page']	= 'tekfo';
+
+        $this->load->view('layouts/header', $header);
+        $this->load->view('pages/tekfo/tambah_berhasil_operator');
+        $this->load->view('layouts/footer');
+    }
+
+	// FORM
+	// TEKFO
+	//
 }

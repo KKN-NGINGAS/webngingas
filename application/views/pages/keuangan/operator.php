@@ -61,7 +61,7 @@
             <td><?= $laporan_keuangan_2[$i]->nama_ikm?></td>          
             <td>
               <div>
-                <a target="_blank" href="<?= base_url('keuangan/detail_operator/'.$keuangan->id_laporan)?>">
+                <a target="_blank" href="<?= base_url('keuangan/detail_operator/'.$keuangan->id_laporan.'/'.$laporan_keuangan_2[$i]->id_ikm)?>">
                   <img src="<?php echo base_url() ?>assets/img/edit.png" alt="Edit" style="width: 30px; height: 30x">
                 </a>
               </div>

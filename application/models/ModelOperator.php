@@ -39,11 +39,28 @@ class ModelOperator extends CI_Model{
 		return $this->db->get();
 	}
 
+	function getOuterJoin($table, $join, $join_param)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->join($join,$join_param, 'left outer');
+		return $this->db->get();
+	}
+
 	function getJoinWhere($table, $join, $join_param, $where)
 	{
 		$this->db->select('*');
 		$this->db->from($table);
 		$this->db->join($join,$join_param);
+		$this->db->where($where);
+		return $this->db->get();
+	}
+
+	function getOuterJoinWhere($table, $join, $join_param, $where)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->join($join,$join_param, 'left outer');
 		$this->db->where($where);
 		return $this->db->get();
 	}

@@ -92,7 +92,7 @@ $route['produksi/tambah_berhasil_operator'] = 'OperatorController/produksi_tamba
 $route['keuangan/pimpinan'] = 'NgingasController/keuangan_pimpinan';
 $route['keuangan/operator'] = 'OperatorController/keuangan_operator';
 $route['keuangan/detail_pimpinan'] = 'NgingasController/keuangan_detail_pimpinan';
-$route['keuangan/detail_operator/(:any)'] = 'OperatorController/keuangan_detail_operator/$1';
+$route['keuangan/detail_operator/(:any)/(:any)'] = 'OperatorController/keuangan_detail_operator/$1/$2';
 
 $route['keuangan/tambah_operator'] = 'OperatorController/tambah_operator';
 $route['keuangan/tambah_operator_insert'] = 'OperatorController/tambah_operator_insert';
@@ -115,8 +115,8 @@ $route['sdm/list_sdm'] = 'NgingasController/sdm_list_sdm';
 // Tekfo
 //
 $route['tekfo/pimpinan'] = 'NgingasController/tekfo_pimpinan';
-$route['tekfo/operator'] = 'NgingasController/tekfo_operator';
+$route['tekfo/operator'] = 'OperatorController/tekfo_operator';
 $route['tekfo/detail_pimpinan'] = 'NgingasController/tekfo_detail_pimpinan';
-$route['tekfo/tambah_operator'] = 'NgingasController/tekfo_tambah_operator';
-$route['tekfo/tambah_berhasil_operator'] = 'NgingasController/tekfo_tambah_berhasil_operator';
+$route['tekfo/tambah_operator'] = 'OperatorController/tekfo_tambah_operator';
+$route['tekfo/tambah_berhasil_operator'] = 'OperatorController/tekfo_tambah_berhasil_operator';
 

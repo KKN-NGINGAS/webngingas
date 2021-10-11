@@ -73,4 +73,9 @@ class ModelOperator extends CI_Model{
 	function deleteBy($table, $column, $column_value){
 		$this->db->delete($table, array($column => $column_value));
 	}
+
+	function getLastRow($table, $id){
+		$result = $this->db->select($id)->order_by($id,"desc")->limit(1)->get($table)->row();
+		return $result;
+	}
 }

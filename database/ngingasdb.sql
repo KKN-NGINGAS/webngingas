@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2021 at 01:23 PM
+-- Generation Time: Oct 12, 2021 at 11:32 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `data_karyawan` (
   `tanggal_update` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_karyawan`),
   UNIQUE KEY `nik` (`nik`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `data_karyawan`
@@ -84,7 +84,8 @@ INSERT INTO `data_karyawan` (`id_karyawan`, `nik`, `nama_karyawan`, `kelamin`, `
 (3, 3304222222222111, 'Raiden-sama', 'Wanita', 'Karyawan', '0', 'Tenshukaku', 'raiden@gmail.com', '+62816683193', 1, '2021-09-26 09:17:36', '2021-09-26 09:17:36'),
 (4, 3304022408333333, 'Bambang', 'Pria', 'Karyawan', '0', 'YUK JADI YUKK', 'admin@admin.admin', '+6285123456789', 1, '2021-09-30 01:35:17', '2021-09-30 01:35:17'),
 (5, 3304022408333322, 'Coba', 'Pria', 'Karyawan', '0', 'sdafghkjljdsfaffcghyjutgdf', 'admin@admin', '+6285123456789', 1, '2021-09-30 12:08:14', '2021-09-30 12:08:14'),
-(6, 3304222222231231, 'Iso Babat', 'Pria', 'Ketua', '0', 'Sama kek alamat ikm, ga punya rumah, tidur di kantor, sad kan', 'daads@sa.daa', '+62916683193', 2, '2021-09-30 13:04:37', '2021-09-30 13:04:37');
+(6, 3304222222231231, 'Iso Babat', 'Pria', 'Ketua', '0', 'Sama kek alamat ikm, ga punya rumah, tidur di kantor, sad kan', 'daads@sa.daa', '+62916683193', 2, '2021-09-30 13:04:37', '2021-09-30 13:04:37'),
+(7, 3304022408333622, 'heheboi', 'Pria', 'Ketua', 'D3', 'ga apal', 'admin@admin.admin', '+6285123456789', 4, '2021-10-12 13:37:30', '2021-10-12 13:37:30');
 
 -- --------------------------------------------------------
 
@@ -198,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `data_user` (
   `tanggal_update` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `data_user`
@@ -209,8 +210,9 @@ INSERT INTO `data_user` (`id_user`, `id_karyawan`, `username`, `user_pwd`, `role
 (2, 0, 'pimpinan', 'ed2b1f468c5f915f3f1cf75d7068baae', 'pimpinan_bumdes', '2021-09-25 14:18:54', '2021-09-25 14:18:54'),
 (3, 1, 'dida', 'ed2b1f468c5f915f3f1cf75d7068baae', 'pimpinan_ikm', '2021-09-26 01:28:01', '2021-09-26 01:28:01'),
 (4, 2, 'yae', 'ed2b1f468c5f915f3f1cf75d7068baae', 'admin_ikm', '2021-09-26 01:28:01', '2021-09-26 01:28:01'),
-(5, 6, 'iso', '8d6de21508d06bfc0047fe9799437502', 'pimpinan_ikm', '2021-09-30 12:56:42', '2021-09-30 12:56:42'),
-(6, 4, 'bambang', 'ed2b1f468c5f915f3f1cf75d7068baae', 'operator_ikm', '2021-10-07 17:18:31', '2021-10-07 17:18:31');
+(5, 6, 'iso', 'ed2b1f468c5f915f3f1cf75d7068baae', 'pimpinan_ikm', '2021-09-30 12:56:42', '2021-09-30 12:56:42'),
+(6, 4, 'bambang', 'ed2b1f468c5f915f3f1cf75d7068baae', 'operator_ikm', '2021-10-07 17:18:31', '2021-10-07 17:18:31'),
+(13, 7, '20211012162322', '20211012162322', 'pimpinan_ikm', '2021-10-12 13:37:30', '2021-10-12 13:37:30');
 
 -- --------------------------------------------------------
 
@@ -226,8 +228,8 @@ CREATE TABLE IF NOT EXISTS `detail_laporan_keuangan` (
   `aktivitas` varchar(255) NOT NULL,
   `pemasukan` double NOT NULL,
   `pengeluaran` double NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_detail`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
@@ -236,10 +238,10 @@ CREATE TABLE IF NOT EXISTS `detail_laporan_keuangan` (
 --
 
 INSERT INTO `detail_laporan_keuangan` (`id_detail`, `id_laporan`, `tanggal`, `aktivitas`, `pemasukan`, `pengeluaran`, `created_at`, `updated_at`) VALUES
-(2, 1, '2021-10-03', 'tambah DB lagi', 69000, 10000, '2021-10-03', '2021-10-03'),
-(3, 2, '2021-10-03', 'aktivitas orang 2', 100000, 40232, '2021-10-03', '2021-10-03'),
-(4, 1, '2021-10-03', 'Coba tambah laporan', 69000, 10000, '2021-10-03', '2021-10-03'),
-(5, 1, '2021-10-01', 'hehe coba lagi', 1111, 2312, '2021-10-03', '2021-10-03');
+(2, 1, '2021-10-03', 'tambah DB lagi', 69000, 10000, '2021-10-03 00:00:00', '2021-10-03 00:00:00'),
+(3, 2, '2021-10-03', 'aktivitas orang 2', 100000, 40232, '2021-10-03 00:00:00', '2021-10-03 00:00:00'),
+(4, 1, '2021-10-03', 'Coba tambah laporan', 69000, 10000, '2021-10-03 00:00:00', '2021-10-03 00:00:00'),
+(5, 1, '2021-10-01', 'hehe coba lagi', 1111, 2312, '2021-10-03 00:00:00', '2021-10-03 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -252,8 +254,8 @@ CREATE TABLE IF NOT EXISTS `laporan_keuangan` (
   `id_laporan` int(11) NOT NULL AUTO_INCREMENT,
   `tanggal` datetime DEFAULT NULL,
   `id_ikm` int(11) DEFAULT NULL,
-  `created_at` date DEFAULT NULL,
-  `updated_at` date DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_laporan`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
@@ -262,18 +264,18 @@ CREATE TABLE IF NOT EXISTS `laporan_keuangan` (
 --
 
 INSERT INTO `laporan_keuangan` (`id_laporan`, `tanggal`, `id_ikm`, `created_at`, `updated_at`) VALUES
-(1, '2020-09-07 00:00:00', 1, NULL, '2021-10-09'),
-(2, '2020-09-07 00:00:00', 2, NULL, '2021-10-04'),
-(3, '2020-09-09 00:00:00', 3, NULL, NULL),
-(4, '2020-09-12 00:00:00', 4, NULL, NULL),
-(5, '2020-09-16 00:00:00', 5, NULL, NULL),
-(6, '2020-09-17 00:00:00', 1, NULL, NULL),
-(7, '2020-09-18 00:00:00', 1, NULL, NULL),
-(8, '2020-09-19 00:00:00', 1, NULL, NULL),
-(9, '2020-09-20 00:00:00', 1, NULL, NULL),
-(10, '2020-09-21 00:00:00', 1, NULL, NULL),
-(11, '2021-10-07 00:00:00', 2, NULL, NULL),
-(12, '2021-10-01 00:00:00', 1, '2021-10-03', '2021-10-03');
+(1, '2020-09-07 00:00:00', 1, '0000-00-00 00:00:00', '2021-10-09 00:00:00'),
+(2, '2020-09-07 00:00:00', 2, '0000-00-00 00:00:00', '2021-10-04 00:00:00'),
+(3, '2020-09-09 00:00:00', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '2020-09-12 00:00:00', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '2020-09-16 00:00:00', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '2020-09-17 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '2020-09-18 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '2020-09-19 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, '2020-09-20 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, '2020-09-21 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, '2021-10-07 00:00:00', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, '2021-10-01 00:00:00', 1, '2021-10-03 00:00:00', '2021-10-03 00:00:00');
 
 -- --------------------------------------------------------
 

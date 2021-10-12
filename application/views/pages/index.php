@@ -24,15 +24,20 @@
                 <div class="col-8">
                   <h2>NGINGAS DASHBOARD <br>Masuk</h2>
                 </div>
+                <?php if ($msg != '') { ?>
+                  <div class="alert alert-danger" style="margin-top: 1rem;" role="alert">
+                    <?= $msg ?>
+                  </div>
+                <?php } ?>
                 <div class="col-10 mx-auto">
                   <form class="spacer-2" action="<?= base_url().'Login' ?>" method="POST">
                     <div class="mb-3">
                       <label for="username" class="form-label label-rounded">Username</label>
-                      <input type="text" class="form-control form-rounded input-field" id="username" name="username" placeholder="Username">
+                      <input type="text" class="form-control form-rounded input-field" id="username" name="username" placeholder="Username" required>
                     </div>
                     <div class="mb-3">
                       <label for="password" class="form-label label-rounded">Password</label>
-                      <input type="password" class="form-control form-rounded input-field" id="password" name="password" placeholder="Password">
+                      <input type="password" class="form-control form-rounded input-field" id="password" name="password" placeholder="Password" required>
                     </div>
                     <div class="mb-3">
                       <input class="form-control form-rounded button-yellow" type="submit" name="submit" value="Login">

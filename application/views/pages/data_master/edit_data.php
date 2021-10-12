@@ -9,16 +9,17 @@
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>Detail IKM</h1>
-        <!-- <span data-feather="bell"></span> -->
     </div>
 
-    <!-- <div class="container-fluid centered"> -->
-        <!-- <div class="card"> -->
+        <?php if ($msg != '') { ?>
+        <div class="alert alert-success" role="alert">
+            <?= $msg ?>
+        </div>
+    <?php } ?>
+
             <div class="card-content">
                 <div class="col-10 mx-auto">
                     <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'AdminBumdes/update_ikm' ?>" method="POST">
-                        <p style="color: red; font-size: 1.3rem; text-align: center; font-weight: bold;"><?= $msg ?></p>
-                        <h2>Informasi IKM</h2>
                         <?php foreach ($ikm as $row) { ?>
                             <input type="text" id="id_ikm" name="id_ikm" value="<?= $row->id_ikm?>" readonly hidden>
                             <div class="row">
@@ -43,9 +44,6 @@
                             </div>
                         <?php } ?>
                         <div class="row" style="padding-top: 1rem;">
-<!--                             <div class="col mb-3">
-                                <a href="" class="form-control button-red" style="justify-content: center;">Batal</a>
-                            </div> -->
                             <div class="col-12 mb-3">
                                 <input class="form-control button-yellow" style="justify-content: center;" type="submit" name="submit" value="Perbarui Informasi IKM">
                             </div>
@@ -96,14 +94,14 @@
                                     </table>
                                     <div class="row" style="padding-top:1rem;">
                                         <div class="col mb-3">
-                                            <a href="<?= base_url('AdminBumdes/reset_pass/').$row->id_user ?>" class="form-control button-yellow" style="justify-content: center;">Reset Password</a>
+                                            <a href="<?= base_url('MainController/reset_user/'.$row->id_user.'/'.$row->id_ikm) ?>" class="form-control button-yellow" style="justify-content: center;">Reset Akun</a>
                                         </div>
                                     </div>
                                 <?php }
                             } else { ?>
                                 <div class="row" style="padding-top:1rem;">
                                     <div class="col mb-3">
-                                        <a href="<?= base_url('AdminBumdes/tambah_user') ?>" class="form-control button-yellow" style="justify-content: center;">Tambah Ketua</a>
+                                        <a href="<?= base_url('MainController/tambah_user/ketua/'.$row->id_ikm) ?>" class="form-control button-yellow" style="justify-content: center;">Tambah Ketua</a>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -152,14 +150,14 @@
                                     </table>
                                     <div class="row" style="padding-top:1rem;">
                                         <div class="col mb-3">
-                                            <a href="<?= base_url('AdminBumdes/reset_pass/').$row->id_user ?>" class="form-control button-yellow" style="justify-content: center;">Reset Password</a>
+                                            <a href="<?= base_url('AdminBumdes/reset_user/'.$row->id_user.'/'.$row->id_ikm) ?>" class="form-control button-yellow" style="justify-content: center;">Reset Akun</a>
                                         </div>
                                     </div>
                                 <?php }
                             } else { ?>
                                 <div class="row" style="padding-top:1rem;">
                                     <div class="col mb-3">
-                                        <a href="<?= base_url('AdminBumdes/tambah_user') ?>" class="form-control button-yellow" style="justify-content: center;">Tambah Admin</a>
+                                        <a href="<?= base_url('AdminBumdes/tambah_user/admin/'.$row->id_ikm) ?>" class="form-control button-yellow" style="justify-content: center;">Tambah Admin</a>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -167,7 +165,5 @@
                     </div>
                 </div>
             </div>
-            <!-- </div> -->
-            <!-- </div> -->
 
         </main>

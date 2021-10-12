@@ -18,41 +18,55 @@ class AdminBumdes extends CI_Controller {
 		}
 	}
 
-	public function input_user()
-	{
-		$nama 			= $this->input->post('nama');
-		$username 		= $this->input->post('username');
-		$user_pwd		= bin2hex(random_bytes(5));
-		$peranjabatan 	= $this->input->post('peranjabatan');
-		$tanggal 		= date('Y:m:d H:i:s');
-		$id_ikm			= $this->input->post('ikm');
+	// public function input_user()
+	// {
+	// 	$nama 			= $this->input->post('nama');
+	// 	$username 		= $this->input->post('username');
+	// 	$user_pwd		= bin2hex(random_bytes(5));
+	// 	$peranjabatan 	= $this->input->post('peranjabatan');
+	// 	$tanggal 		= date('Y:m:d H:i:s');
+	// 	$id_ikm			= $this->input->post('ikm');
 
-		$data1 = array(
-			'username' => $username,
-			'user_pwd' => md5($user_pwd),
-			'role' => $peranjabatan,
-			'tanggal_dibuat' => $tanggal
-		);
+	// 	$data1 = array(
+	// 		'username' => $username,
+	// 		'user_pwd' => md5($user_pwd),
+	// 		'role' => $peranjabatan,
+	// 		'tanggal_dibuat' => $tanggal
+	// 	);
 
-	}
+	// }
 
 
-	public function data_master($msg = '')
+	public function data_master()
 	{
 		$header['title']	= 'Data Master';
 		$header['page']		= 'data master';
 		$data['data_ikm']	= $this->MainModel->get('data_ikm')->result();
-		$data['msg']		= $msg;
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/data_master/data_master', $data);
 		$this->load->view('layouts/footer');
 	}
 
-	public function tambah_ikm($msg = '')
+	public function tambah_ikm()
 	{
 		$header['title']	= 'Tambah IKM';
 		$header['page']		= 'data master';
-		$data['msg']		= $msg;
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/data_master/tambah_data', $data);
 		$this->load->view('layouts/footer');
@@ -75,14 +89,22 @@ class AdminBumdes extends CI_Controller {
 
 		$this->MainModel->inputData('data_ikm', $data_ikm);
 
-		$this->data_master('IKM Berhasil Ditambahkan');
+		$this->session->set_userdata('msg', 'Data IKM Berhasil Ditambahkan');
+		redirect('AdminBumdes/data_master');
 	}
 
-	public function detail_ikm($id_ikm, $msg = '')
+	public function detail_ikm($id_ikm)
 	{
 		$header['title']	= 'Detail IKM';
 		$header['page']		= 'data master';
-		$data['msg']		= $msg;
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
 		$data['ikm']		= $this->MainModel->getDetailIKM($id_ikm)->result();
 		$data['pimpinan']	= $this->MainModel->getDataRoleIKM($id_ikm, 'pimpinan_ikm')->result();
 		$data['admin']		= $this->MainModel->getDataRoleIKM($id_ikm, 'admin_ikm')->result();
@@ -109,11 +131,97 @@ class AdminBumdes extends CI_Controller {
 
 		$this->MainModel->updateData('data_ikm', $data_ikm, array('id_ikm' => $id_ikm));
 
-		$this->data_master('Data IKM Berhasil Diupdate');
+		$this->session->set_userdata('msg', 'Data IKM Berhasil Diupdate');
+		redirect('AdminBumdes/data_master');
 	}
 
-	public function reset_pass($id_user)
+	public function tambah_user($role, $id_ikm)
 	{
-		echo "reset";
+		if ($role == 'ketua') {
+			$cek = $this->MainModel->getJoinWhere('data_user', 'data_karyawan', 'data_user.id_karyawan = data_karyawan.id_karyawan', array('data_karyawan.id_ikm' => $id_ikm, 'data_user.role' => 'pimpinan_ikm'))->num_rows();
+			
+			$data['level'] = 'Ketua IKM';
+		} else if ($role == 'admin') {
+			$cek = $this->MainModel->getJoinWhere('data_user', 'data_karyawan', 'data_user.id_karyawan = data_karyawan.id_karyawan', array('data_karyawan.id_ikm' => $id_ikm, 'data_user.role' => 'admin_ikm'))->num_rows();
+
+			$data['level'] = 'Admin IKM';
+		} else {
+			redirect('AdminBumdes/data_master');
+		}
+
+		if ($cek > 0) {
+			redirect('AdminBumdes/data_master');
+		}
+
+		$header['title']	= 'Tambah '.ucwords($role);
+		$header['page']		= 'data master';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		$data['id_ikm'] = $id_ikm;
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/data_master/tambah_user', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function input_user()
+	{
+		$id_ikm = $this->input->post('id_ikm');
+		$nama = $this->input->post('nama');
+		$role = $this->input->post('role');
+		$nik = $this->input->post('nik');
+		$gender = $this->input->post('gender');
+		$no_telp = $this->input->post('no_telp');
+		$email = $this->input->post('email');
+		$pendidikan = $this->input->post('pendidikan');
+		$alamat = $this->input->post('alamat');
+
+		$timestamp = date("YmdHis");
+
+		if ($role == 'pimpinan_ikm') {
+			$jabatan = 'Ketua';
+		} else if ($role == 'admin_ikm') {
+			$jabatan = 'Karyawan';
+		}
+
+		$cek = $this->MainModel->getWhere('data_karyawan', array('nik' => $nik))->num_rows();
+
+		if ($cek > 0) {
+			$this->session->set_userdata('msg', 'NIK Karyawan sudah terdaftar');
+			redirect('AdminBumdes/tambah_user');
+		} else {
+			$data = array(
+				'nama_karyawan'	=> $nama,
+				'nik'			=> $nik,
+				'kelamin'		=> $gender,
+				'no_telp'		=> $no_telp,
+				'email'			=> $email,
+				'id_ikm'		=> $id_ikm,
+				'alamat'		=> $alamat,
+				'pendidikan'	=> $pendidikan,
+				'jabatan'		=> $jabatan
+			);
+
+			$id_karyawan = $this->MainModel->insertGetId('data_karyawan', $data);
+
+			$data2 = array(
+				'id_karyawan'	=> $id_karyawan,
+				'username' 		=> $timestamp,
+				'user_pwd'		=> $timestamp,
+				'role'			=> $role,
+				'tanggal_dibuat'=> date("Y-m-d H:i:s")
+			);
+
+			$this->MainModel->inputData('data_user', $data2);
+
+			$this->session->set_userdata('msg', 'Data berhasil ditambahkan');
+			redirect('AdminBumdes/detail_ikm/'.$id_ikm);
+		}
 	}
 }

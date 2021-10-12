@@ -4,14 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends CI_Controller {
 
 	/**
-	 Controller untuk login, logout serta menu pengaturan akun
+	 Controller untuk login dan logout
 	 */
 
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('ModelUser');
-		$this->load->model('MainModel');
 		date_default_timezone_set("Asia/Jakarta");
 	}
 
@@ -20,7 +19,15 @@ class User extends CI_Controller {
 		if ($this->session->userdata('status') == "login") {			
 			redirect('MainController');
 		} else {
-			$this->load->view('pages/index');
+
+			if ($this->session->has_userdata('msg')) {
+				$data['msg']		= $this->session->msg;
+				$this->session->unset_userdata('msg');
+			} else {
+				$data['msg']		= '';
+			}
+
+			$this->load->view('pages/index', $data);
 		}
 	}
 
@@ -64,7 +71,9 @@ class User extends CI_Controller {
 			redirect('MainController');
 
 		} else {
-			echo "<script>alert('username atau password anda salah');window.location.href = '".base_url()."';</script>";
+			// echo "<script>alert('username atau password anda salah');window.location.href = '".base_url()."';</script>";
+			$this->session->set_userdata('msg', 'Username / Password anda salah');
+			redirect(base_url());
 		}
 	}
 
@@ -72,21 +81,5 @@ class User extends CI_Controller {
 	{
 		session_destroy();
 		redirect(base_url());
-	}
-
-	public function pengaturan($msg = '')
-	{
-		$header['title']	= 'Pengaturan';
-		$header['page']		= 'pengaturan';
-		$data['msg']		= $msg;
-		$data['sdm']		= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_user.id_karyawan = data_karyawan.id_karyawan', array('data_karyawan.id_karyawan' => $this->session->userdata('id_karyawan')))->result();
-		$this->load->view('layouts/header', $header);
-		$this->load->view('pages/pengaturan', $data);
-		$this->load->view('layouts/footer');
-	}
-
-	public function update_pengaturan()
-	{
-		
 	}
 }

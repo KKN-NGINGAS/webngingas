@@ -2,29 +2,40 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
-            <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_sdm' ?>">Sumber Daya Manusia</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tambah Karyawan</li>
+            <li class="breadcrumb-item"><a href="<?= base_url().'AdminBumdes/data_master' ?>">Data Master</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url().'AdminBumdes/detail_ikm/'.$id_ikm ?>">Data Master</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tambah <?= $level ?></li>
         </ol>
     </nav>
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1>Tambah Karyawan</h1>
+        <h1>Tambah <?= $level ?></h1>
     </div>
 
     <?php if ($msg != '') { ?>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-success" role="alert">
             <?= $msg ?>
         </div>
     <?php } ?>
 
     <div class="card-content">
         <div class="col-10 mx-auto">
-            <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/input_sdm' ?>" method="POST">
-                <p style="color: red; font-size: 1.3rem; text-align: center; font-weight: bold;"><?= $msg ?></p>
+            <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'AdminBumdes/input_user' ?>" method="POST">
+                <input type="text" id="id_ikm" name="id_ikm" value="<?= $id_ikm?>" readonly hidden>
                 <div class="row">
-                    <div class="col-lg-6 mb-3">
+                    <div class="col-lg-12 mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <input type="text" class="form-control input-field" id="nama" name="nama" placeholder="Contoh: Bambang Pamungkas" minlength="4" maxlength="80" required>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <label for="role" class="form-label">Role</label>
+                        <select name="role" id="role" class="form-control input-field">
+                            <?php if ($level == 'Ketua IKM') { ?>
+                                <option value="pimpinan_ikm" selected readonly>Ketua IKM</option>
+                            <?php } elseif ($level == 'Admin IKM') { ?>
+                                <option value="admin_ikm" selected readonly>Admin IKM</option>
+                            <?php } ?>
+                        </select>
                     </div>
                     <div class="col-lg-6 mb-3">
                         <label for="nik" class="form-label">NIK</label>

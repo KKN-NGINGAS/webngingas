@@ -34,6 +34,7 @@
             </div>
           </div>
           <div class="position-sticky pt-3">
+            <p><?= $this->session->userdata('nama').' - '.$this->session->userdata('role')?></p>
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link <?= ($page == 'dashboard') ? 'active' : '' ?>" aria-current="page" href="<?= base_url() ?>">
@@ -96,7 +97,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link <?= ($page == 'pengaturan') ? 'active' : '' ?>" href="<?= base_url().'User/pengaturan' ?>">
+                <a class="nav-link <?= ($page == 'pengaturan') ? 'active' : '' ?>" href="<?= base_url().'MainController/pengaturan' ?>">
                   <span data-feather="settings"></span>
                   Pengaturan
                 </a>

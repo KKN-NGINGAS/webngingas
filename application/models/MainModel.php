@@ -25,7 +25,7 @@ class MainModel extends CI_Model{
 	{
 		$this->db->select('*');
 		$this->db->from($table);
-		$this->db->join($join,$join_param);
+		$this->db->join($join,$join_param, 'right');
 		return $this->db->get();
 	}
 
@@ -33,7 +33,7 @@ class MainModel extends CI_Model{
 	{
 		$this->db->select('*');
 		$this->db->from($table);
-		$this->db->join($join,$join_param);
+		$this->db->join($join,$join_param, 'right');
 		$this->db->where($where);
 		return $this->db->get();
 	}
@@ -73,4 +73,11 @@ class MainModel extends CI_Model{
 	{
 		$this->db->update($table, $data, $where);
 	}
+
+	function deleteData($table, $where)
+	{
+		$this->db->where($where);
+		$this->db->delete($table);
+	}
+
 }

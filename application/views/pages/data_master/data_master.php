@@ -38,7 +38,7 @@
                         <td><?= $i++ ?></td>
                         <td><?= ucwords($row->nama_ikm) ?></td>
                         <td><?= $row->no_telp_ikm ?></td>
-                        <td><a class="btn btn-warning" href="<?= base_url().'AdminBumdes/detail_ikm/'.$row->id_ikm ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                        <td><a class="btn btn-info" href="<?= base_url().'AdminBumdes/detail_ikm/'.$row->id_ikm ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
                     </tr>
                 <?php }?>
             </tbody>

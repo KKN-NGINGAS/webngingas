@@ -598,4 +598,171 @@ class MainController extends CI_Controller {
 		$this->session->set_userdata('msg', 'Data Pelanggan berhasil diubah');
 		redirect('MainController/pelayanan_konsumen');
 	}
+
+	// Fungsi Keuangan
+
+	public function data_laporan()
+	{
+		$header['title']	= 'Keuangan dan Akuntansi';
+		$header['page']		= 'keuangan';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['keuangan'] = $this->MainModel->getJoin('laporan_keuangan', 'data_ikm', 'laporan_keuangan.id_ikm = data_ikm.id_ikm')->result();
+		} else {
+			$data['keuangan'] = $this->MainModel->getWhere('laporan_keuangan', array('id_ikm' => $this->session->id_ikm))->result();
+		}
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/keuangan/list_laporan', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function tambah_laporan()
+	{
+		$header['title']	= 'Keuangan dan Akuntansi';
+		$header['page']		= 'keuangan';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/keuangan/tambah_laporan', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function detail_laporan($id_laporan)
+	{
+		$header['title']	= 'Keuangan dan Akuntansi';
+		$header['page']		= 'keuangan';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		$laporan = $this->MainModel->getWhere('laporan_keuangan', array('id_laporan' => $id_laporan))->row();
+		$data['id_laporan'] = $laporan->id_laporan;
+		$data['laporan'] = date("F Y", strtotime($laporan->tanggal));
+		
+		$data['keuangan'] = $this->MainModel->getWhere('detail_laporan_keuangan', array('id_laporan' => $id_laporan))->result();
+		
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/keuangan/detail_laporan', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function tambah_data_keuangan($id_laporan)
+	{
+		$header['title']	= 'Keuangan dan Akuntansi';
+		$header['page']		= 'keuangan';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+		$data['id_laporan'] = $id_laporan;
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/keuangan/tambah_keuangan', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function ubah_keuangan($id_laporan, $id_detail)
+	{
+		$header['title']	= 'Keuangan dan Akuntansi';
+		$header['page']		= 'keuangan';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		$data['id_laporan'] = $id_laporan;
+		$data['keuangan'] = $this->MainModel->getWhere('detail_laporan_keuangan', array('id_detail' => $id_detail))->result();
+		
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/keuangan/detail_keuangan', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function input_laporan()
+	{
+		$tanggal = $this->input->post('tanggal_laporan');
+
+		$data = array(
+			'tanggal' => $tanggal,
+			'id_ikm' => $this->session->id_ikm
+		);
+
+		$tgl = date("F Y", strtotime($tanggal));
+
+		$this->MainModel->inputData('laporan_keuangan', $data);
+
+		$this->session->set_userdata('msg', 'Laporan Bulan '.$tgl.' berhasil ditambahkan');
+		redirect('MainController/data_laporan');
+	}
+
+	public function input_data_keuangan($id_laporan)
+	{
+		$tanggal = $this->input->post('tanggal_laporan');
+		$ket = $this->input->post('keterangan');
+		$pengeluaran = $this->input->post('pengeluaran');
+		$pemasukan = $this->input->post('pemasukan');
+
+		$data = array(
+			'tanggal' => $tanggal,
+			'aktivitas' => $ket,
+			'pengeluaran' => $pengeluaran,
+			'pemasukan' => $pemasukan,
+			'id_laporan' => $id_laporan
+		);
+
+
+		$this->MainModel->inputData('detail_laporan_keuangan', $data);
+
+		$this->session->set_userdata('msg', 'Data Keuangan berhasil ditambahkan');
+		redirect('MainController/detail_laporan/'.$id_laporan);
+	}
+
+	public function update_data_keuangan($id_laporan, $id_detail)
+	{
+		$tanggal = $this->input->post('tanggal_laporan');
+		$ket = $this->input->post('keterangan');
+		$pengeluaran = $this->input->post('pengeluaran');
+		$pemasukan = $this->input->post('pemasukan');
+
+		$data = array(
+			'tanggal' => $tanggal,
+			'aktivitas' => $ket,
+			'pengeluaran' => $pengeluaran,
+			'pemasukan' => $pemasukan,
+		);
+
+		$where = array(
+			'id_detail' => $id_detail
+		);
+
+
+		$this->MainModel->updateData('detail_laporan_keuangan', $data, $where);
+
+		$this->session->set_userdata('msg', 'Data Keuangan berhasil diubah');
+		redirect('MainController/detail_laporan/'.$id_laporan);
+	}
+
 }

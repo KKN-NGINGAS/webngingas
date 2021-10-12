@@ -43,7 +43,7 @@
                         <td><?= ucwords($row->nama_karyawan) ?></td>
                         <td><?= ucwords($row->nama_ikm) ?></td>
                         <td><?= $row->jabatan ?></td>
-                        <td><a class="btn btn-warning" href="<?= base_url().'MainController/detail_sdm/'.$row->id_karyawan ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_sdm/'.$row->id_karyawan ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
                     </tr>
                 <?php }?>
             </tbody>

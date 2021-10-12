@@ -42,7 +42,7 @@
                         <td><?= $row->nama_produk ?></td>
                         <td><?= "Rp " . number_format($row->harga_satuan,2,',','.'); ?></td>
                         <td><?= $row->stok ?></td>
-                        <td><a class="btn btn-warning" href="<?= base_url().'MainController/detail_produk/'.$row->id_data_produk ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_produk/'.$row->id_data_produk ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
                     </tr>
                 <?php }?>
             </tbody>

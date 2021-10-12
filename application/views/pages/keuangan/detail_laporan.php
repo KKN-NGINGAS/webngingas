@@ -2,15 +2,16 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Data Produksi</li>
+            <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_laporan' ?>">Keuangan dan Akuntansi </a></li>
+            <li class="breadcrumb-item active" aria-current="page">Detail Laporan</li>
         </ol>
     </nav>
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1>Data Produksi</h1>
+        <h1>Detail Laporan <?= $laporan ?></h1>
         <div>
             <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
-                <a class="btn btn-success" href="<?= base_url().'MainController/tambah_produksi' ?>" style="text-decoration: none; color: white;">Tambah Data Produksi</a>
+                <a class="btn btn-success" href="<?= base_url().'MainController/tambah_data_keuangan/'.$id_laporan ?>" style="text-decoration: none; color: white;">Tambah Data Keuangan</a>
             <?php } ?>
         </div>
     </div>
@@ -27,24 +28,26 @@
                 <tr class="bg-green">
                     <th scope="col">No</th>
                     <th scope="col">Tanggal</th>
-                    <th scope="col">Nama Produk</th>
-                    <th scope="col">Jumlah Produksi</th>
+                    <th scope="col">Keterangan</th>
+                    <th scope="col">Pemasukan (Rp)</th>
+                    <th scope="col">Pengeluaran (Rp)</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
                 $i = 1;
-                foreach ($produksi as $row) { 
+                foreach ($keuangan as $row) { 
                     $time = strtotime($row->tanggal);
                     $tgl = date("j F Y",$time);
                     ?>
                     <tr>
                         <td><?= $i++ ?></td>
                         <td><?= $tgl ?></td>
-                        <td><?= $row->nama_produk ?></td>
-                        <td><?= $row->jumlah_produksi ?></td>
-                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_produksi/'.$row->id_data_produksi ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                        <td style="text-align: left;"><?= $row->aktivitas ?></td>
+                        <td><?= $row->pemasukan ?></td>
+                        <td><?= $row->pengeluaran ?></td>
+                        <td><a class="btn btn-warning" href="<?= base_url().'MainController/ubah_keuangan/'.$row->id_laporan.'/'.$row->id_detail ?>" style="text-decoration: none; color: white;">Ubah Data</a></td>
                     </tr>
                 <?php } ?>
             </tbody>

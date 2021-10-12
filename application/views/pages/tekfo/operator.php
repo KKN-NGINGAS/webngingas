@@ -1,3 +1,5 @@
+
+
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -10,7 +12,7 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1>Teknologi Informasi</h1>
             <div id="button-tambah">
-                <a style="text-decoration:none;color: white;" href="#">
+                <a style="text-decoration:none;color: white;" href="<?= base_url('tekfo/tambah_operator')?>">
                     <button type="button" class="btn btn-success">
                         <span data-feather="plus"></span>
                         Tambah Data
@@ -29,58 +31,43 @@
                     <th scope="col">No</th>
                     <th scope="col">Nama Barang</th>
                     <th scope="col">Tipe/Merk/Label</th>
-                    <th scope="col">Jumlah Barang</th>
-                    <th scope="col">Kondisi</th>
+                    <th scope="col">Total Barang</th>
                     <th scope="col">Sumber Dana</th>
-                    <th scope="col">Keterangan</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>IMK</td>
-                    <td></td>
-                    <td>
-                        <div>
-                            <a href="#">
-                                <img src="<?php echo base_url()?>/assets/img/edit.png" alt="Edit" style="width: 30px; height: 30x">
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>IMK</td>
-                    <td></td>
-                    <td>
-                        <div>
-                            <a href="#">
-                                <img src="<?php echo base_url()?>/assets/img/edit.png" alt="Edit" style="width: 30px; height: 30x">
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry the Bird</td>
-                    <td>tes</td>
-                    <td>@twitter</td>
-                    <td>IMK</td>
-                    <td></td>
-                    <td>
-                        <div>
-                            <a href="#">
-                                <img src="<?php echo base_url()?>/assets/img/edit.png" alt="Edit" style="width: 30px; height: 30x">
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+                <?php
+                    $i = 0;
+                    foreach($teknologi_informasi as $ti)
+                    {                                            
+                ?>
+                        <tr>
+                            <th scope="row"><?= $i + 1?></th>
+                            <td><?= $ti->nama_barang?></td>
+                            <td><?= $ti->tipe_barang?></td>
+                            <td><?= $teknologi_informasi_join[$i]->total_barang?></td>
+                            <td><?= $ti->sumber_dana?></td>
+                            <td>
+                                <div>
+                                    <a href="<?= base_url('tekfo/edit_operator/'.$ti->id_ti)?>">
+                                        <img src="<?php echo base_url()?>/assets/img/edit.png" alt="Edit" style="width: 30px; height: 30x">
+                                    </a>
+                                </div>
+                            </td>                            
+                            <td>
+                                <div>
+                                    <a href="<?= base_url('tekfo/delete_operator/'.$ti->id_ti)?>">
+                                        <img src="<?php echo base_url() ?>assets/img/delete.png" alt="Delete" style="width: 30px; height: 30x">
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                <?php
+                    $i++;
+                    }
+                ?>
             </tbody>
         </table>
     </div>

@@ -15,19 +15,22 @@
 
     <div class="card-content">
         <div class="col-11 mx-auto">
-            <form method="post" action="<?= base_url('tekfo/tambah_operator_insert')?>" class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;">
+            <form method="post" action="<?= base_url('tekfo/edit_operator_insert/'.$teknologi_informasi_join[0]->id_ti)?>" class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;">
                 <div class="mb-3">
                     <label for="tanggal" class="form-label">Tanggal</label>
-                    <input type="date" class="form-control input-field" id="tanggal" name="tanggal" placeholder="">
+                    <?php
+                    $new_date_format = date('Y-m-d', strtotime($teknologi_informasi_join[0]->tanggal));
+                    ?>
+                    <input type="date" class="form-control input-field" id="tanggal" name="tanggal" value="<?= $new_date_format?>">
                 </div>
                 <div class="row">
                     <div class="col-lg-6 mb-3">
                         <label for="namabarang" class="form-label">Nama Barang</label>
-                        <input type="text" class="form-control input-field" id="namabarang" name="nama_barang" placeholder="Contoh : Meja">
+                        <input type="text" class="form-control input-field" id="namabarang" name="nama_barang" value="<?= $teknologi_informasi_join[0]->nama_barang?>">
                     </div>
                     <div class="col-lg-6 mb-3">
                         <label for="label" class="form-label">Tipe/Merk/Label</label>
-                        <input type="text" class="form-control input-field" id="label" name="tipe_barang" placeholder="Contoh : Philips e series no 21">
+                        <input type="text" class="form-control input-field" id="label" name="tipe_barang" value="<?= $teknologi_informasi_join[0]->tipe_barang?>">
                     </div>
                 </div>
                 <div class="row">
@@ -40,22 +43,22 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(0px, -40px);padding-left: 10px;">
                                 <li class="row" style="padding-bottom: 5px;">
                                     <a class="col-lg-5">Baik</a>
-                                    <input class="col-lg-3" type="number" name="baik" class="form-control input-field" id="baik" placeholder="">
+                                    <input class="col-lg-3" type="number" name="baik" class="form-control input-field" id="baik" value="<?= $teknologi_informasi_join[0]->baik?>">
                                 </li>
                                 <li class="row" style="padding-bottom: 5px;">
                                     <a class="col-lg-5">Rusak Ringan</a>
-                                    <input class="col-lg-3" type="number" name="rusak_ringan" class="form-control input-field" id="rusakringan" placeholder="">
+                                    <input class="col-lg-3" type="number" name="rusak_ringan" class="form-control input-field" id="rusakringan" value="<?= $teknologi_informasi_join[0]->rusak_ringan?>">
                                 </li>
                                 <li class="row" style="padding-bottom: 5px;">
                                     <a class="col-lg-5">Rusak Berat</a>
-                                    <input class="col-lg-3" type="number" name="rusak_berat" class="form-control input-field" id="rusakberat" placeholder="">
+                                    <input class="col-lg-3" type="number" name="rusak_berat" class="form-control input-field" id="rusakberat" value="<?= $teknologi_informasi_join[0]->rusak_berat?>">
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 mb-3">
                         <label for="sumberdana" class="form-label">Sumber Dana</label>
-                        <input type="text" class="form-control input-field" id="sumberdana" name="sumber_dana" placeholder="Contoh : Anggaran Tahunan">
+                        <input type="text" class="form-control input-field" id="sumberdana" name="sumber_dana" value="<?= $teknologi_informasi_join[0]->sumber_dana?>">
                     </div>
                 </div>
                 <div class="row">
@@ -63,7 +66,7 @@
                         <input class="form-control button-red" style="justify-content: center;" type="reset" name="reset" value="Reset">
                     </div>
                     <div class="col mb-3">
-                        <input class="form-control button-yellow" style="justify-content: center;" type="submit" name="submit" value="Submit">
+                        <input class="form-control button-yellow" style="justify-content: center;" type="submit" name="submit" value="Edit">
                     </div>
                 </div>
             </form>

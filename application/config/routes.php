@@ -118,5 +118,10 @@ $route['tekfo/pimpinan'] = 'NgingasController/tekfo_pimpinan';
 $route['tekfo/operator'] = 'OperatorController/tekfo_operator';
 $route['tekfo/detail_pimpinan'] = 'NgingasController/tekfo_detail_pimpinan';
 $route['tekfo/tambah_operator'] = 'OperatorController/tekfo_tambah_operator';
-$route['tekfo/tambah_berhasil_operator'] = 'OperatorController/tekfo_tambah_berhasil_operator';
+$route['tekfo/tambah_operator_insert'] = 'OperatorController/tekfo_tambah_operator_insert';
+
+$route['tekfo/edit_operator/(:any)'] = 'OperatorController/tekfo_edit_operator/$1';
+$route['tekfo/edit_operator_insert/(:any)'] = 'OperatorController/tekfo_edit_operator_insert/$1';
+
+$route['tekfo/delete_operator/(:any)'] = 'OperatorController/tekfo_delete_operator/$1';
 

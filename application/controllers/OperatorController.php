@@ -291,7 +291,8 @@ class OperatorController extends CI_Controller {
 		$header['title']	= 'Teknologi Informasi';
 		$header['page']	= 'tekfo';
 
-		$result['teknologi_informasi'] = $this->ModelOperator->getAll("teknologi_informasi");		
+		$result['teknologi_informasi'] = $this->ModelOperator->getAll("teknologi_informasi");
+		$result['teknologi_informasi_join']	= $this->ModelOperator->getJoin('teknologi_informasi', 'teknologi_informasi_kondisi_barang', 'teknologi_informasi.id_ti = teknologi_informasi_kondisi_barang.id_kondisi_barang')->result();
 
         $this->load->view('layouts/header', $header);
         $this->load->view('pages/tekfo/operator', $result);
@@ -307,16 +308,120 @@ class OperatorController extends CI_Controller {
         $this->load->view('layouts/footer');
     }
 
-    public function tekfo_tambah_berhasil_operator(){
-		$header['title']	= 'Tambah Data Teknologi Informasi';
+    public function tekfo_edit_operator($id_ti){
+		$header['title']	= 'Edit Data Teknologi Informasi';
 		$header['page']	= 'tekfo';
 
+		$result['teknologi_informasi_join']	= $this->ModelOperator->getJoinWhere('teknologi_informasi', 'teknologi_informasi_kondisi_barang', 'teknologi_informasi.id_ti = teknologi_informasi_kondisi_barang.id_kondisi_barang', array('teknologi_informasi.id_ti' => $id_ti))->result();
+
         $this->load->view('layouts/header', $header);
-        $this->load->view('pages/tekfo/tambah_berhasil_operator');
+        $this->load->view('pages/tekfo/edit_operator', $result);
         $this->load->view('layouts/footer');
     }
 
 	// FORM
 	// TEKFO
 	//
+
+	public function tekfo_tambah_operator_insert(){
+		$tanggal = $this->input->post('tanggal');
+		$nama_barang = $this->input->post('nama_barang');
+		$tipe_barang = $this->input->post('tipe_barang');
+		$baik = $this->input->post('baik');
+		$rusak_ringan = $this->input->post('rusak_ringan');
+		$rusak_berat = $this->input->post('rusak_berat');
+		$sumber_dana = $this->input->post('sumber_dana');
+
+
+		// current time stamp
+		date_default_timezone_set("Asia/Jakarta");		
+		$date = date("Y-m-d H:i:s");				
+
+		// get last row id
+		// soale, jumlah row antar dua table ini harus sama
+		$last_row_ti = $this->ModelOperator->getLastRow('teknologi_informasi','id_ti');
+		$last_id_ti = $last_row_ti->id_ti;
+
+		$last_row_kondisi_barang = $this->ModelOperator->getLastRow('teknologi_informasi_kondisi_barang','id_kondisi_barang');
+		$last_id_kondisi_barang = $last_row_kondisi_barang->id_kondisi_barang;
+ 
+		$data = array(
+			'id_ti' => $last_id_ti + 1,
+			'tanggal' => $tanggal,
+			'nama_barang' => $nama_barang,
+			'tipe_barang' => $tipe_barang,
+			'sumber_dana' => $sumber_dana,
+			'id_ikm' => $this->session->userdata('id_ikm'),
+			'created_at' => $date,
+			'updated_at' => $date,
+		);
+
+		$data2 = array(
+			'id_kondisi_barang' => $last_id_kondisi_barang + 1,
+			'baik' => $baik,
+			'rusak_ringan' => $rusak_ringan,
+			'rusak_berat' => $rusak_berat,
+			'total_barang' => $baik + $rusak_ringan + $rusak_berat,
+			'created_at' => $date,
+			'updated_at' => $date,
+		);
+
+		$this->ModelOperator->input_data('teknologi_informasi',$data);
+		$this->ModelOperator->input_data('teknologi_informasi_kondisi_barang',$data2);
+
+
+		redirect('tekfo/operator');
+    }
+
+	public function tekfo_edit_operator_insert($id_ti){
+		$tanggal = $this->input->post('tanggal');
+		$nama_barang = $this->input->post('nama_barang');
+		$tipe_barang = $this->input->post('tipe_barang');
+		$baik = $this->input->post('baik');
+		$rusak_ringan = $this->input->post('rusak_ringan');
+		$rusak_berat = $this->input->post('rusak_berat');
+		$sumber_dana = $this->input->post('sumber_dana');
+
+
+		// current time stamp
+		date_default_timezone_set("Asia/Jakarta");		
+		$date = date("Y-m-d H:i:s");				
+ 
+		$data = array(
+			'tanggal' => $tanggal,
+			'nama_barang' => $nama_barang,
+			'tipe_barang' => $tipe_barang,
+			'sumber_dana' => $sumber_dana,
+			'updated_at' => $date,
+		);
+
+		$where = array(
+			'id_ti' => $id_ti,
+		);
+
+		$data2 = array(
+			'baik' => $baik,
+			'rusak_ringan' => $rusak_ringan,
+			'rusak_berat' => $rusak_berat,
+			'total_barang' => $baik + $rusak_ringan + $rusak_berat,
+			'updated_at' => $date,
+		);
+
+		$where2 = array(
+			'id_kondisi_barang' => $id_ti,
+		);		
+
+		$this->ModelOperator->updateData('teknologi_informasi', $data, $where);
+		$this->ModelOperator->updateData('teknologi_informasi_kondisi_barang', $data2, $where2);
+
+		redirect('tekfo/operator');
+    }
+
+	public function tekfo_delete_operator($id_ti){
+
+		$this->ModelOperator->deleteBy('teknologi_informasi','id_ti',$id_ti);
+		$this->ModelOperator->deleteBy('teknologi_informasi_kondisi_barang','id_kondisi_barang',$id_ti);
+
+		redirect('tekfo/operator');
+	}
 }

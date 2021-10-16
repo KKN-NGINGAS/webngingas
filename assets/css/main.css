@@ -168,9 +168,6 @@ h2 {
 
 }
 
-.form-dashboard {
-
-}
 
 .input-field-dashboard {
   border: 2px solid #40B5B0;
@@ -204,7 +201,7 @@ h2 {
 .sidebar-sticky {
   position: relative;
   top: 0;
-  height: calc(100vh - 48px);
+  height: calc(100vh - 100px);
   padding-top: .5rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
@@ -214,23 +211,23 @@ h2 {
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
-  font-size: 1rem;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
 
   color: #FFFFFF;
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
 }
 
 .sidebar .nav-link .feather {
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   color: #FFFFFF;
 }
 
 .sidebar .nav-link.active, .sidebar .nav-link:hover {
   /*color: #2470dc;*/
   background: #0B585A;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .sidebar .nav-link:hover .feather,

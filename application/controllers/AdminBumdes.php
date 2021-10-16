@@ -18,25 +18,6 @@ class AdminBumdes extends CI_Controller {
 		}
 	}
 
-	// public function input_user()
-	// {
-	// 	$nama 			= $this->input->post('nama');
-	// 	$username 		= $this->input->post('username');
-	// 	$user_pwd		= bin2hex(random_bytes(5));
-	// 	$peranjabatan 	= $this->input->post('peranjabatan');
-	// 	$tanggal 		= date('Y:m:d H:i:s');
-	// 	$id_ikm			= $this->input->post('ikm');
-
-	// 	$data1 = array(
-	// 		'username' => $username,
-	// 		'user_pwd' => md5($user_pwd),
-	// 		'role' => $peranjabatan,
-	// 		'tanggal_dibuat' => $tanggal
-	// 	);
-
-	// }
-
-
 	public function data_master()
 	{
 		$header['title']	= 'Data Master';
@@ -105,9 +86,10 @@ class AdminBumdes extends CI_Controller {
 			$data['msg']		= '';
 		}
 
-		$data['ikm']		= $this->MainModel->getDetailIKM($id_ikm)->result();
-		$data['pimpinan']	= $this->MainModel->getDataRoleIKM($id_ikm, 'pimpinan_ikm')->result();
-		$data['admin']		= $this->MainModel->getDataRoleIKM($id_ikm, 'admin_ikm')->result();
+		$data['ikm']		= $this->MainModel->getWhere('data_ikm', array('id_ikm', $id_ikm))->result();
+		$data['pimpinan']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', array('data_karyawan.id_ikm' => $id_ikm, 'data_user.role' => 'pimpinan_ikm'))->result();
+
+		$data['admin']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', array('data_karyawan.id_ikm' => $id_ikm, 'data_user.role' => 'admin_ikm'))->result();
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/data_master/edit_data', $data);
 		$this->load->view('layouts/footer');

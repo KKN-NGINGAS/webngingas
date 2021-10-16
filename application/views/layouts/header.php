@@ -34,7 +34,6 @@
             </div>
           </div>
           <div class="position-sticky pt-3">
-            <p><?= $this->session->userdata('nama').' - '.$this->session->userdata('role')?></p>
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link <?= ($page == 'dashboard') ? 'active' : '' ?>" aria-current="page" href="<?= base_url() ?>">
@@ -91,7 +90,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link <?= ($page == 'tekfo') ? 'active' : '' ?>" href="#">
+                <a class="nav-link <?= ($page == 'tekfo') ? 'active' : '' ?>" href="<?= base_url().'MainController/data_tekfo' ?>">
                   <span data-feather="monitor"></span>
                   Teknologi Informasi
                 </a>

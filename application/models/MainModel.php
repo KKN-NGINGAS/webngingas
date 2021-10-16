@@ -38,34 +38,25 @@ class MainModel extends CI_Model{
 		return $this->db->get();
 	}
 
-	function getDetailIKM($id_ikm)
+	function getKeuangan($id_ikm)
 	{
-		$this->db->select('*');
-		$this->db->from('data_ikm');
-		$this->db->where('id_ikm', $id_ikm);
-		return $this->db->get();
-	}
+		// $q = "SELECT a.*, (SELECT SUM(pemasukan)-SUM(pengeluaran) as total FROM detail_laporan_keuangan b WHERE a.id_laporan = b.id_laporan) FROM laporan_keuangan a";
 
-	function getDataRoleIKM($id_ikm, $role)
-	{
-		$this->db->select('*');
-		$this->db->from('data_karyawan');
-		$this->db->join('data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan');
-		$this->db->where('data_karyawan.id_ikm',$id_ikm);
-		$this->db->where('data_user.role',$role);
-		return $this->db->get();
-	}
-
-	function getUserList()
-	{
-		$this->db->select('*');
-		$this->db->from('data_karyawan');
-		$this->db->join('data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan');
-		if ($this->session->userdata('role') == 'admin_ikm') {
-			$this->db->where(array('data_karyawan.id_ikm' => $this->session->userdata('id_ikm')));
-		} else if ($this->session->userdata('role') == 'admin_bumdes') {
-			$this->db->join('data_ikm', 'data_karyawan.id_ikm = data_ikm.id_ikm');
+		$this->db->select('a.*, (SELECT SUM(pemasukan)-SUM(pengeluaran) FROM detail_laporan_keuangan b WHERE a.id_laporan = b.id_laporan) as total, c.*');
+		$this->db->from('laporan_keuangan a');
+		$this->db->join('data_ikm c', 'a.id_ikm = c.id_ikm');
+		if (!in_array($this->session->role, array('admin_bumdes', 'pimpinan_bumdes'))) {
+			$this->db->where('a.id_ikm', $id_ikm);
 		}
+		return $this->db->get();
+	}
+
+	function getTotalKeuangan($id_laporan)
+	{
+		$this->db->select('SUM(pemasukan)-SUM(pengeluaran) as total');
+		$this->db->from('detail_laporan_keuangan');
+		$this->db->where('id_laporan', $id_laporan);
+
 		return $this->db->get();
 	}
 

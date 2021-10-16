@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2021 at 11:32 AM
+-- Generation Time: Oct 16, 2021 at 11:10 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -79,12 +79,12 @@ CREATE TABLE IF NOT EXISTS `data_karyawan` (
 --
 
 INSERT INTO `data_karyawan` (`id_karyawan`, `nik`, `nama_karyawan`, `kelamin`, `jabatan`, `pendidikan`, `alamat`, `email`, `no_telp`, `id_ikm`, `tanggal_terdaftar`, `tanggal_update`) VALUES
-(1, 3304222222222222, 'Dida Prasetyo', 'Pria', 'Ketua', '0', 'Dirumahku tercinta, ga dimana mana', 'didapras@yahoo.co.id', '+62916683193', 1, '2021-09-26 01:28:01', '2021-09-26 01:28:01'),
+(1, 3304222222222222, 'Dida Prasetyo', 'Pria', 'Ketua', '', 'Dirumahku tercinta, ga dimana mana', 'didapras@yahoo.co.id', '+62916683193', 1, '2021-09-26 01:28:01', '2021-09-26 01:28:01'),
 (2, 3304222222222244, 'Yae-sama', 'Pria', 'Karyawan', 'D4/S1', 'Numpang dirumah dida', 'dida@dida.dida', '+62916683193', 1, '2021-09-26 01:28:01', '2021-10-09 17:53:42'),
-(3, 3304222222222111, 'Raiden-sama', 'Wanita', 'Karyawan', '0', 'Tenshukaku', 'raiden@gmail.com', '+62816683193', 1, '2021-09-26 09:17:36', '2021-09-26 09:17:36'),
-(4, 3304022408333333, 'Bambang', 'Pria', 'Karyawan', '0', 'YUK JADI YUKK', 'admin@admin.admin', '+6285123456789', 1, '2021-09-30 01:35:17', '2021-09-30 01:35:17'),
-(5, 3304022408333322, 'Coba', 'Pria', 'Karyawan', '0', 'sdafghkjljdsfaffcghyjutgdf', 'admin@admin', '+6285123456789', 1, '2021-09-30 12:08:14', '2021-09-30 12:08:14'),
-(6, 3304222222231231, 'Iso Babat', 'Pria', 'Ketua', '0', 'Sama kek alamat ikm, ga punya rumah, tidur di kantor, sad kan', 'daads@sa.daa', '+62916683193', 2, '2021-09-30 13:04:37', '2021-09-30 13:04:37'),
+(3, 3304222222222111, 'Raiden-sama', 'Wanita', 'Karyawan', '', 'Tenshukaku', 'raiden@gmail.com', '+62816683193', 1, '2021-09-26 09:17:36', '2021-09-26 09:17:36'),
+(4, 3304022408333333, 'Bambang', 'Pria', 'Karyawan', '', 'YUK JADI YUKK', 'admin@admin.admin', '+6285123456789', 1, '2021-09-30 01:35:17', '2021-09-30 01:35:17'),
+(5, 3304022408333322, 'Coba', 'Pria', 'Karyawan', '', 'sdafghkjljdsfaffcghyjutgdf', 'admin@admin', '+6285123456789', 1, '2021-09-30 12:08:14', '2021-09-30 12:08:14'),
+(6, 3304222222231231, 'Iso Babat', 'Pria', 'Ketua', '', 'Sama kek alamat ikm, ga punya rumah, tidur di kantor, sad kan', 'daads@sa.daa', '+62916683193', 2, '2021-09-30 13:04:37', '2021-09-30 13:04:37'),
 (7, 3304022408333622, 'heheboi', 'Pria', 'Ketua', 'D3', 'ga apal', 'admin@admin.admin', '+6285123456789', 4, '2021-10-12 13:37:30', '2021-10-12 13:37:30');
 
 -- --------------------------------------------------------
@@ -169,18 +169,21 @@ CREATE TABLE IF NOT EXISTS `data_produksi` (
   `id_produk` int(11) NOT NULL,
   `jenis_bahan_mentah` varchar(128) NOT NULL,
   `jumlah_produksi` int(11) NOT NULL DEFAULT 0,
+  `tanggal_dibuat` datetime NOT NULL DEFAULT current_timestamp(),
+  `tanggal_update` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_data_produksi`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `data_produksi`
 --
 
-INSERT INTO `data_produksi` (`id_data_produksi`, `id_ikm`, `tanggal`, `id_produk`, `jenis_bahan_mentah`, `jumlah_produksi`) VALUES
-(1, 1, '2021-09-23', 1, 'Besi', 10),
-(2, 1, '2021-09-01', 2, 'Batu Bata, Apa lagi ya', 111),
-(3, 2, '2021-06-09', 3, 'Hehe', 0),
-(4, 1, '2021-10-03', 9, 'Paku 2 kg, Kayu 2 buah', 12);
+INSERT INTO `data_produksi` (`id_data_produksi`, `id_ikm`, `tanggal`, `id_produk`, `jenis_bahan_mentah`, `jumlah_produksi`, `tanggal_dibuat`, `tanggal_update`) VALUES
+(1, 1, '2021-09-23', 1, 'Besi', 10, '2021-10-16 15:58:50', '2021-10-16 15:58:50'),
+(2, 1, '2021-09-01', 2, 'Batu Bata, Apa lagi ya', 111, '2021-10-16 15:58:50', '2021-10-16 15:58:50'),
+(3, 2, '2021-06-09', 3, 'Hehe', 0, '2021-10-16 15:58:50', '2021-10-16 15:58:50'),
+(4, 1, '2021-10-03', 9, 'Paku 2 kg, Kayu 2 buah', 12, '2021-10-16 15:58:50', '2021-10-16 15:58:50'),
+(5, 1, '2021-10-11', 8, 'Pipa besi 5 lonjor', 12, '2021-10-16 15:58:50', '2021-10-16 15:58:50');
 
 -- --------------------------------------------------------
 
@@ -226,22 +229,21 @@ CREATE TABLE IF NOT EXISTS `detail_laporan_keuangan` (
   `id_laporan` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `aktivitas` varchar(255) NOT NULL,
-  `pemasukan` double NOT NULL,
-  `pengeluaran` double NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `pemasukan` double NOT NULL DEFAULT 0,
+  `pengeluaran` double NOT NULL DEFAULT 0,
+  `tanggal_dibuat` datetime NOT NULL DEFAULT current_timestamp(),
+  `tanggal_update` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_detail`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `detail_laporan_keuangan`
 --
 
-INSERT INTO `detail_laporan_keuangan` (`id_detail`, `id_laporan`, `tanggal`, `aktivitas`, `pemasukan`, `pengeluaran`, `created_at`, `updated_at`) VALUES
-(2, 1, '2021-10-03', 'tambah DB lagi', 69000, 10000, '2021-10-03 00:00:00', '2021-10-03 00:00:00'),
-(3, 2, '2021-10-03', 'aktivitas orang 2', 100000, 40232, '2021-10-03 00:00:00', '2021-10-03 00:00:00'),
-(4, 1, '2021-10-03', 'Coba tambah laporan', 69000, 10000, '2021-10-03 00:00:00', '2021-10-03 00:00:00'),
-(5, 1, '2021-10-01', 'hehe coba lagi', 1111, 2312, '2021-10-03 00:00:00', '2021-10-03 00:00:00');
+INSERT INTO `detail_laporan_keuangan` (`id_detail`, `id_laporan`, `tanggal`, `aktivitas`, `pemasukan`, `pengeluaran`, `tanggal_dibuat`, `tanggal_update`) VALUES
+(1, 1, '2021-01-01', 'Pembalian Panci Baru', 0, 20000, '2021-10-12 19:36:28', '2021-10-12 19:36:28'),
+(2, 1, '2021-01-02', 'Penjualan Panci Lama', 10000, 0, '2021-10-12 19:47:12', '2021-10-12 19:47:12'),
+(3, 1, '2021-10-16', 'Penjualan Alat Tambang', 200000, 0, '2021-10-16 01:40:21', '2021-10-16 01:40:21');
 
 -- --------------------------------------------------------
 
@@ -254,28 +256,30 @@ CREATE TABLE IF NOT EXISTS `laporan_keuangan` (
   `id_laporan` int(11) NOT NULL AUTO_INCREMENT,
   `tanggal` datetime DEFAULT NULL,
   `id_ikm` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `tanggal_dibuat` datetime NOT NULL DEFAULT current_timestamp(),
+  `tanggal_update` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_laporan`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `laporan_keuangan`
 --
 
-INSERT INTO `laporan_keuangan` (`id_laporan`, `tanggal`, `id_ikm`, `created_at`, `updated_at`) VALUES
-(1, '2020-09-07 00:00:00', 1, '0000-00-00 00:00:00', '2021-10-09 00:00:00'),
-(2, '2020-09-07 00:00:00', 2, '0000-00-00 00:00:00', '2021-10-04 00:00:00'),
-(3, '2020-09-09 00:00:00', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, '2020-09-12 00:00:00', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, '2020-09-16 00:00:00', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(6, '2020-09-17 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, '2020-09-18 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(8, '2020-09-19 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+INSERT INTO `laporan_keuangan` (`id_laporan`, `tanggal`, `id_ikm`, `tanggal_dibuat`, `tanggal_update`) VALUES
+(1, '2020-01-01 00:00:00', 1, '0000-00-00 00:00:00', '2021-10-09 00:00:00'),
+(2, '2020-02-01 00:00:00', 2, '0000-00-00 00:00:00', '2021-10-04 00:00:00'),
+(3, '2020-03-01 00:00:00', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '2020-04-01 00:00:00', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '2020-05-01 00:00:00', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '2020-06-01 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '2020-07-01 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '2020-08-01 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (9, '2020-09-20 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(10, '2020-09-21 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, '2020-09-21 00:00:00', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (11, '2021-10-07 00:00:00', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(12, '2021-10-01 00:00:00', 1, '2021-10-03 00:00:00', '2021-10-03 00:00:00');
+(12, '2021-10-01 00:00:00', 1, '2021-10-03 00:00:00', '2021-10-03 00:00:00'),
+(14, '2021-11-10 00:00:00', 1, '2021-10-12 19:11:50', '2021-10-12 19:11:50'),
+(15, '2021-12-09 00:00:00', 1, '2021-10-12 19:13:45', '2021-10-12 19:13:45');
 
 -- --------------------------------------------------------
 
@@ -285,30 +289,26 @@ INSERT INTO `laporan_keuangan` (`id_laporan`, `tanggal`, `id_ikm`, `created_at`,
 
 DROP TABLE IF EXISTS `teknologi_informasi`;
 CREATE TABLE IF NOT EXISTS `teknologi_informasi` (
-  `id_ti` int(11) NOT NULL AUTO_INCREMENT,
-  `tanggal` datetime DEFAULT NULL,
-  `nama_barang` varchar(80) DEFAULT NULL,
-  `tipe_barang` varchar(15) DEFAULT NULL,
-  `jumlah_barang` int(11) DEFAULT NULL,
-  `kondisi` varchar(10) DEFAULT NULL,
-  `sumber_dana` varchar(30) DEFAULT NULL,
-  `id_ikm` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_ti`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+  `id_tekfo` int(11) NOT NULL AUTO_INCREMENT,
+  `id_ikm` int(11) NOT NULL,
+  `nama_barang` varchar(80) NOT NULL,
+  `tipe_merk` varchar(80) NOT NULL,
+  `sumber_dana` varchar(80) NOT NULL,
+  `kondisi_baik` int(11) NOT NULL,
+  `kondisi_kurang` int(11) NOT NULL,
+  `kondisi_buruk` int(11) NOT NULL,
+  `tanggal_dibuat` datetime NOT NULL DEFAULT current_timestamp(),
+  `tanggal_update` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id_tekfo`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `teknologi_informasi`
 --
 
-INSERT INTO `teknologi_informasi` (`id_ti`, `tanggal`, `nama_barang`, `tipe_barang`, `jumlah_barang`, `kondisi`, `sumber_dana`, `id_ikm`) VALUES
-(1, '2020-09-07 00:00:00', 'Komputer Asus', 'komputer', 55, 'Bagus', 'kas', 3),
-(2, '2020-09-07 00:00:00', 'Komputer Lenovo', 'komputer', 51, 'Bagus', 'kas', 2),
-(3, '2020-09-09 00:00:00', 'Komputer Huawei', 'komputer', 13, 'Bagus', 'sumbangan Google', 4),
-(4, '2020-09-12 00:00:00', 'Komputer HP', 'komputer', 7, 'Bagus', 'kas', 1),
-(5, '2020-09-16 00:00:00', 'Komputer Lek Di', 'komputer', 8, 'Jelek', 'kas', 5),
-(6, '2020-09-12 00:00:00', 'Meja', 'komputer', 7, 'Bagus', 'kas', 1),
-(7, '2020-09-12 00:00:00', 'Kursi', 'komputer', 7, 'Bagus', 'kas', 1),
-(8, '2020-09-12 00:00:00', 'Server', 'komputer', 7, 'Bagus', 'kas', 1);
+INSERT INTO `teknologi_informasi` (`id_tekfo`, `id_ikm`, `nama_barang`, `tipe_merk`, `sumber_dana`, `kondisi_baik`, `kondisi_kurang`, `kondisi_buruk`, `tanggal_dibuat`, `tanggal_update`) VALUES
+(1, 1, 'Komputer', '330/Lenovo', 'Pengadaan Barang 2021', 4, 3, 2, '2021-10-16 15:11:51', '2021-10-16 16:06:41'),
+(2, 1, 'Printer', 'Ink Jet/Canon', 'Sumbangan Maret 2021', 2, 1, 0, '2021-10-16 15:51:23', '2021-10-16 15:51:23');
 
 -- --------------------------------------------------------
 

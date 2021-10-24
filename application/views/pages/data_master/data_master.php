@@ -10,7 +10,6 @@
         <h1>Data Master</h1>
         <div>
             <a class="btn btn-success" href="<?= base_url().'AdminBumdes/tambah_ikm' ?>" style="text-decoration: none; color: white;">Tambah Data</a>
-            <!-- <span data-feather="bell"></span> -->
         </div>
     </div>
 

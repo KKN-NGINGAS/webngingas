@@ -48,7 +48,7 @@ class MainController extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
-	// fungsi pengaturan
+	// Fungsi pengaturan
 
 	public function pengaturan()
 	{
@@ -73,7 +73,7 @@ class MainController extends CI_Controller {
 		
 	}
 
-	// Fungsi User khusu buat admin bumdes dan admin ikm
+	// Fungsi User khusus buat admin bumdes dan admin ikm
 
 	public function data_user()
 	{
@@ -166,26 +166,23 @@ class MainController extends CI_Controller {
 		redirect('MainController/data_user');
 	}
 
-	// Pemasaran
+	// Fungsi Pemasaran
 
 	public function pemasaran()
 	{
 		$header['title']	= 'Pemasaran dan Periklanan';
 		$header['page']		= 'pemasaran';
 		$this->load->view('layouts/header', $header);
-		$this->load->view('pages/pemasaran/pasariklan.php');
+		$this->load->view('pages/pemasaran/pasariklan');
 		$this->load->view('layouts/footer');
 	}
+
+	// Fungsi Produk
 
 	public function data_produk()
 	{
 		$header['title']	= 'Pemasaran dan Periklanan';
 		$header['page']		= 'pemasaran';
-		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
-			$data['data_produk']	= $this->MainModel->getJoin('data_ikm', 'data_produk', 'data_produk.id_ikm = data_ikm.id_ikm')->result();
-		} else {
-			$data['data_produk']	= $this->MainModel->getJoinWhere('data_produk', 'data_ikm', 'data_produk.id_ikm = data_ikm.id_ikm', array('data_produk.id_ikm' => $this->session->userdata('id_ikm')))->result();
-		}
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
@@ -193,9 +190,15 @@ class MainController extends CI_Controller {
 		} else {
 			$data['msg']		= '';
 		}
+		
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['data_produk']	= $this->MainModel->getJoin('data_ikm', 'data_produk', 'data_produk.id_ikm = data_ikm.id_ikm')->result();
+		} else {
+			$data['data_produk']	= $this->MainModel->getJoinWhere('data_produk', 'data_ikm', 'data_produk.id_ikm = data_ikm.id_ikm', array('data_produk.id_ikm' => $this->session->userdata('id_ikm')))->result();
+		}
 
 		$this->load->view('layouts/header', $header);
-		$this->load->view('pages/pemasaran/list_produk.php', $data);
+		$this->load->view('pages/pemasaran/list_produk', $data);
 		$this->load->view('layouts/footer');
 	}
 
@@ -222,6 +225,14 @@ class MainController extends CI_Controller {
 	{
 		$header['title']	= 'Pemasaran dan Periklanan';
 		$header['page']		= 'pemasaran';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
 		$data['data_produk']	= $this->MainModel->getJoinWhere('data_produk', 'data_ikm', 'data_produk.id_ikm = data_ikm.id_ikm', array('data_produk.id_data_produk' => $id_produk))->result();
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/pemasaran/detail_produk', $data);
@@ -263,7 +274,7 @@ class MainController extends CI_Controller {
 		$data = array(
 				'nama_produk'	=> $nama_produk,
 				'harga_satuan'	=> $harga_satuan,
-				'stok'			=> $stok,
+				// 'stok'			=> $stok,
 				'tanggal_update'=> date("Y-m-d H:i:s")
 			);
 
@@ -275,6 +286,190 @@ class MainController extends CI_Controller {
 
 		$this->session->set_userdata('msg', 'Data Produk berhasil diubah');
 		redirect('MainController/data_produk');
+	}
+
+	// Fungsi Transaksi
+
+	public function data_transaksi()
+	{
+		$header['title']	= 'Pemasaran dan Periklanan';
+		$header['page']		= 'pemasaran';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+		
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['transaksi'] = $this->MainModel->getJoin('data_pelanggana', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan')->result();
+		} else {
+			$data['transaksi'] = $this->MainModel->getJoinWhere('data_pelanggan', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan', array('data_transaksi.id_ikm' => $this->session->id_ikm))->result();
+		}
+
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/pemasaran/list_transaksi', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function detail_transaksi($id_transaksi)
+	{
+		$header['title']	= 'Pemasaran dan Periklanan';
+		$header['page']		= 'pemasaran';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+		
+		$data['transaksi'] = $this->MainModel->getJoinWhere('data_pelanggan', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan', array('data_transaksi.id_transaksi' => $id_transaksi))->result();
+
+		$data['detail_transaksi'] = $this->MainModel->getJoinWhere('data_produk', 'detail_transaksi', 'data_produk.id_data_produk = detail_transaksi.id_produk', array('id_transaksi' => $id_transaksi))->result();
+		$data['id_transaksi'] = $id_transaksi;
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/pemasaran/detail_transaksi', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function tambah_transaksi()
+	{
+		$this->auth_ikm();
+
+		$header['title']	= 'Pemasaran dan Periklanan';
+		$header['page']		= 'pemasaran';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		$data['pelanggan'] = $this->MainModel->getWhere('data_pelanggan', array('id_ikm' => $this->session->id_ikm))->result();
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/pemasaran/tambah_transaksi', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function tambah_detail_transaksi($id_transaksi)
+	{
+		$this->auth_ikm();
+
+		$header['title']	= 'Pemasaran dan Periklanan';
+		$header['page']		= 'pemasaran';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		$data['produk'] = $this->MainModel->getWhere('data_produk', array('id_ikm' => $this->session->id_ikm))->result();
+		$data['id_transaksi'] = $id_transaksi;
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/pemasaran/tambah_detail_transaksi', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function input_transaksi()
+	{
+		$tanggal = $this->input->post('tanggal');
+		$id_pelanggan = $this->input->post('pelanggan');
+
+		$number = $this->MainModel->getWhere('data_transaksi', array('id_ikm' => $this->session->id_ikm))->last_row()->no_transaksi;
+
+		if (is_null($number)) {
+			$number = 1;
+		} else {
+			$number = substr($number,12) + 1;
+		}
+
+		$no_transaksi = date('dm').'/'.date('y').'/'.str_pad($this->session->id_ikm,3,"0", STR_PAD_LEFT).'/'.str_pad($number,5,"0", STR_PAD_LEFT);
+
+		$data = array(
+			'tanggal' => $tanggal,
+			'id_pelanggan' => $id_pelanggan,
+			'id_ikm' => $this->session->id_ikm,
+			'no_transaksi' => $no_transaksi
+		);
+
+		$this->MainModel->inputData('data_transaksi', $data);
+
+		$this->session->set_userdata('msg', 'Data Transaksi berhasil ditambahkan');
+		redirect('MainController/data_transaksi');
+	}
+
+	public function input_detail_transaksi($id_transaksi)
+	{
+		$id_produk = $this->input->post('produk');
+		$jumlah_barang = $this->input->post('jumlah');
+
+		$data_produk = $this->MainModel->getWhere('data_produk', array('id_data_produk' => $id_produk))->row(); // ambil data produknya
+		$harga_satuan = $data_produk->harga_satuan; // ambil harga satuannya
+		$stok = $data_produk->stok; // ambil stok produknya
+		$stok_update = $stok - $jumlah_barang; // stok sekarang dikurangi stok yang mau dipake transaksi
+		$total_harga = $jumlah_barang * $harga_satuan; // hitung total harganya
+
+		$total_transaksi = $this->MainModel->getWhere('data_transaksi', array('id_transaksi' => $id_transaksi))->row()->total; //ambil total harga sekarang
+		$total = $total_transaksi + $total_harga; // total harga buat dimasukin ke data_transaksi
+
+		if ($stok_update >= 0) { // kalo stok setelah dikurangi masih lebih dari 0 proses lanjut
+			$data = array(
+				'id_transaksi' => $id_transaksi,
+				'id_produk' => $id_produk,
+				'harga_satuan_transaksi' => $harga_satuan,
+				'jumlah_barang' => $jumlah_barang
+			);
+
+			$update_produk = array(
+				'stok' => $stok_update,
+				'tanggal_update' => date("Y-m-d H:i:s")
+			);
+
+			$update_transaksi = array(
+				'total' => $total,
+				'tanggal_update' => date("Y-m-d H:i:s")
+			);
+
+			$this->MainModel->inputData('detail_transaksi', $data);
+			$this->MainModel->updateData('data_produk', $update_produk, array('id_data_produk' => $id_produk));
+			$this->MainModel->updateData('data_transaksi', $update_transaksi, array('id_transaksi' => $id_transaksi));
+
+			$this->session->set_userdata('msg', 'Berhaisl menambahkan produk ke transaksi');
+			redirect('MainController/detail_transaksi/'.$id_transaksi);
+		} else { // kalo stok kurang dari 0 
+			$this->session->set_userdata('msg', 'Gagal menambah produk karena kekurangan stok');
+			redirect('MainController/tambah_detail_transaksi/'.$id_transaksi);
+		}
+	}
+
+	public function hapus_detail_transaksi($id_det_transaksi)
+	{
+		$data_detail_transaksi = $this->MainModel->getWhere('detail_transaksi', array('id_det_transaksi' => $id_det_transaksi))->row();
+		$id_transaksi = $data_detail_transaksi->id_transaksi;
+		$id_produk = $data_detail_transaksi->id_produk;
+
+		$stok_produk = $this->MainModel->getWhere('data_produk', array('id_data_produk' => $id_produk))->row()->stok;
+		$total_transaksi = $this->MainModel->getWhere('data_transaksi', array('id_transaksi' => $id_transaksi))->row()->total;
+
+		$jumlah_barang = $data_detail_transaksi->jumlah_barang;
+		$harga_satuan_transaksi = $data_detail_transaksi->harga_satuan_transaksi;
+
+		$stok_baru = $stok_produk + $jumlah_barang; // stok buat update di data_produk
+
+		$total_detail = $harga_satuan_transaksi * $jumlah_barang;
+		$total_baru = $total_transaksi - $total_detail; // harga buat update di data_transaksi
+
+
+		
 	}
 
 	// Fungsi SDM
@@ -324,6 +519,14 @@ class MainController extends CI_Controller {
 	{
 		$header['title']	= 'Sumber Daya Manusia';
 		$header['page']		= 'sdm';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
 		$data['sdm']		= $this->MainModel->getJoinWhere('data_karyawan', 'data_ikm', 'data_karyawan.id_ikm = data_ikm.id_ikm', array('id_karyawan' => $id_karyawan))->result();
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/sdm/detail_sdm', $data);
@@ -445,8 +648,20 @@ class MainController extends CI_Controller {
 	{
 		$header['title']	= 'Produksi';
 		$header['page']		= 'produksi';
-		$data['produk']	= $this->MainModel->getWhere('data_produk', array('id_ikm' => $this->session->userdata('id_ikm')))->result();
-		$data['data_produksi']	= $this->MainModel->getWhere('data_produksi', array('id_data_produksi' => $id_produksi))->result();
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		$data['data_produksi']	= $this->MainModel->getWhere('data_produksi', array('id_data_produksi' => $id_produksi));
+		$id_ikm = $data['data_produksi']->row()->id_ikm;
+		$data['data_produksi'] = $data['data_produksi']->result();
+		
+		$data['produk']	= $this->MainModel->getWhere('data_produk', array('id_ikm' => $id_ikm))->result();
+
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/produksi/detail_produksi', $data);
 		$this->load->view('layouts/footer');
@@ -467,7 +682,18 @@ class MainController extends CI_Controller {
 			'jumlah_produksi' => $jumlah
 		);
 
+		$where = array(
+			'id_data_produk' => $id_produk
+		);
+
+		$stok = $this->MainModel->getWhere('data_produk', $where)->row()->stok;
+
+		$update_stock = array(
+			'stok' => $stok + $jumlah
+		);
+
 		$this->MainModel->inputData('data_produksi', $data);
+		$this->MainModel->updateData('data_produk', $update_stock, $where);
 
 		$this->session->set_userdata('msg', 'Data Produksi berhasil ditambahkan');
 		redirect('MainController/data_produksi');
@@ -477,25 +703,37 @@ class MainController extends CI_Controller {
 	{
 		$tgl = $this->input->post('tanggal_produksi');
 		$id_produk = $this->input->post('produk');
-		$jumlah = $this->input->post('jumlah_produksi');
+		$produksi_baru = $this->input->post('jumlah_produksi');
 		$bahan_mentah = $this->input->post('bahan_mentah');
+		
+		$stok_sekarang = $this->MainModel->getWhere('data_produk', array('id_data_produk' => $id_produk))->row()->stok;
+		$produksi_lama = $this->MainModel->getWhere('data_produksi', array('id_data_produksi'=>$id_produksi))->row()->jumlah_produksi;
+		$stok_awal = $stok_sekarang-$produksi_lama;
+		$stok_update = $stok_awal + $produksi_baru;
 
-		$data = array(
-			'tanggal' => $tgl,
-			'id_produk' => $id_produk,
-			'jenis_bahan_mentah' => $bahan_mentah,
-			'jumlah_produksi' => $jumlah,
-			'tanggal_update'=> date("Y-m-d H:i:s")
-		);
+		if ($stok_update < 0) {
+			$this->session->set_userdata('msg', 'Data Produksi gagal diubah karena stok produk akan minus');
+			redirect('MainController/detail_produksi/'.$id_produksi);
+		} else {
+			$data = array(
+				'tanggal' => $tgl,
+				'id_produk' => $id_produk,
+				'jenis_bahan_mentah' => $bahan_mentah,
+				'jumlah_produksi' => $produksi_baru,
+				'tanggal_update'=> date("Y-m-d H:i:s")
+			);
 
-		$where = array(
-			'id_data_produksi' => $id_produksi
-		);
+			$where = array(
+				'id_data_produksi' => $id_produksi
+			);
 
-		$this->MainModel->updateData('data_produksi', $data, $where);
 
-		$this->session->set_userdata('msg', 'Data Produksi berhasil diubah');
-		redirect('MainController/data_produksi');
+			$this->MainModel->updateData('data_produksi', $data, $where);
+			$this->MainModel->updateData('data_produk', array('stok' => $stok_update), array('id_data_produk' => $id_produk));
+
+			$this->session->set_userdata('msg', 'Data Produksi berhasil diubah');
+			redirect('MainController/data_produksi');
+		}
 	}
 
 	// Fungsi Pelayanan Konsumen
@@ -545,6 +783,14 @@ class MainController extends CI_Controller {
 	{
 		$header['title']	= 'Pelayanan Konsumen';
 		$header['page']		= 'pelayanan';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
 		$data['konsumen']	= $this->MainModel->getWhere('data_pelanggan', array('id_perusahaan' => $id_perusahaan))->result();
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/pelayanan/detail_pelayanan', $data);
@@ -628,11 +874,6 @@ class MainController extends CI_Controller {
 			$data['msg']		= '';
 		}
 
-		// if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
-		// 	$data['keuangan'] = $this->MainModel->getJoin('laporan_keuangan', 'data_ikm', 'laporan_keuangan.id_ikm = data_ikm.id_ikm')->result();
-		// } else {
-		// 	$data['keuangan'] = $this->MainModel->getWhere('laporan_keuangan', array('id_ikm' => $this->session->id_ikm))->result();
-		// }
 		$data['keuangan'] = $this->MainModel->getKeuangan($this->session->id_ikm)->result();
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/keuangan/list_laporan', $data);

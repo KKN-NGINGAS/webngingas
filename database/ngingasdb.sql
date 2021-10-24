@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2021 at 11:10 AM
+-- Generation Time: Oct 20, 2021 at 06:35 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `data_produk` (
 --
 
 INSERT INTO `data_produk` (`id_data_produk`, `id_ikm`, `nama_produk`, `harga_satuan`, `stok`, `tanggal_dibuat`, `tanggal_update`) VALUES
-(1, 1, 'Barang Berat 1', 50000, 20, '2021-10-03 02:36:04', '2021-10-03 02:36:04'),
+(1, 1, 'Barang Berat 1', 500000, 40, '2021-10-03 02:36:04', '2021-10-18 13:59:47'),
 (2, 1, 'Barang Berat 2', 2000000, 15, '2021-10-03 02:36:04', '2021-10-03 02:36:04'),
 (3, 2, 'Barang Berat 3', 500000, 15, '2021-10-03 02:36:04', '2021-10-03 02:36:04'),
 (4, 3, 'Barang Berat 4', 1500000, 15, '2021-10-03 02:36:04', '2021-10-03 02:36:04'),
@@ -172,18 +172,40 @@ CREATE TABLE IF NOT EXISTS `data_produksi` (
   `tanggal_dibuat` datetime NOT NULL DEFAULT current_timestamp(),
   `tanggal_update` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_data_produksi`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `data_produksi`
 --
 
 INSERT INTO `data_produksi` (`id_data_produksi`, `id_ikm`, `tanggal`, `id_produk`, `jenis_bahan_mentah`, `jumlah_produksi`, `tanggal_dibuat`, `tanggal_update`) VALUES
-(1, 1, '2021-09-23', 1, 'Besi', 10, '2021-10-16 15:58:50', '2021-10-16 15:58:50'),
-(2, 1, '2021-09-01', 2, 'Batu Bata, Apa lagi ya', 111, '2021-10-16 15:58:50', '2021-10-16 15:58:50'),
-(3, 2, '2021-06-09', 3, 'Hehe', 0, '2021-10-16 15:58:50', '2021-10-16 15:58:50'),
-(4, 1, '2021-10-03', 9, 'Paku 2 kg, Kayu 2 buah', 12, '2021-10-16 15:58:50', '2021-10-16 15:58:50'),
-(5, 1, '2021-10-11', 8, 'Pipa besi 5 lonjor', 12, '2021-10-16 15:58:50', '2021-10-16 15:58:50');
+(1, 1, '2021-10-18', 1, 'Besi 2 kg', 20, '2021-10-18 14:07:12', '2021-10-18 14:46:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_transaksi`
+--
+
+DROP TABLE IF EXISTS `data_transaksi`;
+CREATE TABLE IF NOT EXISTS `data_transaksi` (
+  `id_transaksi` int(11) NOT NULL AUTO_INCREMENT,
+  `id_ikm` int(11) NOT NULL,
+  `tanggal` datetime NOT NULL,
+  `no_transaksi` varchar(25) NOT NULL,
+  `id_pelanggan` int(11) NOT NULL,
+  `total` int(11) NOT NULL DEFAULT 0,
+  `tanggal_dibuat` datetime NOT NULL DEFAULT current_timestamp(),
+  `tanggal_update` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id_transaksi`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `data_transaksi`
+--
+
+INSERT INTO `data_transaksi` (`id_transaksi`, `id_ikm`, `tanggal`, `no_transaksi`, `id_pelanggan`, `total`, `tanggal_dibuat`, `tanggal_update`) VALUES
+(1, 1, '2021-10-20 05:35:43', '2010/21/001/0001', 1, 10000, '2021-10-20 10:36:09', '2021-10-20 10:36:09');
 
 -- --------------------------------------------------------
 
@@ -244,6 +266,31 @@ INSERT INTO `detail_laporan_keuangan` (`id_detail`, `id_laporan`, `tanggal`, `ak
 (1, 1, '2021-01-01', 'Pembalian Panci Baru', 0, 20000, '2021-10-12 19:36:28', '2021-10-12 19:36:28'),
 (2, 1, '2021-01-02', 'Penjualan Panci Lama', 10000, 0, '2021-10-12 19:47:12', '2021-10-12 19:47:12'),
 (3, 1, '2021-10-16', 'Penjualan Alat Tambang', 200000, 0, '2021-10-16 01:40:21', '2021-10-16 01:40:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_transaksi`
+--
+
+DROP TABLE IF EXISTS `detail_transaksi`;
+CREATE TABLE IF NOT EXISTS `detail_transaksi` (
+  `id_det_transaksi` int(11) NOT NULL AUTO_INCREMENT,
+  `id_transaksi` int(11) NOT NULL,
+  `id_produk` int(11) NOT NULL,
+  `harga_satuan_transaksi` int(11) NOT NULL,
+  `jumlah_barang` int(11) NOT NULL,
+  `tanggal_dibuat` datetime NOT NULL DEFAULT current_timestamp(),
+  `tanggal_update` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id_det_transaksi`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detail_transaksi`
+--
+
+INSERT INTO `detail_transaksi` (`id_det_transaksi`, `id_transaksi`, `id_produk`, `harga_satuan_transaksi`, `jumlah_barang`, `tanggal_dibuat`, `tanggal_update`) VALUES
+(1, 1, 1, 5000, 2, '2021-10-20 10:51:39', '2021-10-20 10:51:39');
 
 -- --------------------------------------------------------
 
@@ -309,47 +356,6 @@ CREATE TABLE IF NOT EXISTS `teknologi_informasi` (
 INSERT INTO `teknologi_informasi` (`id_tekfo`, `id_ikm`, `nama_barang`, `tipe_merk`, `sumber_dana`, `kondisi_baik`, `kondisi_kurang`, `kondisi_buruk`, `tanggal_dibuat`, `tanggal_update`) VALUES
 (1, 1, 'Komputer', '330/Lenovo', 'Pengadaan Barang 2021', 4, 3, 2, '2021-10-16 15:11:51', '2021-10-16 16:06:41'),
 (2, 1, 'Printer', 'Ink Jet/Canon', 'Sumbangan Maret 2021', 2, 1, 0, '2021-10-16 15:51:23', '2021-10-16 15:51:23');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `transaksi_penjualan`
---
-
-DROP TABLE IF EXISTS `transaksi_penjualan`;
-CREATE TABLE IF NOT EXISTS `transaksi_penjualan` (
-  `id_penjualan` int(11) NOT NULL AUTO_INCREMENT,
-  `no_transaksi` int(11) DEFAULT NULL,
-  `tanggal` datetime DEFAULT NULL,
-  `nama_ikm` varchar(80) DEFAULT NULL,
-  `pelanggan` varchar(80) DEFAULT NULL,
-  `id_perusahaan` int(11) DEFAULT NULL,
-  `id_data_produk` int(11) DEFAULT NULL,
-  `kuantitas` int(11) DEFAULT NULL,
-  `harga_satuan` int(11) DEFAULT NULL,
-  `harga_satuan_x_kuantitas` int(11) DEFAULT NULL,
-  `harga_total` int(11) DEFAULT NULL,
-  `nama_penerima_brg` varchar(80) DEFAULT NULL,
-  `no_telp_pelanggan` varchar(15) DEFAULT NULL,
-  `keterangan` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id_penjualan`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `transaksi_penjualan`
---
-
-INSERT INTO `transaksi_penjualan` (`id_penjualan`, `no_transaksi`, `tanggal`, `nama_ikm`, `pelanggan`, `id_perusahaan`, `id_data_produk`, `kuantitas`, `harga_satuan`, `harga_satuan_x_kuantitas`, `harga_total`, `nama_penerima_brg`, `no_telp_pelanggan`, `keterangan`) VALUES
-(1, 212, '2020-09-01 00:00:00', 'Sumber Kencana', 'Fachrizal', 3, 2, 3, 2000000, 6000000, 6600000, 'kasino', '+85234628233', 'berhasil'),
-(2, 215, '2020-09-10 00:00:00', 'Harimau Selatan', 'Donny', 2, 2, 5, 2000000, 10000000, 11000000, 'sule sutisna', '+85234628625', 'berhasil'),
-(3, 217, '2020-09-12 00:00:00', 'Mertua Galak', 'Donny', 2, 3, 2, 500000, 1000000, 1100000, 'cak sun', '+85234655533', 'berhasil'),
-(4, 214, '2020-09-17 00:00:00', 'Mertua Galak', 'Faza', 4, 1, 5, 10000000, 50000000, 55000000, 'makmur sugemi', '+85234234233', 'berhasil'),
-(5, 213, '2020-09-19 00:00:00', 'Sumber Kencana', 'Zulfikar', 1, 1, 3, 10000000, 30000000, 33000000, 'slamet riyadi', '+85234624433', 'berhasil'),
-(6, 216, '2020-09-20 00:00:00', 'Abang Jago', 'Fachrizal', 3, 2, 6, 2000000, 12000000, 13200000, 'daddy corbuzier', '+85234999233', 'berhasil'),
-(7, 211, '2020-09-22 00:00:00', 'Abang Jago', 'Donny', 2, 1, 2, 10000000, 20000000, 22000000, 'dono', '+85232228233', 'berhasil'),
-(8, 223, '2020-09-23 00:00:00', 'Sumber Kencana', 'Zulfikar', 1, 4, 3, 10000000, 30000000, 33000000, 'duni', '+85228233232', 'berhasil'),
-(9, 224, '2020-09-24 00:00:00', 'Sumber Kencana', 'Faza', 4, 5, 4, 1750000, 7000000, 7700000, 'danu', '+85235553346', 'berhasil'),
-(10, 225, '2020-09-25 00:00:00', 'Sumber Kencana', 'Fachrizal', 3, 3, 2, 500000, 1000000, 1100000, 'dena', '+85234233999', 'berhasil');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

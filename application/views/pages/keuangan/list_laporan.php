@@ -47,7 +47,7 @@
                         <?php if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) { ?>
                             <td><?= $row->nama_ikm ?></td>
                         <?php } ?>
-                        <td><?= (is_null($row->total)) ? 0 : $row->total ?></td>
+                        <td><?= (is_null($row->total)) ? 'Rp 0,00' : 'Rp ' . number_format($row->total,2,',','.') ?></td>
                         <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_laporan/'.$row->id_laporan ?>" style="text-decoration: none; color: white;">Detail Laporan</a></td>
                     </tr>
                 <?php } ?>

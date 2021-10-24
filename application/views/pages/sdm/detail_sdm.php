@@ -9,8 +9,14 @@
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>Detail Karyawan</h1>
-        <!-- <span data-feather="bell"></span> -->
     </div>
+    
+    <?php if ($msg != '') { ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $msg ?>
+        </div>
+    <?php } ?>
+
     <div class="card-content">
         <?php foreach ($sdm as $row) { ?>
             <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/update_sdm/'.$row->id_karyawan ?>" method="POST">

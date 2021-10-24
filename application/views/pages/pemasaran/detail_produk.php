@@ -13,6 +13,12 @@
         <!-- <span data-feather="bell"></span> -->
     </div>
 
+    <?php if ($msg != '') { ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $msg ?>
+        </div>
+    <?php } ?>
+
     <div class="card-content">
         <div class="col-10 mx-auto">
             <?php foreach ($data_produk as $row) { ?>
@@ -30,7 +36,8 @@
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="stok" class="form-label">Stok</label>
-                            <input type="number" class="form-control input-field" id="stok" name="stok" placeholder="<?= $row->stok ?>" value="<?= $row->stok ?>">
+                            <div class=""><?= $row->stok ?></div>
+                            <!-- <input type="number" class="form-control input-field" id="stok" name="stok" placeholder="<?= $row->stok ?>" readonly> -->
                         </div>
                     </div>
                     <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>

@@ -12,6 +12,12 @@
         <!-- <span data-feather="bell"></span> -->
     </div>
 
+    <?php if ($msg != '') { ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $msg ?>
+        </div>
+    <?php } ?>
+
     <div class="card-content">
         <div class="col-10 mx-auto">
             <?php foreach ($konsumen as $row) { ?>

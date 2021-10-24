@@ -3,14 +3,19 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
             <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_produksi' ?>">Data Produksi</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tambah Data Produksi</li>
+            <li class="breadcrumb-item active" aria-current="page">Ubah Data Produksi</li>
         </ol>
     </nav>
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1>Tambah Data Produksi</h1>
-        <span data-feather="bell"></span>
+        <h1>Ubah Data Produksi</h1>
     </div>
+
+    <?php if ($msg != '') { ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $msg ?>
+        </div>
+    <?php } ?>
 
     <div class="card-content">
         <div class="col-10 mx-auto">
@@ -25,10 +30,10 @@
                 <div class="row">
                     <div class="col-lg-6 mb-3">
                         <label for="produk" class="form-label">Produk</label>
-                        <select name="produk" id="produk" class="form-control input-field" required>
-                            <option class="dropdown-item disabled" value="">Pilih Produk</option>
+                        <select name="produk" id="produk" class="form-control input-field">
+                            <option class="dropdown-item disabled" value="" disabled>Pilih Produk</option>
                             <?php foreach ($produk as $options) { ?>
-                                <option value="<?= $options->id_data_produk ?>" <?= ($row->id_produk == $options->id_data_produk) ? 'selected' : '' ?>><?= $options->nama_produk ?></option>
+                                <option value="<?= $options->id_data_produk ?>" <?= ($row->id_produk == $options->id_data_produk) ? 'selected' : 'disabled' ?>><?= $options->nama_produk ?></option>
                             <?php } ?>
                         </select>
                     </div>

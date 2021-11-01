@@ -46,8 +46,10 @@ class User extends CI_Controller {
 
 			if ($result['role'] == 'admin_bumdes') {
 				$data_user['nama_karyawan'] = "Admin Bumdes";
+				$data_user['id_ikm'] = 0;
 			} else if ($result['id_user'] == 'pimpinan_bumdes') {
 				$data_user['nama_karyawan'] = "Pimpinan Bumdes";
+				$data_user['id_ikm'] = 0;
 			} else {
 
 				$whereuser = array(

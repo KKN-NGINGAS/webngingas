@@ -41,7 +41,7 @@
                   Halaman Utama
                 </a>
               </li>
-              <?php if (in_array($this->session->userdata('role'), array('admin_bumdes', 'admin_ikm'))) { ?>
+              <?php if (in_array($this->session->userdata('role'), array('admin_ikm'))) { ?>
                 <li class="nav-item">
                   <a class="nav-link <?= ($page == 'data user') ? 'active' : '' ?>" href="<?= base_url().'MainController/data_user' ?>">
                     <span data-feather="user"></span>

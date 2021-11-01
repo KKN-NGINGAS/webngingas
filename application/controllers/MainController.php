@@ -18,6 +18,13 @@ class MainController extends CI_Controller {
 		}
 	}
 
+	// Fungsi Random buat username sama password
+	public function rand_string($length)
+	{
+		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		return substr(str_shuffle($chars), 0, $length);
+	}
+
 	// Fungsi Auth untuk akun ikm
 
 	public function auth_ikm()
@@ -62,7 +69,12 @@ class MainController extends CI_Controller {
 			$data['msg']		= '';
 		}
 
-		$data['sdm']		= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_user.id_karyawan = data_karyawan.id_karyawan', array('data_karyawan.id_karyawan' => $this->session->userdata('id_karyawan')))->result();
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['sdm'] = $this->MainModel->getWhere('data_user', array('id_user' => $this->session->userdata('id_user')))->result();
+		} else {
+			$data['sdm'] = $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_user.id_karyawan = data_karyawan.id_karyawan', array('data_karyawan.id_karyawan' => $this->session->userdata('id_karyawan')))->result();
+		}
+
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/pengaturan', $data);
 		$this->load->view('layouts/footer');
@@ -77,16 +89,16 @@ class MainController extends CI_Controller {
 
 	public function data_user()
 	{
-		if (!in_array($this->session->userdata('role'), array('admin_bumdes', 'admin_ikm'))) {
+		if (!in_array($this->session->userdata('role'), array('admin_ikm'))) {
 			redirect('MainController/no_access');
 		}
 		$header['title']	= 'Data User';
 		$header['page']		= 'data user';
-		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
-			$data['data_sdm']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', 'data_user.role NOT IN ("admin_bumdes", "pimpinan_bumdes", "pimpinan_ikm", "admin_ikm")')->result();
-		} else {
-			$data['data_sdm']	= $this->MainModel->getJoinWhere('data_user', 'data_karyawan', 'data_karyawan.id_karyawan = data_user.id_karyawan', array('data_karyawan.id_ikm' => $this->session->userdata('id_ikm')))->result();
-		}
+		// if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+		// 	$data['data_sdm']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', 'data_user.role NOT IN ("admin_bumdes", "pimpinan_bumdes", "pimpinan_ikm", "admin_ikm")')->result();
+		// } else {
+		$data['data_sdm']	= $this->MainModel->getJoinWhere('data_user', 'data_karyawan', 'data_karyawan.id_karyawan = data_user.id_karyawan', array('data_karyawan.id_ikm' => $this->session->userdata('id_ikm')))->result();
+		// }
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
@@ -106,18 +118,23 @@ class MainController extends CI_Controller {
 			redirect('MainController/no_access');
 		}
 
-		$timestamp = date("YmdHis");
+		$rand = $this->rand_string(8);
 
 		$data = array(
 			'id_karyawan'	=> $id_karyawan,
-			'username' 		=> $timestamp,
-			'user_pwd'		=> $timestamp,
+			'username' 		=> $rand,
+			'user_pwd'		=> $rand,
 			'role'			=> 'operator_ikm'
 		);
 
 		$this->MainModel->inputData('data_user', $data);
 
-		$this->session->set_userdata('msg', 'User Baru berhasil ditambahkan');
+		$session = array(
+			'username' => $rand,
+			'password' => $rand,
+			'msg' => 'User Baru berhasil ditambahkan'
+		);
+
 		redirect('MainController/data_user');
 	}
 
@@ -127,11 +144,11 @@ class MainController extends CI_Controller {
 			redirect('MainController/no_access');
 		}
 
-		$timestamp = date("YmdHis");
+		$rand = $this->rand_string(8);
 		
 		$data = array(
-			'username' => $timestamp,
-			'user_pwd' => $timestamp,
+			'username' => $rand,
+			'user_pwd' => $rand,
 			'tanggal_update'=> date("Y-m-d H:i:s")
 		);
 
@@ -141,7 +158,11 @@ class MainController extends CI_Controller {
 
 		$this->MainModel->updateData('data_user', $data, $where);
 
-		$this->session->set_userdata('msg', 'Data User berhasil direset');
+		$session = array(
+			'username' => $rand,
+			'password' => $rand,
+			'msg' => 'Data User berhasil direset'
+		);
 
 		if ($this->session->role == 'admin_ikm') {
 			redirect('MainController/data_user');
@@ -443,9 +464,9 @@ class MainController extends CI_Controller {
 			$this->MainModel->updateData('data_produk', $update_produk, array('id_data_produk' => $id_produk));
 			$this->MainModel->updateData('data_transaksi', $update_transaksi, array('id_transaksi' => $id_transaksi));
 
-			$this->session->set_userdata('msg', 'Berhaisl menambahkan produk ke transaksi');
+			$this->session->set_userdata('msg', 'Berhasil menambahkan produk ke transaksi');
 			redirect('MainController/detail_transaksi/'.$id_transaksi);
-		} else { // kalo stok kurang dari 0 
+		} else { // kalo stok kurang dari 0 gagal menambahkan produk ke transaksi
 			$this->session->set_userdata('msg', 'Gagal menambah produk karena kekurangan stok');
 			redirect('MainController/tambah_detail_transaksi/'.$id_transaksi);
 		}
@@ -454,21 +475,36 @@ class MainController extends CI_Controller {
 	public function hapus_detail_transaksi($id_det_transaksi)
 	{
 		$data_detail_transaksi = $this->MainModel->getWhere('detail_transaksi', array('id_det_transaksi' => $id_det_transaksi))->row();
-		$id_transaksi = $data_detail_transaksi->id_transaksi;
-		$id_produk = $data_detail_transaksi->id_produk;
+		$id_transaksi = $data_detail_transaksi->id_transaksi; // ambil id transaksi di detail_transaksi
+		$id_produk = $data_detail_transaksi->id_produk; // ambil id produk di detail_transaksi
 
-		$stok_produk = $this->MainModel->getWhere('data_produk', array('id_data_produk' => $id_produk))->row()->stok;
-		$total_transaksi = $this->MainModel->getWhere('data_transaksi', array('id_transaksi' => $id_transaksi))->row()->total;
+		$stok_produk = $this->MainModel->getWhere('data_produk', array('id_data_produk' => $id_produk))->row()->stok; // ambil stok produknya
+		$total_transaksi = $this->MainModel->getWhere('data_transaksi', array('id_transaksi' => $id_transaksi))->row()->total; // ambil nominal total transaksi di data_transaksi
 
-		$jumlah_barang = $data_detail_transaksi->jumlah_barang;
-		$harga_satuan_transaksi = $data_detail_transaksi->harga_satuan_transaksi;
+		$jumlah_barang = $data_detail_transaksi->jumlah_barang; // ambil jumlah barang dari detail transaksi
+		$harga_satuan_transaksi = $data_detail_transaksi->harga_satuan_transaksi; // ambil harga satuan yang ada di detail transaksi
 
-		$stok_baru = $stok_produk + $jumlah_barang; // stok buat update di data_produk
+		$stok_update = $stok_produk + $jumlah_barang; // stok buat update di data_produk
 
-		$total_detail = $harga_satuan_transaksi * $jumlah_barang;
-		$total_baru = $total_transaksi - $total_detail; // harga buat update di data_transaksi
+		$total_detail = $harga_satuan_transaksi * $jumlah_barang; // hitung total harga dari produk
+		$total_update = $total_transaksi - $total_detail; // harga buat update di data_transaksi
 
+		$update_transaksi = array (
+			'total' => $total_update,
+			'tanggal_update' => date("Y-m-d H:i:s")
+		);
 
+		$update_produk = array(
+			'stok' => $stok_update,
+			'tanggal_update' => date("Y-m-d H:i:s")
+		);
+
+		$this->MainModel->deleteData('detail_transaksi', array('id_det_transaksi' => $id_det_transaksi));
+		$this->MainModel->updateData('data_produk', $update_produk, array('id_data_produk' => $id_produk));
+		$this->MainModel->updateData('data_transaksi', $update_transaksi, array('id_transaksi' => $id_transaksi));
+
+		$this->session->set_userdata('msg', 'Produk berhasil dihapus dari transaksi');
+		redirect('MainController/detail_transaksi/'.$id_transaksi);
 		
 	}
 

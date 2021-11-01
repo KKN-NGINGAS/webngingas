@@ -16,7 +16,7 @@
     </div>
 
     <?php if ($msg != '') { ?>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-warning" role="alert">
             <?= $msg ?>
         </div>
     <?php } ?>
@@ -44,7 +44,9 @@
                         <td><?= $tgl ?></td>
                         <td><?= $row->nama_produk ?></td>
                         <td><?= $row->jumlah_produksi ?></td>
-                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_produksi/'.$row->id_data_produksi ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_produksi/'.$row->id_data_produksi ?>" style="text-decoration: none; color: white;">Info Detail</a>
+                            <a class="btn btn-danger" href="<?= base_url().'MainController/delete_produksi/'.$row->id_data_produksi ?>" style="text-decoration: none; color: white;">Hapus Data</a>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>

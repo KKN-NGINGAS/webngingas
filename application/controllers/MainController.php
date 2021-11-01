@@ -177,11 +177,7 @@ class MainController extends CI_Controller {
 			redirect('MainController/no_access');
 		}
 
-		$where = array(
-			'id_user' => $id_user
-		);
-
-		$this->MainModel->deleteData('data_user', $where);
+		$this->MainModel->deleteData('data_user', array('id_user' => $id_user));
 
 		$this->session->set_userdata('msg', 'User berhasil dihapus');
 		redirect('MainController/data_user');
@@ -307,6 +303,19 @@ class MainController extends CI_Controller {
 
 		$this->session->set_userdata('msg', 'Data Produk berhasil diubah');
 		redirect('MainController/data_produk');
+	}
+
+	public function delete_produk($id_produk)
+	{
+		$cek = $this->MainModel->getWhere('detail_transaksi', array('id_produk' => $id_produk))->num_rows();
+		
+		if ($cek > 0) {
+			$this->session->set_userdata('msg', 'Data Produk gagal dihapus dikarenakan pernah terdapat pada suatu transaksi');
+		} else {
+			$this->MainModel->deleteData('data_produk', array('id_data_produk' => $id_produk));
+			$this->session->set_userdata('msg', 'Data Produk berhasil dihapus');
+		}
+			redirect('MainController/data_produk');
 	}
 
 	// Fungsi Transaksi
@@ -725,7 +734,8 @@ class MainController extends CI_Controller {
 		$stok = $this->MainModel->getWhere('data_produk', $where)->row()->stok;
 
 		$update_stock = array(
-			'stok' => $stok + $jumlah
+			'stok' => $stok + $jumlah,
+			'tanggal_update'=> date("Y-m-d H:i:s")
 		);
 
 		$this->MainModel->inputData('data_produksi', $data);
@@ -744,7 +754,7 @@ class MainController extends CI_Controller {
 		
 		$stok_sekarang = $this->MainModel->getWhere('data_produk', array('id_data_produk' => $id_produk))->row()->stok;
 		$produksi_lama = $this->MainModel->getWhere('data_produksi', array('id_data_produksi'=>$id_produksi))->row()->jumlah_produksi;
-		$stok_awal = $stok_sekarang-$produksi_lama;
+		$stok_awal = $stok_sekarang - $produksi_lama;
 		$stok_update = $stok_awal + $produksi_baru;
 
 		if ($stok_update < 0) {
@@ -763,13 +773,37 @@ class MainController extends CI_Controller {
 				'id_data_produksi' => $id_produksi
 			);
 
+			$update_stok = array(
+				'stok' => $stok_update,
+				'tanggal_update'=> date("Y-m-d H:i:s")
+			);
+
 
 			$this->MainModel->updateData('data_produksi', $data, $where);
-			$this->MainModel->updateData('data_produk', array('stok' => $stok_update), array('id_data_produk' => $id_produk));
+			$this->MainModel->updateData('data_produk', $update_stok, array('id_data_produk' => $id_produk));
 
 			$this->session->set_userdata('msg', 'Data Produksi berhasil diubah');
 			redirect('MainController/data_produksi');
 		}
+	}
+
+	public function delete_produksi($id_produksi)
+	{
+		$data_produksi = $this->MainModel->getWhere('data_produksi', array('id_data_produksi' => $id_produksi))->row();
+		$id_produk = $data_produksi->id_produk;
+		$data_produk = $this->MainModel->getWhere('data_produk', array('id_data_produk' => $id_produk))->row();
+		$stok = $data_produk->stok;
+		$produksi = $data_produksi->jumlah_produksi;
+		$stok_update = $stok - $produksi;
+
+		if ($stok_update < 0) {
+			$this->session->set_userdata('msg', 'Data Produksi gagal diubah karena stok produk akan minus');
+		} else {
+			$this->MainModel->updateData('data_produk', array('stok' => $stok_update, 'tanggal_update'=> date("Y-m-d H:i:s")), array('id_data_produk' => $id_produk));
+			$this->MainModel->deleteData('data_produksi', array('id_data_produksi' => $id_produksi));
+			$this->session->set_userdata('msg', 'Data Produksi berhasil dihapus');
+		}
+		redirect('MainController/data_produksi');
 	}
 
 	// Fungsi Pelayanan Konsumen
@@ -894,6 +928,19 @@ class MainController extends CI_Controller {
 
 		$this->session->set_userdata('msg', 'Data Pelanggan berhasil diubah');
 		redirect('MainController/pelayanan_konsumen');
+	}
+
+	public function delete_konsumen($id_konsumen)
+	{
+		$cek = $this->MainModel->getWhere('data_transaksi', array('id_pelanggan' => $id_konsumen))->num_rows();
+		
+		if ($cek > 0) {
+			$this->session->set_userdata('msg', 'Data Pelanggan gagal dihapus dikarenakan pernah terdapat pada suatu transaksi');
+		} else {
+			$this->MainModel->deleteData('data_pelanggan', array('id_perusahaan' => $id_konsumen));
+			$this->session->set_userdata('msg', 'Data Pelanggan berhasil dihapus');
+		}
+			redirect('MainController/pelayanan_konsumen');
 	}
 
 	// Fungsi Keuangan
@@ -1186,6 +1233,14 @@ class MainController extends CI_Controller {
 		$this->MainModel->updateData('teknologi_informasi', $data, $where);
 
 		$this->session->set_userdata('msg', 'Data Teknologi Informasi berhasil diubah');
+		redirect('MainController/data_tekfo');
+	}
+
+	public function delete_tekfo($id_tekfo)
+	{
+		
+		$this->MainModel->deleteData('teknologi_informasi', array('id_tekfo' => $id_tekfo));
+		$this->session->set_userdata('msg', 'Data Teknologi Informasi berhasil dihapus');
 		redirect('MainController/data_tekfo');
 	}
 

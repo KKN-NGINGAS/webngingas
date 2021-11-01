@@ -17,7 +17,7 @@
     </div>
 
     <?php if ($msg != '') { ?>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-warning" role="alert">
             <?= $msg ?>
         </div>
     <?php } ?>
@@ -42,7 +42,9 @@
                         <td><?= $row->nama_produk ?></td>
                         <td><?= "Rp " . number_format($row->harga_satuan,2,',','.'); ?></td>
                         <td><?= $row->stok ?></td>
-                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_produk/'.$row->id_data_produk ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_produk/'.$row->id_data_produk ?>" style="text-decoration: none; color: white;">Info Detail</a>
+                            <a class="btn btn-danger" href="<?= base_url().'MainController/delete_produk/'.$row->id_data_produk ?>" style="text-decoration: none; color: white;">Hapus Data</a>
+                        </td>
                     </tr>
                 <?php }?>
             </tbody>

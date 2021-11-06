@@ -46,7 +46,11 @@
                         <td><?= $row->no_transaksi ?></td>
                         <td><?= $row->nama_perusahaan ?></td>
                         <td><?= "Rp " . number_format($row->total,2,',','.'); ?></td>
-                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_transaksi/'.$row->id_transaksi ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_transaksi/'.$row->id_transaksi ?>" style="text-decoration: none; color: white;">Info Detail</a>
+                            <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                                <a class="btn btn-danger" href="<?= base_url().'MainController/delete_transaksi/'.$row->id_transaksi ?>" style="text-decoration: none; color: white;">Hapus Transaksi</a>
+                            <?php } ?>
+                        </td>
                     </tr>
                 <?php }?>
             </tbody>

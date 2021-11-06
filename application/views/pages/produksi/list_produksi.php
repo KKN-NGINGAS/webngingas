@@ -45,7 +45,9 @@
                         <td><?= $row->nama_produk ?></td>
                         <td><?= $row->jumlah_produksi ?></td>
                         <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_produksi/'.$row->id_data_produksi ?>" style="text-decoration: none; color: white;">Info Detail</a>
-                            <a class="btn btn-danger" href="<?= base_url().'MainController/delete_produksi/'.$row->id_data_produksi ?>" style="text-decoration: none; color: white;">Hapus Data</a>
+                            <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                                <a class="btn btn-danger" href="<?= base_url().'MainController/delete_produksi/'.$row->id_data_produksi ?>" style="text-decoration: none; color: white;">Hapus Data</a>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>

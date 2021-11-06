@@ -44,7 +44,9 @@
                         <td><?= ucwords($row->alamat_perusahaan) ?></td>
                         <td><?= $row->email_perusahaan.' / '.$row->telp_perusahaan ?></td>
                         <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_konsumen/'.$row->id_perusahaan ?>" style="text-decoration: none; color: white;">Info Detail</a>
-                            <a class="btn btn-danger" href="<?= base_url().'MainController/delete_konsumen/'.$row->id_perusahaan ?>" style="text-decoration: none; color: white;">Hapus Data</a>
+                            <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                                <a class="btn btn-danger" href="<?= base_url().'MainController/delete_konsumen/'.$row->id_perusahaan ?>" style="text-decoration: none; color: white;">Hapus Data</a>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php }?>

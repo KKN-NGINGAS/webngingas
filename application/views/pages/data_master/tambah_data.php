@@ -2,7 +2,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
-            <li class="breadcrumb-item"><a href="<?= base_url().'AdminBumdes/data_master' ?>">Data Master</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_master' ?>">Data Master</a></li>
             <li class="breadcrumb-item active" aria-current="page">Tambah IKM</li>
         </ol>
     </nav>
@@ -15,7 +15,7 @@
         <!-- <div class="card"> -->
             <div class="card-content">
                 <div class="col-10 mx-auto">
-                    <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'AdminBumdes/input_ikm' ?>" method="POST">
+                    <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/input_ikm' ?>" method="POST">
                 <!-- <div class="mb-3">
                     <label for="tanggal" class="form-label">Tanggal</label>
                     <input type="date" class="form-control input-field" id="tanggal" placeholder="Contoh: 15/09/20">

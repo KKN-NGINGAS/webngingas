@@ -76,7 +76,11 @@
                         <td><?= "Rp " . number_format($row->harga_satuan_transaksi,2,',','.'); ?></td>
                         <td><?= $row->jumlah_barang ?></td>
                         <td><?= "Rp " . number_format($row->harga_satuan_transaksi * $row->jumlah_barang,2,',','.'); ?></td>
-                        <td><a class="btn btn-danger" href="<?= base_url().'MainController/hapus_detail_transaksi/'.$row->id_det_transaksi ?>" style="text-decoration: none; color: white;">Hapus</a></td>
+                        <td>
+                            <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                                <a class="btn btn-danger" href="<?= base_url().'MainController/delete_detail_transaksi/'.$row->id_det_transaksi ?>" style="text-decoration: none; color: white;">Hapus</a>
+                            <?php } else { echo "-"; } ?>
+                        </td>
                     </tr>
                 <?php }?>
             </tbody>

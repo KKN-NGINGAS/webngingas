@@ -2,8 +2,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
-            <li class="breadcrumb-item"><a href="<?= base_url().'AdminBumdes/data_master' ?>">Data Master</a></li>
-            <li class="breadcrumb-item"><a href="<?= base_url().'AdminBumdes/detail_ikm/'.$id_ikm ?>">Data Master</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_master' ?>">Data Master</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url().'MainController/detail_ikm/'.$id_ikm ?>">Data Master</a></li>
             <li class="breadcrumb-item active" aria-current="page">Tambah <?= $level ?></li>
         </ol>
     </nav>
@@ -20,7 +20,7 @@
 
     <div class="card-content">
         <div class="col-10 mx-auto">
-            <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'AdminBumdes/input_user' ?>" method="POST">
+            <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/input_user' ?>" method="POST">
                 <input type="text" id="id_ikm" name="id_ikm" value="<?= $id_ikm?>" readonly hidden>
                 <div class="row">
                     <div class="col-lg-12 mb-3">

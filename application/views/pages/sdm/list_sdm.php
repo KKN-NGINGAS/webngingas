@@ -43,7 +43,12 @@
                         <td><?= ucwords($row->nama_karyawan) ?></td>
                         <td><?= ucwords($row->nama_ikm) ?></td>
                         <td><?= $row->jabatan ?></td>
-                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_sdm/'.$row->id_karyawan ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                        <td>
+                            <a class="btn btn-info" href="<?= base_url().'MainController/detail_sdm/'.$row->id_karyawan ?>" style="text-decoration: none; color: white;">Info Detail</a>
+                            <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                                <a class="btn btn-danger" href="<?= base_url().'MainController/delete_sdm/'.$row->id_karyawan ?>" style="text-decoration: none; color: white;">Hapus Data</a>
+                            <?php } ?>
+                        </td>
                     </tr>
                 <?php }?>
             </tbody>

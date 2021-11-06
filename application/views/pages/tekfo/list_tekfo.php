@@ -46,8 +46,11 @@
                         <td><?= $row->sumber_dana ?></td>
                         <td style="text-align: left;"><?= $row->kondisi_baik.' Baik</br>'.$row->kondisi_kurang.' Kurang Baik</br>'.$row->kondisi_buruk.' Buruk' ?></td>
                         <td><?= $row->kondisi_baik + $row->kondisi_kurang + $row->kondisi_buruk ?></td>
-                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_tekfo/'.$row->id_tekfo ?>" style="text-decoration: none; color: white;">Info Detail</a>
-                            <a class="btn btn-danger" href="<?= base_url().'MainController/delete_tekfo/'.$row->id_tekfo ?>" style="text-decoration: none; color: white;">Hapus Data</a>
+                        <td>
+                            <a class="btn btn-info" href="<?= base_url().'MainController/detail_tekfo/'.$row->id_tekfo ?>" style="text-decoration: none; color: white;">Info Detail</a>
+                            <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                                <a class="btn btn-danger" href="<?= base_url().'MainController/delete_tekfo/'.$row->id_tekfo ?>" style="text-decoration: none; color: white;">Hapus Data</a>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>

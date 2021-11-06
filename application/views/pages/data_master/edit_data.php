@@ -2,7 +2,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
-            <li class="breadcrumb-item"><a href="<?= base_url().'AdminBumdes/data_master' ?>">Data Master</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_master' ?>">Data Master</a></li>
             <li class="breadcrumb-item active" aria-current="page">Detail IKM</li>
         </ol>
     </nav>
@@ -19,7 +19,7 @@
 
             <div class="card-content">
                 <div class="col-10 mx-auto">
-                    <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'AdminBumdes/update_ikm' ?>" method="POST">
+                    <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/update_ikm' ?>" method="POST">
                         <?php foreach ($ikm as $row) { ?>
                             <input type="text" id="id_ikm" name="id_ikm" value="<?= $row->id_ikm?>" readonly hidden>
                             <div class="row">
@@ -150,14 +150,14 @@
                                     </table>
                                     <div class="row" style="padding-top:1rem;">
                                         <div class="col mb-3">
-                                            <a href="<?= base_url('AdminBumdes/reset_user/'.$row->id_user.'/'.$row->id_ikm) ?>" class="form-control button-yellow" style="justify-content: center;">Reset Akun</a>
+                                            <a href="<?= base_url('MainController/reset_user/'.$row->id_user.'/'.$row->id_ikm) ?>" class="form-control button-yellow" style="justify-content: center;">Reset Akun</a>
                                         </div>
                                     </div>
                                 <?php }
                             } else { ?>
                                 <div class="row" style="padding-top:1rem;">
                                     <div class="col mb-3">
-                                        <a href="<?= base_url('AdminBumdes/tambah_user/admin/'.$row->id_ikm) ?>" class="form-control button-yellow" style="justify-content: center;">Tambah Admin</a>
+                                        <a href="<?= base_url('MainController/tambah_user/admin/'.$row->id_ikm) ?>" class="form-control button-yellow" style="justify-content: center;">Tambah Admin</a>
                                     </div>
                                 </div>
                             <?php } ?>

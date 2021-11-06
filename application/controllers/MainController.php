@@ -19,6 +19,7 @@ class MainController extends CI_Controller {
 	}
 
 	// Fungsi Random buat username sama password
+	
 	public function rand_string($length)
 	{
 		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -30,6 +31,15 @@ class MainController extends CI_Controller {
 	public function auth_ikm()
 	{
 		if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) {
+			redirect('MainController/no_access');
+		} else {
+			return;
+		}
+	}
+
+	public function auth_admin_bumdes()
+	{
+		if (!in_array($this->session->userdata('role'), array('admin_bumdes'))) {
 			redirect('MainController/no_access');
 		} else {
 			return;
@@ -83,6 +93,198 @@ class MainController extends CI_Controller {
 	public function update_pengaturan()
 	{
 		
+	}
+
+	// Fungsi Data Master khusus admin bumdes
+
+	public function data_master()
+	{
+		$header['title']	= 'Data Master';
+		$header['page']		= 'data master';
+		$data['data_ikm']	= $this->MainModel->get('data_ikm')->result();
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/data_master/data_master', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function tambah_ikm()
+	{
+		$header['title']	= 'Tambah IKM';
+		$header['page']		= 'data master';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/data_master/tambah_data', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function input_ikm()
+	{
+		$nama_ikm = $this->input->post('nama_ikm');
+		$telp_ikm = $this->input->post('no_telp_ikm');
+		$email_ikm = $this->input->post('email_ikm');
+		$alamat_ikm = $this->input->post('alamat_ikm');
+
+
+		$data_ikm = array(
+			'nama_ikm' => $nama_ikm,
+			'no_telp_ikm' => $telp_ikm,
+			'email_ikm' => $email_ikm,
+			'alamat_ikm' => $alamat_ikm
+		);
+
+		$this->MainModel->inputData('data_ikm', $data_ikm);
+
+		$this->session->set_userdata('msg', 'Data IKM Berhasil Ditambahkan');
+		redirect('MainController/data_master');
+	}
+
+	public function detail_ikm($id_ikm)
+	{
+		$header['title']	= 'Detail IKM';
+		$header['page']		= 'data master';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		$data['ikm']		= $this->MainModel->getWhere('data_ikm', array('id_ikm' => $id_ikm))->result();
+		$data['pimpinan']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', array('data_karyawan.id_ikm' => $id_ikm, 'data_user.role' => 'pimpinan_ikm'))->result();
+
+		$data['admin']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', array('data_karyawan.id_ikm' => $id_ikm, 'data_user.role' => 'admin_ikm'))->result();
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/data_master/edit_data', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function update_ikm()
+	{
+		$id_ikm = $this->input->post('id_ikm');
+		$nama_ikm = $this->input->post('nama_ikm');
+		$telp_ikm = $this->input->post('no_telp_ikm');
+		$email_ikm = $this->input->post('email_ikm');
+		$alamat_ikm = $this->input->post('alamat_ikm');
+
+
+		$data_ikm = array(
+			'nama_ikm' => $nama_ikm,
+			'no_telp_ikm' => $telp_ikm,
+			'email_ikm' => $email_ikm,
+			'alamat_ikm' => $alamat_ikm,
+			'tanggal_update' => date("Y-m-d H:i:s")
+		);
+
+		$this->MainModel->updateData('data_ikm', $data_ikm, array('id_ikm' => $id_ikm));
+
+		$this->session->set_userdata('msg', 'Data IKM Berhasil Diupdate');
+		redirect('MainController/data_master');
+	}
+
+	public function tambah_user($role, $id_ikm)
+	{
+		if ($role == 'ketua') {
+			$cek = $this->MainModel->getJoinWhere('data_user', 'data_karyawan', 'data_user.id_karyawan = data_karyawan.id_karyawan', array('data_karyawan.id_ikm' => $id_ikm, 'data_user.role' => 'pimpinan_ikm'))->num_rows();
+			
+			$data['level'] = 'Ketua IKM';
+		} else if ($role == 'admin') {
+			$cek = $this->MainModel->getJoinWhere('data_user', 'data_karyawan', 'data_user.id_karyawan = data_karyawan.id_karyawan', array('data_karyawan.id_ikm' => $id_ikm, 'data_user.role' => 'admin_ikm'))->num_rows();
+
+			$data['level'] = 'Admin IKM';
+		} else {
+			redirect('MainController/data_master');
+		}
+
+		if ($cek > 0) {
+			redirect('MainController/data_master');
+		}
+
+		$header['title']	= 'Tambah '.ucwords($role);
+		$header['page']		= 'data master';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$this->session->unset_userdata('msg');
+		} else {
+			$data['msg']		= '';
+		}
+
+		$data['id_ikm'] = $id_ikm;
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/data_master/tambah_user', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function input_user()
+	{
+		$id_ikm = $this->input->post('id_ikm');
+		$nama = $this->input->post('nama');
+		$role = $this->input->post('role');
+		$nik = $this->input->post('nik');
+		$gender = $this->input->post('gender');
+		$no_telp = $this->input->post('no_telp');
+		$email = $this->input->post('email');
+		$pendidikan = $this->input->post('pendidikan');
+		$alamat = $this->input->post('alamat');
+
+		$timestamp = date("YmdHis");
+
+		if ($role == 'pimpinan_ikm') {
+			$jabatan = 'Ketua';
+		} else if ($role == 'admin_ikm') {
+			$jabatan = 'Karyawan';
+		}
+
+		$cek = $this->MainModel->getWhere('data_karyawan', array('nik' => $nik))->num_rows();
+
+		if ($cek > 0) {
+			$this->session->set_userdata('msg', 'NIK Karyawan sudah terdaftar');
+			redirect('MainController/tambah_user');
+		} else {
+			$data = array(
+				'nama_karyawan'	=> $nama,
+				'nik'			=> $nik,
+				'kelamin'		=> $gender,
+				'no_telp'		=> $no_telp,
+				'email'			=> $email,
+				'id_ikm'		=> $id_ikm,
+				'alamat'		=> $alamat,
+				'pendidikan'	=> $pendidikan,
+				'jabatan'		=> $jabatan
+			);
+
+			$id_karyawan = $this->MainModel->insertGetId('data_karyawan', $data);
+
+			$data2 = array(
+				'id_karyawan'	=> $id_karyawan,
+				'username' 		=> $timestamp,
+				'user_pwd'		=> $timestamp,
+				'role'			=> $role
+				//'tanggal_dibuat'=> date("Y-m-d H:i:s")
+			);
+
+			$this->MainModel->inputData('data_user', $data2);
+
+			$this->session->set_userdata('msg', 'Data berhasil ditambahkan');
+			redirect('MainController/detail_ikm/'.$id_ikm);
+		}
 	}
 
 	// Fungsi User khusus buat admin bumdes dan admin ikm
@@ -167,7 +369,7 @@ class MainController extends CI_Controller {
 		if ($this->session->role == 'admin_ikm') {
 			redirect('MainController/data_user');
 		} else if ($this->session->role == 'admin_bumdes') {
-			redirect('AdminBumdes/detail_ikm/'.$id_ikm);
+			redirect('MainController/detail_ikm/'.$id_ikm);
 		}
 	}
 
@@ -333,7 +535,7 @@ class MainController extends CI_Controller {
 		}
 		
 		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
-			$data['transaksi'] = $this->MainModel->getJoin('data_pelanggana', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan')->result();
+			$data['transaksi'] = $this->MainModel->getJoin('data_pelanggan', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan')->result();
 		} else {
 			$data['transaksi'] = $this->MainModel->getJoinWhere('data_pelanggan', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan', array('data_transaksi.id_ikm' => $this->session->id_ikm))->result();
 		}
@@ -437,6 +639,26 @@ class MainController extends CI_Controller {
 		redirect('MainController/data_transaksi');
 	}
 
+	public function delete_transaksi($id_transaksi)
+	{
+		$data_transaksi = $this->MainModel->getWhere('detail_transaksi', array('id_transaksi' => $id_transaksi));
+		$cek = $data_transaksi->num_rows();
+		
+		if ($cek > 0) {
+			$this->session->set_userdata('flag', 'process delete');
+			$detail_transaksi = $data_transaksi->result();
+			foreach ($detail_transaksi as $key) {
+				$this->delete_detail_transaksi($key->id_det_transaksi);
+			}
+			$this->session->unset_userdata('flag');
+		}
+
+		// die();
+		$this->MainModel->deleteData('data_transaksi', array('id_transaksi' => $id_transaksi));
+		$this->session->set_userdata('msg', 'Data Transaksi berhasil dihapus');
+		redirect('MainController/data_transaksi');
+	}
+
 	public function input_detail_transaksi($id_transaksi)
 	{
 		$id_produk = $this->input->post('produk');
@@ -481,7 +703,7 @@ class MainController extends CI_Controller {
 		}
 	}
 
-	public function hapus_detail_transaksi($id_det_transaksi)
+	public function delete_detail_transaksi($id_det_transaksi)
 	{
 		$data_detail_transaksi = $this->MainModel->getWhere('detail_transaksi', array('id_det_transaksi' => $id_det_transaksi))->row();
 		$id_transaksi = $data_detail_transaksi->id_transaksi; // ambil id transaksi di detail_transaksi
@@ -512,9 +734,10 @@ class MainController extends CI_Controller {
 		$this->MainModel->updateData('data_produk', $update_produk, array('id_data_produk' => $id_produk));
 		$this->MainModel->updateData('data_transaksi', $update_transaksi, array('id_transaksi' => $id_transaksi));
 
-		$this->session->set_userdata('msg', 'Produk berhasil dihapus dari transaksi');
-		redirect('MainController/detail_transaksi/'.$id_transaksi);
-		
+		if ($this->session->flag != 'process delete') {
+			$this->session->set_userdata('msg', 'Produk berhasil dihapus dari transaksi');
+			redirect('MainController/detail_transaksi/'.$id_transaksi);
+		}
 	}
 
 	// Fungsi SDM
@@ -643,6 +866,14 @@ class MainController extends CI_Controller {
 		$this->session->set_userdata('msg', 'Data Karyawan berhasil diubah');
 		redirect('MainController/data_sdm');
 
+	}
+
+	public function delete_sdm($id_karyawan)
+	{
+		$this->MainModel->deleteData('data_karyawan', array('id_karyawan' => $id_karyawan));
+		$this->MainModel->deleteData('data_user', array('id_karyawan' => $id_karyawan));
+		$this->session->set_userdata('msg', 'Data SDM berhasil dihapus');
+		redirect('MainController/data_sdm');
 	}
 
 	// Fungsi Produksi
@@ -1238,7 +1469,6 @@ class MainController extends CI_Controller {
 
 	public function delete_tekfo($id_tekfo)
 	{
-		
 		$this->MainModel->deleteData('teknologi_informasi', array('id_tekfo' => $id_tekfo));
 		$this->session->set_userdata('msg', 'Data Teknologi Informasi berhasil dihapus');
 		redirect('MainController/data_tekfo');

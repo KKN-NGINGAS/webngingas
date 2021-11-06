@@ -86,7 +86,7 @@ class AdminBumdes extends CI_Controller {
 			$data['msg']		= '';
 		}
 
-		$data['ikm']		= $this->MainModel->getWhere('data_ikm', array('id_ikm', $id_ikm))->result();
+		$data['ikm']		= $this->MainModel->getWhere('data_ikm', array('id_ikm' => $id_ikm))->result();
 		$data['pimpinan']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', array('data_karyawan.id_ikm' => $id_ikm, 'data_user.role' => 'pimpinan_ikm'))->result();
 
 		$data['admin']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', array('data_karyawan.id_ikm' => $id_ikm, 'data_user.role' => 'admin_ikm'))->result();
@@ -108,7 +108,8 @@ class AdminBumdes extends CI_Controller {
 			'nama_ikm' => $nama_ikm,
 			'no_telp_ikm' => $telp_ikm,
 			'email_ikm' => $email_ikm,
-			'alamat_ikm' => $alamat_ikm
+			'alamat_ikm' => $alamat_ikm,
+			'tanggal_update' => date("Y-m-d H:i:s")
 		);
 
 		$this->MainModel->updateData('data_ikm', $data_ikm, array('id_ikm' => $id_ikm));
@@ -196,8 +197,8 @@ class AdminBumdes extends CI_Controller {
 				'id_karyawan'	=> $id_karyawan,
 				'username' 		=> $timestamp,
 				'user_pwd'		=> $timestamp,
-				'role'			=> $role,
-				'tanggal_dibuat'=> date("Y-m-d H:i:s")
+				'role'			=> $role
+				//'tanggal_dibuat'=> date("Y-m-d H:i:s")
 			);
 
 			$this->MainModel->inputData('data_user', $data2);

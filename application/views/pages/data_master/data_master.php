@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>Data Master</h1>
         <div>
-            <a class="btn btn-success" href="<?= base_url().'AdminBumdes/tambah_ikm' ?>" style="text-decoration: none; color: white;">Tambah Data</a>
+            <a class="btn btn-success" href="<?= base_url().'MainController/tambah_ikm' ?>" style="text-decoration: none; color: white;">Tambah Data</a>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
                         <td><?= $i++ ?></td>
                         <td><?= ucwords($row->nama_ikm) ?></td>
                         <td><?= $row->no_telp_ikm ?></td>
-                        <td><a class="btn btn-info" href="<?= base_url().'AdminBumdes/detail_ikm/'.$row->id_ikm ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
+                        <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_ikm/'.$row->id_ikm ?>" style="text-decoration: none; color: white;">Info Detail</a></td>
                     </tr>
                 <?php }?>
             </tbody>

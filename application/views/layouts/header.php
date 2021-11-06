@@ -51,7 +51,7 @@
               <?php } ?>
               <?php if ($this->session->userdata('role') == 'admin_bumdes') { ?>
                 <li class="nav-item">
-                  <a class="nav-link <?= ($page == 'data master') ? 'active' : '' ?>" href="<?= base_url().'AdminBumdes/data_master' ?>">
+                  <a class="nav-link <?= ($page == 'data master') ? 'active' : '' ?>" href="<?= base_url().'MainController/data_master' ?>">
                     <span data-feather="database"></span>
                     Data Master
                   </a>

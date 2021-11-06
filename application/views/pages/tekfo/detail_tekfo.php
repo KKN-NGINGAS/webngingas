@@ -3,12 +3,12 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
             <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_tekfo' ?>">Data Teknologi Informasi</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tambah Data Teknologi Informasi</li>
+            <li class="breadcrumb-item active" aria-current="page">Detail Data Teknologi Informasi</li>
         </ol>
     </nav>
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1>Tambah Data Produksi</h1>
+        <h1>Detail Data Teknologi Informasi</h1>
         <span data-feather="bell"></span>
     </div>
 
@@ -48,14 +48,17 @@
                         <input type="number" class="form-control input-field" name="jumlah_buruk" id="jumlah_buruk" placeholder="Default: 0" value="<?= $row->kondisi_buruk ?>">
                     </div>
                 </div>
-                <div class="row" style="padding-top: 1rem;">
-                    <div class="col mb-3">
-                        <input class="form-control button-red" style="justify-content: center;" type="reset" name="reset" value="Reset">
+                <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                    <div class="row" style="padding-top: 1rem;">
+                        <div class="col mb-3">
+                            <input class="form-control button-red" style="justify-content: center;" type="reset" name="reset" value="Reset">
+                        </div>
+                        <div class="col mb-3">
+                            <input class="form-control button-yellow" style="justify-content: center;" type="submit" name="submit" value="Submit">
+                        </div>
                     </div>
-                    <div class="col mb-3">
-                        <input class="form-control button-yellow" style="justify-content: center;" type="submit" name="submit" value="Submit">
-                    </div>
-                </div>
+                <?php } ?>
+                
             </form>
         <?php } ?>
     </div>

@@ -13,6 +13,12 @@
         <!-- <span data-feather="bell"></span> -->
     </div>
 
+    <?php if ($msg != '') { ?>
+        <div class="alert alert-<?= $alert ?>" role="alert">
+            <?= $msg ?>
+        </div>
+    <?php } ?>
+
     <div class="card-content">
         <div class="col-10 mx-auto">
             <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/input_produk' ?>" method="POST">

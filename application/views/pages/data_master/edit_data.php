@@ -11,8 +11,8 @@
         <h1>Detail IKM</h1>
     </div>
 
-        <?php if ($msg != '') { ?>
-        <div class="alert alert-danger" role="alert">
+    <?php if ($msg != '') { ?>
+        <div class="alert alert-<?= $alert ?>" role="alert">
             <?= $msg ?>
         </div>
     <?php } ?>

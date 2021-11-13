@@ -462,3 +462,13 @@ td {
 .btn-cari-text {
   margin-left: 0.6rem;
 }
+
+/*Datepicker*/
+
+.ui-datepicker-calendar {
+   display: none;
+}
+
+.ui-datepicker-next,.ui-datepicker-prev {
+  display: none;
+}

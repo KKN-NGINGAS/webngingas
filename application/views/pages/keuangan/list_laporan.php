@@ -16,7 +16,7 @@
     </div>
 
     <?php if ($msg != '') { ?>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-<?= $alert ?>" role="alert">
             <?= $msg ?>
         </div>
     <?php } ?>
@@ -38,12 +38,12 @@
                 <?php 
                 $i = 1;
                 foreach ($keuangan as $row) { 
-                    $time=strtotime($row->tanggal);
-                    $month=date("F Y",$time);
+                    // $time=strtotime($row->tanggal);
+                    // $month=date("F Y",$time);
                     ?>
                     <tr>
                         <td><?= $i++ ?></td>
-                        <td><?= $month ?></td>
+                        <td><?= $row->tanggal ?></td>
                         <?php if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) { ?>
                             <td><?= $row->nama_ikm ?></td>
                         <?php } ?>

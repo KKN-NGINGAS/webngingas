@@ -74,7 +74,8 @@ class MainController extends CI_Controller {
 		
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -105,7 +106,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -122,7 +124,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -148,8 +151,12 @@ class MainController extends CI_Controller {
 		);
 
 		$this->MainModel->inputData('data_ikm', $data_ikm);
+		$session = array (
+			'msg' => 'Data IKM Berhasil Ditambahkan',
+			'alert' => 'success'
+		);
 
-		$this->session->set_userdata('msg', 'Data IKM Berhasil Ditambahkan');
+		$this->session->set_userdata($session);
 		redirect('MainController/data_master');
 	}
 
@@ -160,7 +167,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -192,8 +200,12 @@ class MainController extends CI_Controller {
 		);
 
 		$this->MainModel->updateData('data_ikm', $data_ikm, array('id_ikm' => $id_ikm));
+		$session = array (
+			'msg' => 'Data IKM Berhasil Diupdate',
+			'alert' => 'success'
+		);
 
-		$this->session->set_userdata('msg', 'Data IKM Berhasil Diupdate');
+		$this->session->set_userdata($session);
 		redirect('MainController/data_master');
 	}
 
@@ -220,7 +232,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -244,7 +257,7 @@ class MainController extends CI_Controller {
 		$pendidikan = $this->input->post('pendidikan');
 		$alamat = $this->input->post('alamat');
 
-		$timestamp = date("YmdHis");
+		$rand = $this->rand_string(8);
 
 		if ($role == 'pimpinan_ikm') {
 			$jabatan = 'Ketua';
@@ -255,7 +268,12 @@ class MainController extends CI_Controller {
 		$cek = $this->MainModel->getWhere('data_karyawan', array('nik' => $nik))->num_rows();
 
 		if ($cek > 0) {
-			$this->session->set_userdata('msg', 'NIK Karyawan sudah terdaftar');
+			$session = array (
+				'msg' => 'NIK Karyawan sudah terdaftar',
+				'alert' => 'success'
+			);
+
+			$this->session->set_userdata($session);
 			redirect('MainController/tambah_user');
 		} else {
 			$data = array(
@@ -274,15 +292,19 @@ class MainController extends CI_Controller {
 
 			$data2 = array(
 				'id_karyawan'	=> $id_karyawan,
-				'username' 		=> $timestamp,
-				'user_pwd'		=> $timestamp,
+				'username' 		=> $rand,
+				'user_pwd'		=> $rand,
 				'role'			=> $role
 				//'tanggal_dibuat'=> date("Y-m-d H:i:s")
 			);
 
 			$this->MainModel->inputData('data_user', $data2);
+			$session = array (
+				'msg' => 'Data berhasil ditambahkan',
+				'alert' => 'success'
+			);
 
-			$this->session->set_userdata('msg', 'Data berhasil ditambahkan');
+			$this->session->set_userdata($session);
 			redirect('MainController/detail_ikm/'.$id_ikm);
 		}
 	}
@@ -304,7 +326,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -380,8 +403,12 @@ class MainController extends CI_Controller {
 		}
 
 		$this->MainModel->deleteData('data_user', array('id_user' => $id_user));
+		$session = array (
+			'msg' => 'User berhasil dihapus',
+			'alert' => 'success'
+		);
 
-		$this->session->set_userdata('msg', 'User berhasil dihapus');
+		$this->session->set_userdata($session);
 		redirect('MainController/data_user');
 	}
 
@@ -405,7 +432,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -430,7 +458,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -447,7 +476,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -467,7 +497,12 @@ class MainController extends CI_Controller {
 		$cek = $this->MainModel->getWhere('data_produk', array('nama_produk' => $nama_produk))->num_rows();
 
 		if ($cek > 0) {
-			$this->session->set_userdata('msg', 'Produk dengan nama '.$nama_produk.' sudah terdaftar');
+			$session = array (
+				'msg' => 'Produk dengan nama '.$nama_produk.' sudah terdaftar',
+				'alert' => 'danger'
+			);
+
+			$this->session->set_userdata($session);
 			redirect('MainController/tambah_produk');
 		} else {
 			$data = array(
@@ -478,8 +513,12 @@ class MainController extends CI_Controller {
 			);
 
 			$this->MainModel->inputData('data_produk', $data);
+			$session = array (
+				'msg' => 'Data Produk berhasil ditambahkan',
+				'alert' => 'success'
+			);
 
-			$this->session->set_userdata('msg', 'Data Produk berhasil ditambahkan');
+			$this->session->set_userdata($session);
 			redirect('MainController/data_produk');
 		}
 	}
@@ -502,8 +541,12 @@ class MainController extends CI_Controller {
 		);
 
 		$this->MainModel->updateData('data_produk', $data, $where);
+		$session = array (
+			'msg' => 'Data Produk berhasil diubah',
+			'alert' => 'success'
+		);
 
-		$this->session->set_userdata('msg', 'Data Produk berhasil diubah');
+		$this->session->set_userdata($session);
 		redirect('MainController/data_produk');
 	}
 
@@ -512,10 +555,20 @@ class MainController extends CI_Controller {
 		$cek = $this->MainModel->getWhere('detail_transaksi', array('id_produk' => $id_produk))->num_rows();
 		
 		if ($cek > 0) {
-			$this->session->set_userdata('msg', 'Data Produk gagal dihapus dikarenakan pernah terdapat pada suatu transaksi');
+			$session = array (
+				'msg' => 'Data Produk gagal dihapus dikarenakan pernah terdapat pada suatu transaksi',
+				'alert' => 'danger'
+			);
+
+			$this->session->set_userdata($session);
 		} else {
 			$this->MainModel->deleteData('data_produk', array('id_data_produk' => $id_produk));
-			$this->session->set_userdata('msg', 'Data Produk berhasil dihapus');
+			$session = array (
+				'msg' => 'Data Produk berhasil dihapus',
+				'alert' => 'success'
+			);
+
+			$this->session->set_userdata($session);
 		}
 			redirect('MainController/data_produk');
 	}
@@ -529,7 +582,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -553,7 +607,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -577,7 +632,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -598,7 +654,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -634,8 +691,12 @@ class MainController extends CI_Controller {
 		);
 
 		$this->MainModel->inputData('data_transaksi', $data);
+		$session = array (
+			'msg' => 'Data Transaksi berhasil ditambahkan',
+			'alert' => 'success'
+		);
 
-		$this->session->set_userdata('msg', 'Data Transaksi berhasil ditambahkan');
+		$this->session->set_userdata($session);
 		redirect('MainController/data_transaksi');
 	}
 
@@ -653,9 +714,13 @@ class MainController extends CI_Controller {
 			$this->session->unset_userdata('flag');
 		}
 
-		// die();
 		$this->MainModel->deleteData('data_transaksi', array('id_transaksi' => $id_transaksi));
-		$this->session->set_userdata('msg', 'Data Transaksi berhasil dihapus');
+		$session = array (
+			'msg' => 'Data Transaksi berhasil dihapus',
+			'alert' => 'success'
+		);
+
+		$this->session->set_userdata($session);
 		redirect('MainController/data_transaksi');
 	}
 
@@ -694,11 +759,20 @@ class MainController extends CI_Controller {
 			$this->MainModel->inputData('detail_transaksi', $data);
 			$this->MainModel->updateData('data_produk', $update_produk, array('id_data_produk' => $id_produk));
 			$this->MainModel->updateData('data_transaksi', $update_transaksi, array('id_transaksi' => $id_transaksi));
+			$session = array (
+				'msg' => 'Berhasil menambahkan produk ke transaksi',
+				'alert' => 'success'
+			);
 
-			$this->session->set_userdata('msg', 'Berhasil menambahkan produk ke transaksi');
+			$this->session->set_userdata($session);
 			redirect('MainController/detail_transaksi/'.$id_transaksi);
 		} else { // kalo stok kurang dari 0 gagal menambahkan produk ke transaksi
-			$this->session->set_userdata('msg', 'Gagal menambah produk karena kekurangan stok');
+			$session = array (
+				'msg' => 'Gagal menambah produk karena kekurangan stok',
+				'alert' => 'danger'
+			);
+
+			$this->session->set_userdata($session);
 			redirect('MainController/tambah_detail_transaksi/'.$id_transaksi);
 		}
 	}
@@ -735,7 +809,12 @@ class MainController extends CI_Controller {
 		$this->MainModel->updateData('data_transaksi', $update_transaksi, array('id_transaksi' => $id_transaksi));
 
 		if ($this->session->flag != 'process delete') {
-			$this->session->set_userdata('msg', 'Produk berhasil dihapus dari transaksi');
+			$session = array (
+				'msg' => 'Produk berhasil dihapus dari transaksi',
+				'alert' => 'success'
+			);
+
+			$this->session->set_userdata($session);
 			redirect('MainController/detail_transaksi/'.$id_transaksi);
 		}
 	}
@@ -754,7 +833,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -773,7 +853,8 @@ class MainController extends CI_Controller {
 		
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -790,7 +871,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -814,7 +896,12 @@ class MainController extends CI_Controller {
 		$cek = $this->MainModel->getWhere('data_karyawan', array('nik' => $nik))->num_rows();
 
 		if ($cek > 0) {
-			$this->session->set_userdata('msg', 'NIK Karyawan sudah terdaftar');
+			$session = array (
+				'msg' => 'NIK Karyawan sudah terdaftar',
+				'alert' => 'danger'
+			);
+
+			$this->session->set_userdata($session);
 			redirect('MainController/tambah_sdm');
 		} else {
 			$data = array(
@@ -830,9 +917,12 @@ class MainController extends CI_Controller {
 			);
 
 			$this->MainModel->inputData('data_karyawan', $data);
+			$session = array (
+				'msg' => 'Data Karyawan berhasil ditambahkan',
+				'alert' => 'success'
+			);
 
-
-			$this->session->set_userdata('msg', 'Data Karyawan berhasil ditambahkan');
+			$this->session->set_userdata($session);
 			redirect('MainController/data_sdm');
 		}
 	}
@@ -861,9 +951,12 @@ class MainController extends CI_Controller {
 		);
 
 		$this->MainModel->updateData('data_karyawan', $data, $where);
+		$session = array (
+			'msg' => 'Data Karyawan berhasil diubah',
+			'alert' => 'success'
+		);
 
-
-		$this->session->set_userdata('msg', 'Data Karyawan berhasil diubah');
+		$this->session->set_userdata($session);
 		redirect('MainController/data_sdm');
 
 	}
@@ -872,7 +965,12 @@ class MainController extends CI_Controller {
 	{
 		$this->MainModel->deleteData('data_karyawan', array('id_karyawan' => $id_karyawan));
 		$this->MainModel->deleteData('data_user', array('id_karyawan' => $id_karyawan));
-		$this->session->set_userdata('msg', 'Data SDM berhasil dihapus');
+		$session = array (
+			'msg' => 'Data Karyawan berhasil dihapus',
+			'alert' => 'success'
+		);
+
+		$this->session->set_userdata($session);
 		redirect('MainController/data_sdm');
 	}
 
@@ -885,7 +983,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -909,7 +1008,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -927,7 +1027,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -971,8 +1072,12 @@ class MainController extends CI_Controller {
 
 		$this->MainModel->inputData('data_produksi', $data);
 		$this->MainModel->updateData('data_produk', $update_stock, $where);
+		$session = array (
+			'msg' => 'Data Produksi berhasil ditambahkan',
+			'alert' => 'success'
+		);
 
-		$this->session->set_userdata('msg', 'Data Produksi berhasil ditambahkan');
+		$this->session->set_userdata($session);
 		redirect('MainController/data_produksi');
 	}
 
@@ -989,7 +1094,12 @@ class MainController extends CI_Controller {
 		$stok_update = $stok_awal + $produksi_baru;
 
 		if ($stok_update < 0) {
-			$this->session->set_userdata('msg', 'Data Produksi gagal diubah karena stok produk akan minus');
+			$session = array (
+				'msg' => 'Data Produksi gagal diubah karena stok produk akan minus',
+				'alert' => 'danger'
+			);
+
+			$this->session->set_userdata($session);
 			redirect('MainController/detail_produksi/'.$id_produksi);
 		} else {
 			$data = array(
@@ -1012,8 +1122,12 @@ class MainController extends CI_Controller {
 
 			$this->MainModel->updateData('data_produksi', $data, $where);
 			$this->MainModel->updateData('data_produk', $update_stok, array('id_data_produk' => $id_produk));
+			$session = array (
+				'msg' => 'Data Produksi berhasil diubah',
+				'alert' => 'success'
+			);
 
-			$this->session->set_userdata('msg', 'Data Produksi berhasil diubah');
+			$this->session->set_userdata($session);
 			redirect('MainController/data_produksi');
 		}
 	}
@@ -1028,11 +1142,21 @@ class MainController extends CI_Controller {
 		$stok_update = $stok - $produksi;
 
 		if ($stok_update < 0) {
-			$this->session->set_userdata('msg', 'Data Produksi gagal diubah karena stok produk akan minus');
+			$session = array (
+				'msg' => 'Data Produksi gagal diubah karena stok produk akan minus',
+				'alert' => 'danger'
+			);
+
+			$this->session->set_userdata($session);
 		} else {
 			$this->MainModel->updateData('data_produk', array('stok' => $stok_update, 'tanggal_update'=> date("Y-m-d H:i:s")), array('id_data_produk' => $id_produk));
 			$this->MainModel->deleteData('data_produksi', array('id_data_produksi' => $id_produksi));
-			$this->session->set_userdata('msg', 'Data Produksi berhasil dihapus');
+			$session = array (
+				'msg' => 'Data Produksi berhasil dihapus',
+				'alert' => 'success'
+			);
+
+			$this->session->set_userdata($session);
 		}
 		redirect('MainController/data_produksi');
 	}
@@ -1046,7 +1170,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -1070,7 +1195,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -1087,7 +1213,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -1122,8 +1249,12 @@ class MainController extends CI_Controller {
 		);
 
 		$this->MainModel->inputData('data_pelanggan', $data);
+		$session = array (
+			'msg' => 'Data Pelanggan berhasil ditambahkan',
+			'alert' => 'success'
+		);
 
-		$this->session->set_userdata('msg', 'Data Pelanggan berhasil ditambahkan');
+		$this->session->set_userdata($session);
 		redirect('MainController/pelayanan_konsumen');
 	}
 
@@ -1156,8 +1287,12 @@ class MainController extends CI_Controller {
 		);
 
 		$this->MainModel->updateData('data_pelanggan', $data, $where);
+		$session = array (
+			'msg' => 'Data Pelanggan berhasil diubah',
+			'alert' => 'success'
+		);
 
-		$this->session->set_userdata('msg', 'Data Pelanggan berhasil diubah');
+		$this->session->set_userdata($session);
 		redirect('MainController/pelayanan_konsumen');
 	}
 
@@ -1166,10 +1301,20 @@ class MainController extends CI_Controller {
 		$cek = $this->MainModel->getWhere('data_transaksi', array('id_pelanggan' => $id_konsumen))->num_rows();
 		
 		if ($cek > 0) {
-			$this->session->set_userdata('msg', 'Data Pelanggan gagal dihapus dikarenakan pernah terdapat pada suatu transaksi');
+			$session = array (
+				'msg' => 'Data Pelanggan gagal dihapus dikarenakan pernah terdapat pada suatu transaksi',
+				'alert' => 'danger'
+			);
+
+			$this->session->set_userdata($session);
 		} else {
 			$this->MainModel->deleteData('data_pelanggan', array('id_perusahaan' => $id_konsumen));
-			$this->session->set_userdata('msg', 'Data Pelanggan berhasil dihapus');
+			$session = array (
+				'msg' => 'Data Pelanggan berhasil dihapus',
+				'alert' => 'success'
+			);
+
+			$this->session->set_userdata($session);
 		}
 			redirect('MainController/pelayanan_konsumen');
 	}
@@ -1183,7 +1328,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -1203,7 +1349,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -1220,7 +1367,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -1247,7 +1395,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -1265,7 +1414,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -1282,17 +1432,32 @@ class MainController extends CI_Controller {
 	{
 		$tanggal = $this->input->post('tanggal_laporan');
 
+		$cek = $this->MainModel->getWhere('laporan_keuangan', array('tanggal' => $tanggal, 'id_ikm' => $this->session->id_ikm))->num_rows();
+
 		$data = array(
 			'tanggal' => $tanggal,
 			'id_ikm' => $this->session->id_ikm
 		);
 
-		$tgl = date("F Y", strtotime($tanggal));
+		if ($cek > 0) {
+			$session = array (
+				'msg' => 'Laporan Bulan '.$tanggal.' sudah ada',
+				'alert' => 'danger'
+			);
 
-		$this->MainModel->inputData('laporan_keuangan', $data);
+			$this->session->set_userdata($session);
+			redirect('MainController/tambah_laporan');
+		} else {
+			$this->MainModel->inputData('laporan_keuangan', $data);
 
-		$this->session->set_userdata('msg', 'Laporan Bulan '.$tgl.' berhasil ditambahkan');
-		redirect('MainController/data_laporan');
+			$session = array (
+				'msg' => 'Laporan Bulan '.$tanggal.' berhasil ditambahkan',
+				'alert' => 'success'
+			);
+
+			$this->session->set_userdata($session);
+			redirect('MainController/data_laporan');
+		}
 	}
 
 	public function input_data_keuangan($id_laporan)
@@ -1313,7 +1478,11 @@ class MainController extends CI_Controller {
 
 		$this->MainModel->inputData('detail_laporan_keuangan', $data);
 
-		$this->session->set_userdata('msg', 'Data Keuangan berhasil ditambahkan');
+		$session = array (
+			'msg' => 'Data Keuangan berhasil ditambahkan',
+			'alert' => 'success'
+		);
+		$this->session->set_userdata($session);
 		redirect('MainController/detail_laporan/'.$id_laporan);
 	}
 
@@ -1339,7 +1508,11 @@ class MainController extends CI_Controller {
 
 		$this->MainModel->updateData('detail_laporan_keuangan', $data, $where);
 
-		$this->session->set_userdata('msg', 'Data Keuangan berhasil diubah');
+		$session = array (
+			'msg' => 'Data Keuangan berhasil diubah',
+			'alert' => 'success'
+		);
+		$this->session->set_userdata($session);
 		redirect('MainController/detail_laporan/'.$id_laporan);
 	}
 
@@ -1351,7 +1524,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -1376,7 +1550,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -1393,7 +1568,8 @@ class MainController extends CI_Controller {
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
-			$this->session->unset_userdata('msg');
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
 		}
@@ -1418,7 +1594,12 @@ class MainController extends CI_Controller {
 		$cek_tipe_merk = $this->MainModel->getWhere('teknologi_informasi', array('tipe_merk' => $tipe_merk))->num_rows();
 
 		if ($cek_barang > 0 && $cek_tipe_merk > 0) {
-			$this->session->set_userdata('msg', 'Barang dengan nama '.$nama_barang.' dan Tipe/Merk '.$tipe_merk.' sudah terdaftar');
+			$session = array (
+				'msg' => 'Barang dengan nama '.$nama_barang.' dan Tipe/Merk '.$tipe_merk.' sudah terdaftar',
+				'alert' => 'danger'
+			);
+
+			$this->session->set_userdata($session);
 			redirect('MainController/tambah_tekfo');
 		} else {
 			$data = array(
@@ -1432,8 +1613,12 @@ class MainController extends CI_Controller {
 			);
 
 			$this->MainModel->inputData('teknologi_informasi', $data);
+			$session = array (
+				'msg' => 'Data Teknologi Informasi berhasil ditambahkan',
+				'alert' => 'success'
+			);
 
-			$this->session->set_userdata('msg', 'Data Teknologi Informasi berhasil ditambahkan');
+			$this->session->set_userdata($session);
 			redirect('MainController/data_tekfo');
 		}
 	}
@@ -1462,15 +1647,24 @@ class MainController extends CI_Controller {
 		);
 
 		$this->MainModel->updateData('teknologi_informasi', $data, $where);
+		$session = array (
+			'msg' => 'Data Teknologi Informasi berhasil diubah',
+			'alert' => 'success'
+		);
 
-		$this->session->set_userdata('msg', 'Data Teknologi Informasi berhasil diubah');
+		$this->session->set_userdata($session);
 		redirect('MainController/data_tekfo');
 	}
 
 	public function delete_tekfo($id_tekfo)
 	{
 		$this->MainModel->deleteData('teknologi_informasi', array('id_tekfo' => $id_tekfo));
-		$this->session->set_userdata('msg', 'Data Teknologi Informasi berhasil dihapus');
+		$session = array (
+			'msg' => 'Data Teknologi Informasi berhasil dihapus',
+			'alert' => 'success'
+		);
+
+		$this->session->set_userdata($session);
 		redirect('MainController/data_tekfo');
 	}
 

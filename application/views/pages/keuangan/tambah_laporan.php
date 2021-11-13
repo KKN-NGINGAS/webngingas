@@ -11,12 +11,18 @@
         <h1>Tambah Data Keuangan</h1>
     </div>
 
+    <?php if ($msg != '') { ?>
+        <div class="alert alert-<?= $alert ?>" role="alert">
+            <?= $msg ?>
+        </div>
+    <?php } ?>
+
     <div class="card-content">
         <div class="col-11 mx-auto">
           <form action="<?php echo base_url() . 'MainController/input_laporan'; ?>" method="post" class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;">
             <div class="mb-3">
                 <label for="tanggal_laporan" class="form-label">Tanggal Laporan</label>
-                <input type="date" class="form-control input-field" name="tanggal_laporan" id="tanggal_laporan">
+                <input type="text" class="form-control input-field" name="tanggal_laporan" id="tanggal_laporan" required>
             </div>
             <div class="row" style="padding-top: 1rem;">
                 <div class="col mb-6">

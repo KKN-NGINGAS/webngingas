@@ -12,7 +12,7 @@
     </div>
     
     <?php if ($msg != '') { ?>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-<?= $alert ?>" role="alert">
             <?= $msg ?>
         </div>
     <?php } ?>

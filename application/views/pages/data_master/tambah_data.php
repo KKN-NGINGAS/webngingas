@@ -11,6 +11,12 @@
         <h1>Tambah IKM</h1>
     </div>
 
+    <?php if ($msg != '') { ?>
+        <div class="alert alert-<?= $alert ?>" role="alert">
+            <?= $msg ?>
+        </div>
+    <?php } ?>
+
     <!-- <div class="container-fluid centered"> -->
         <!-- <div class="card"> -->
             <div class="card-content">

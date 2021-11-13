@@ -11,6 +11,30 @@
     <!-- <script src="/js/jquery-ui.min.js" type="text/javascript"></script> -->
     <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
 
+    <!-- Datepicker -->
+    <script src="<?= base_url() ?>assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+
+    <script src="<?= base_url()?>assets/jquery-ui/jquery-ui.min.js"></script>
     <script src="<?= base_url()?>assets/js/dashboard.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(function() {
+                $('#tanggal_laporan').datepicker({
+                    changeYear: true,
+                    changeMonth : true,
+                    showButtonPanel: true,
+                    dateFormat: 'MM yy',
+                    maxDate: '+1M',
+                    onClose: function(dateText, inst) { 
+                        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                        $(this).datepicker('setDate', new Date(year, month, 1));
+                    }
+                });
+            });
+        });
+</script>
+
 </body>
 </html>

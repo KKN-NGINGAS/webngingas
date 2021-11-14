@@ -93,7 +93,7 @@ class MainController extends CI_Controller {
 
 	public function update_pengaturan()
 	{
-		
+		echo "comingsoon";
 	}
 
 	// Fungsi Data Master khusus admin bumdes
@@ -256,25 +256,31 @@ class MainController extends CI_Controller {
 		$email = $this->input->post('email');
 		$pendidikan = $this->input->post('pendidikan');
 		$alamat = $this->input->post('alamat');
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
 
-		$rand = $this->rand_string(8);
-
-		if ($role == 'pimpinan_ikm') {
+		if ($role == 'pimpinan') {
 			$jabatan = 'Ketua';
-		} else if ($role == 'admin_ikm') {
+		} else if ($role == 'admin') {
 			$jabatan = 'Karyawan';
 		}
 
-		$cek = $this->MainModel->getWhere('data_karyawan', array('nik' => $nik))->num_rows();
+		$cek1 = $this->MainModel->getWhere('data_karyawan', array('nik' => $nik))->num_rows();
+		$cek2 = $this->MainModel->getWhere('data_user', array('username' => $username))->num_rows();
 
-		if ($cek > 0) {
+		if ($cek1 > 0 || $cek2 > 0) {
+			if ($cek1 > 0) {
+				$msg = 'NIK';
+			} else if ($cek2 > 0) {
+				$msg = 'Username';
+			}
 			$session = array (
-				'msg' => 'NIK Karyawan sudah terdaftar',
-				'alert' => 'success'
+				'msg' => $msg.' sudah terdaftar',
+				'alert' => 'danger'
 			);
 
 			$this->session->set_userdata($session);
-			redirect('MainController/tambah_user');
+			redirect('MainController/tambah_user/'.$role.'/'.$id_ikm);
 		} else {
 			$data = array(
 				'nama_karyawan'	=> $nama,
@@ -292,10 +298,9 @@ class MainController extends CI_Controller {
 
 			$data2 = array(
 				'id_karyawan'	=> $id_karyawan,
-				'username' 		=> $rand,
-				'user_pwd'		=> $rand,
-				'role'			=> $role
-				//'tanggal_dibuat'=> date("Y-m-d H:i:s")
+				'username' 		=> $username,
+				'user_pwd'		=> md5($password),
+				'role'			=> $role.'_ikm'
 			);
 
 			$this->MainModel->inputData('data_user', $data2);
@@ -307,6 +312,11 @@ class MainController extends CI_Controller {
 			$this->session->set_userdata($session);
 			redirect('MainController/detail_ikm/'.$id_ikm);
 		}
+	}
+
+	public function edit_user($id_user)
+	{
+		echo "comingsoon";
 	}
 
 	// Fungsi User khusus buat admin bumdes dan admin ikm
@@ -321,7 +331,7 @@ class MainController extends CI_Controller {
 		// if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
 		// 	$data['data_sdm']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', 'data_user.role NOT IN ("admin_bumdes", "pimpinan_bumdes", "pimpinan_ikm", "admin_ikm")')->result();
 		// } else {
-		$data['data_sdm']	= $this->MainModel->getJoinWhere('data_user', 'data_karyawan', 'data_karyawan.id_karyawan = data_user.id_karyawan', array('data_karyawan.id_ikm' => $this->session->userdata('id_ikm')))->result();
+		$data['data_sdm']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', array('data_karyawan.id_ikm' => $this->session->userdata('id_ikm')))->result();
 		// }
 
 		if ($this->session->has_userdata('msg')) {
@@ -337,64 +347,148 @@ class MainController extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
-	public function add_user($id_karyawan)
+	public function tambah_operator()
 	{
-		if (!in_array($this->session->userdata('role'), array('admin_bumdes', 'admin_ikm'))) {
-			redirect('MainController/no_access');
+		$this->auth_ikm();
+
+		$header['title']	= 'Data User';
+		$header['page']		= 'data user';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
+		} else {
+			$data['msg']		= '';
 		}
 
-		$rand = $this->rand_string(8);
+		$data['karyawan']	= $this->MainModel->getJoinWhere('data_user', 'data_karyawan', 'data_user.id_karyawan = data_karyawan.id_karyawan', array('data_karyawan.id_ikm' => $this->session->userdata('id_ikm'), 'data_user.id_karyawan' => NULL))->result();
 
-		$data = array(
-			'id_karyawan'	=> $id_karyawan,
-			'username' 		=> $rand,
-			'user_pwd'		=> $rand,
-			'role'			=> 'operator_ikm'
-		);
-
-		$this->MainModel->inputData('data_user', $data);
-
-		$session = array(
-			'username' => $rand,
-			'password' => $rand,
-			'msg' => 'User Baru berhasil ditambahkan'
-		);
-
-		redirect('MainController/data_user');
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/data_user/tambah_operator', $data);
+		$this->load->view('layouts/footer');
 	}
 
-	public function reset_user($id_user, $id_ikm = '')
+	public function edit_operator($id_user)
 	{
-		if (!in_array($this->session->userdata('role'), array('admin_bumdes', 'admin_ikm'))) {
-			redirect('MainController/no_access');
+		$this->auth_ikm();
+
+		$header['title']	= 'Data User';
+		$header['page']		= 'data user';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
+		} else {
+			$data['msg']		= '';
 		}
+		$data['user'] = $this->MainModel->getWhere('data_user', array('id_user' => $id_user))->result();
+		$data['karyawan'] = $this->MainModel->getJoinWhere('data_user', 'data_karyawan', 'data_user.id_karyawan = data_karyawan.id_karyawan', array('data_user.id_user' => $id_user))->result();
 
-		$rand = $this->rand_string(8);
-		
-		$data = array(
-			'username' => $rand,
-			'user_pwd' => $rand,
-			'tanggal_update'=> date("Y-m-d H:i:s")
-		);
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/data_user/edit_operator', $data);
+		$this->load->view('layouts/footer');
+	}
 
-		$where = array(
-			'id_user' => $id_user
-		);
 
-		$this->MainModel->updateData('data_user', $data, $where);
+	public function input_operator()
+	{
+		$id_karyawan = $this->input->post('karyawan');
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
 
-		$session = array(
-			'username' => $rand,
-			'password' => $rand,
-			'msg' => 'Data User berhasil direset'
-		);
+		$cek = $this->MainModel->getWhere('data_user', array('username' => $username))->num_rows();
+		if ($cek > 0) {
+			$session = array(
+				'msg' => 'Username sudah terdaftar',
+				'alert' => 'danger'
+			);
+			$this->session->set_userdata($session);
+			redirect('MainController/tambah_operator');
+		} else {
+			$data = array(
+				'id_karyawan'	=> $id_karyawan,
+				'username' 		=> $username,
+				'user_pwd'		=> md5($password),
+				'role'			=> 'operator_ikm'
+			);
 
-		if ($this->session->role == 'admin_ikm') {
+			$this->MainModel->inputData('data_user', $data);
+
+			$session = array(
+				'msg' => 'User Baru berhasil ditambahkan',
+				'alert' => 'success'
+			);
+			$this->session->set_userdata($session);
 			redirect('MainController/data_user');
-		} else if ($this->session->role == 'admin_bumdes') {
-			redirect('MainController/detail_ikm/'.$id_ikm);
+		}
+
+	}
+
+	public function update_operator($id_user)
+	{
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+
+		$cek = $this->MainModel->getWhere('data_user', array('username' => $username, 'id_user !=' => $id_user))->num_rows();
+		if ($cek > 0) {
+			$session = array(
+				'msg' => 'Username sudah terdaftar',
+				'alert' => 'danger'
+			);
+			$this->session->set_userdata($session);
+			redirect('MainController/edit_operator/'.$id_user);
+		} else {
+			$data = array(
+				'username' 		=> $username,
+				'user_pwd'		=> md5($password),
+				'tanggal_update'=> date("Y-m-d H:i:s")
+			);
+
+			$this->MainModel->updateData('data_user', $data, array('id_user' => $id_user));
+
+			$session = array(
+				'msg' => 'User berhasil diedit',
+				'alert' => 'success'
+			);
+			$this->session->set_userdata($session);
+			redirect('MainController/data_user');
 		}
 	}
+
+	// public function reset_user($id_user, $id_ikm = '')
+	// {
+	// 	if (!in_array($this->session->userdata('role'), array('admin_bumdes', 'admin_ikm'))) {
+	// 		redirect('MainController/no_access');
+	// 	}
+
+	// 	$rand = $this->rand_string(8);
+		
+	// 	$data = array(
+	// 		'username' => $rand,
+	// 		'user_pwd' => $rand,
+	// 		'tanggal_update'=> date("Y-m-d H:i:s")
+	// 	);
+
+	// 	$where = array(
+	// 		'id_user' => $id_user
+	// 	);
+
+	// 	$this->MainModel->updateData('data_user', $data, $where);
+
+	// 	$session = array(
+	// 		'username' => $rand,
+	// 		'password' => $rand,
+	// 		'msg' => 'Data User berhasil direset'
+	// 	);
+
+	// 	if ($this->session->role == 'admin_ikm') {
+	// 		redirect('MainController/data_user');
+	// 	} else if ($this->session->role == 'admin_bumdes') {
+	// 		redirect('MainController/detail_ikm/'.$id_ikm);
+	// 	}
+	// }
 
 	public function delete_user($id_user)
 	{

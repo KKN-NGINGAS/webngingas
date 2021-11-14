@@ -67,7 +67,7 @@
                                             <td><?= $row->nik ?></td>
                                         </tr>
                                         <tr>
-                                            <td>Jenis Kelamin</td>
+                                            <td>Gender</td>
                                             <td>:</td>
                                             <td><?= $row->kelamin ?></td>
                                         </tr>
@@ -94,7 +94,7 @@
                                     </table>
                                     <div class="row" style="padding-top:1rem;">
                                         <div class="col mb-3">
-                                            <a href="<?= base_url('MainController/reset_user/'.$row->id_user.'/'.$row->id_ikm) ?>" class="form-control button-yellow" style="justify-content: center;">Reset Akun</a>
+                                            <a href="<?= base_url('MainController/edit_user/'.$row->id_user) ?>" class="form-control button-yellow" style="justify-content: center;">Pengaturan Akun</a>
                                         </div>
                                     </div>
                                 <?php }
@@ -123,7 +123,7 @@
                                             <td><?= $row->nik ?></td>
                                         </tr>
                                         <tr>
-                                            <td>Jenis Kelamin</td>
+                                            <td>Gender</td>
                                             <td>:</td>
                                             <td><?= $row->kelamin ?></td>
                                         </tr>
@@ -150,7 +150,7 @@
                                     </table>
                                     <div class="row" style="padding-top:1rem;">
                                         <div class="col mb-3">
-                                            <a href="<?= base_url('MainController/reset_user/'.$row->id_user.'/'.$row->id_ikm) ?>" class="form-control button-yellow" style="justify-content: center;">Reset Akun</a>
+                                            <a href="<?= base_url('MainController/edit_user/'.$row->id_user) ?>" class="form-control button-yellow" style="justify-content: center;">Pengaturan Akun</a>
                                         </div>
                                     </div>
                                 <?php }

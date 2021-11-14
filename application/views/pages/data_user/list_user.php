@@ -8,6 +8,11 @@
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>Data User</h1>
+        <div>
+            <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                <a class="btn btn-success" href="<?= base_url().'MainController/tambah_operator' ?>" style="text-decoration: none; color: white;">Tambah Operator</a>
+            <?php } ?>
+        </div>
     </div>
 
     <?php if ($msg != '') { ?>
@@ -38,7 +43,7 @@
                         <td><?= $row->username ?></td>
                         <?php if ($row->id_user == $this->session->userdata('id_user')) { ?>
                             <td>
-                                <a class="btn btn-info" href="<?= base_url().'MainController/pengaturan' ?>" style="text-decoration: none; color: white;">Pengaturan Akun</a>                                
+                                Silahkan ke menu pengaturan
                             </td>
                         <?php } else if ($row->username == '') { ?>
                             <td>
@@ -50,7 +55,7 @@
                             </td>
                         <?php } else { ?>
                             <td>
-                                <a class="btn btn-warning" href="<?= base_url().'MainController/reset_user/'.$row->id_user ?>" style="text-decoration: none; color: white;">Reset Password</a>
+                                <a class="btn btn-warning" href="<?= base_url().'MainController/edit_operator/'.$row->id_user ?>" style="text-decoration: none; color: white;">Pengaturan Akun</a>
                                 <a class="btn btn-danger" href="<?= base_url().'MainController/delete_user/'.$row->id_user ?>" style="text-decoration: none; color: white;">Hapus Akun</a>
                             </td>
                         <?php } ?>

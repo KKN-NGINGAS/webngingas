@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.87.0">
+    <link rel="icon" href="<?php echo base_url() ?>/assets/img/Logo.png">
     <title><?= $title ?></title>
 
     <!-- <link href="/css/jquery-ui.css" rel="stylesheet"> -->

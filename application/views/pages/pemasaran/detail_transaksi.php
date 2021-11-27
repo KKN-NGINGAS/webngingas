@@ -30,25 +30,55 @@
                 $time = strtotime($row->tanggal);
                 $tgl = date("j F Y",$time);
                 ?>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <label>Tanggal Transaksi:</label><br>
-                        <?= $tgl ?>
-                    </div>
-                    <div class="col-lg-3">
-                        <label>No Transaksi:</label><br>
-                        <?= $row->no_transaksi ?>
-                    </div>
-                    <div class="col-lg-3">
-                        <label>Nama Perusahaan:</label><br>
-                        <?= $row->nama_perusahaan ?>
-                    </div>
-                    <div class="col-lg-3">
-                        <label>Total:</label><br>
-                        <?= "Rp " . number_format($row->total,2,',','.'); ?>
-                    </div>
-                </div>
+                <table width="100%">
+                    <tr>
+                        <td class="align-middle" width="20%">
+                            <label>Tanggal Transaksi:</label><br>
+                            <?= $tgl ?>
+                        </td>
+                        <td class="align-middle" width="20%">
+                            <label>No Transaksi:</label><br>
+                            <?= $row->no_transaksi ?>
+                        </td>
+                        <td class="align-middle" width="20%">
+                            <label>Nama Perusahaan:</label><br>
+                            <?= $row->nama_perusahaan ?>
+                        </td>
+                        <td class="align-middle" width="20%">
+                            <label>Total:</label><br>
+                            <?= "Rp " . number_format($row->total,2,',','.'); ?>
+                        </td>
+                        <td class="align-bottom" width="20%">
+                            <div class="row" style="padding-bottom: 1rem;">
+                                <a class="btn btn-info" href="#" style="text-decoration: none; color: white;" data-bs-toggle="modal" data-bs-target="#myModal">Lihat Bukti Pembayaran</a>
+                            </div>
+                            <!-- The Modal -->
+                            <div class="modal fade" id="myModal">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
 
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Bukti Pembayaran</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php if ($row->pict != '') { ?>
+                                                <img src="<?= base_url().'uploads/struk/'.$row->pict ?>" alt="Bukti Pembayaran" class="img-fluid mb-5">
+                                                <a class="btn btn-warning" href="<?= base_url().'MainController/upload_struk/'.$id_transaksi ?>" style="text-decoration: none; color: white;">Unggah Ulang Bukti Pembayaran</a>
+                                            <?php } else { ?>
+                                                <img src="<?= base_url().'uploads/no_image.jpg' ?>" alt="No Image" class="img-fluid mb-5">
+                                                <a class="btn btn-success" href="<?= base_url().'MainController/upload_struk/'.$id_transaksi ?>" style="text-decoration: none; color: white;">Unggah Bukti Pembayaran</a>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
 
             <?php } ?>
         </div>
@@ -85,6 +115,7 @@
                 <?php }?>
             </tbody>
         </table>
+        
     </div>
 
 </main>

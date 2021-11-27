@@ -2,13 +2,13 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
-            <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_tekfo' ?>">Data Teknologi Informasi</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Detail Data Teknologi Informasi</li>
+            <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_tekfo' ?>">Pendataan Aset</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Detail Pendataan Aset</li>
         </ol>
     </nav>
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1>Detail Data Teknologi Informasi</h1>
+        <h1>Detail Pendataan Aset</h1>
         <span data-feather="bell"></span>
     </div>
 

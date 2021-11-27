@@ -12,7 +12,7 @@
     <!-- <link href="/css/jquery-ui.css" rel="stylesheet"> -->
     
     <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/"> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
@@ -97,7 +97,7 @@
               <li class="nav-item">
                 <a class="nav-link <?= ($page == 'tekfo') ? 'active' : '' ?>" href="<?= base_url().'MainController/data_tekfo' ?>">
                   <span data-feather="monitor"></span>
-                  Teknologi Informasi
+                  Pendataan Aset
                 </a>
               </li>
               <li class="nav-item">

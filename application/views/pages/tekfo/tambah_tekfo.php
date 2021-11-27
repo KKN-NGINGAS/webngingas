@@ -2,8 +2,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= base_url() ?>">Halaman Utama</a></li>
-            <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_tekfo' ?>">Data Teknologi Informasi</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tambah Data Teknologi Informasi</li>
+            <li class="breadcrumb-item"><a href="<?= base_url().'MainController/data_tekfo' ?>">Pendataan Aset</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tambah Data Aset</li>
         </ol>
     </nav>
 

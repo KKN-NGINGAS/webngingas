@@ -93,6 +93,20 @@ class MainController extends CI_Controller {
 
 	public function update_pengaturan()
 	{
+		$id_user = $this->session->id_user;
+		$id_karyawan = $this->session->id_karyawan;
+		
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		if (!in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$nama = $this->input->post('nama');
+			$nik = $this->input->post('nik');
+			$gender = $this->input->post('gender');
+			$no_telp = $this->input->post('no_telp');
+			$email = $this->input->post('email');
+			$pendidikan = $this->input->post('pendidikan');
+			$alamat = $this->input->post('alamat');
+		}
 		echo "comingsoon";
 	}
 
@@ -762,6 +776,28 @@ class MainController extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
+	public function upload_struk($id_transaksi)
+	{
+		$this->auth_ikm();
+
+		$header['title']	= 'Pemasaran dan Periklanan';
+		$header['page']		= 'pemasaran';
+
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
+		} else {
+			$data['msg']		= '';
+		}
+
+		$data['id_transaksi'] = $id_transaksi;
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/pemasaran/upload_struk', $data);
+		$this->load->view('layouts/footer');
+	}
+
 	public function input_transaksi()
 	{
 		$tanggal = $this->input->post('tanggal');
@@ -910,6 +946,47 @@ class MainController extends CI_Controller {
 
 			$this->session->set_userdata($session);
 			redirect('MainController/detail_transaksi/'.$id_transaksi);
+		}
+	}
+
+	public function input_struk($id_transaksi)
+	{
+		//get nomor transaksi
+		$no_transaksi = $this->MainModel->getWhere('data_transaksi', array('id_transaksi' => $id_transaksi))->row()->no_transaksi;
+		$config['upload_path']          = './uploads/struk';
+		$config['file_name']			= str_replace("/", "-", $no_transaksi);
+		$config['allowed_types']        = 'jpg|jpeg|png';
+		$config['max_size']             = 5120; //5120 KB = 5 MB, 10240 KB = 10 MB
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload('formfile'))
+		{
+			$error = $this->upload->display_errors();
+			$session = array (
+				'msg' => $error,
+				'alert' => 'danger'
+			);
+
+			$this->session->set_userdata($session);
+			redirect('MainController/upload_struk/'.$id_transaksi);
+		}
+		else
+		{
+			$file_name = $this->upload->data('file_name');
+
+			$this->MainModel->updateData('data_transaksi', array('pict' => $file_name), array('id_transaksi' => $id_transaksi));
+			$session = array (
+				'msg' => 'Bukti Pembayaran berhasil diunggah',
+				'alert' => 'success'
+			);
+
+			$this->session->set_userdata($session);
+			redirect('MainController/detail_transaksi/'.$id_transaksi);
+			// var_dump($data);
+			// $this->load->view('upload_success', $data);
 		}
 	}
 
@@ -1556,7 +1633,7 @@ class MainController extends CI_Controller {
 
 	public function input_data_keuangan($id_laporan)
 	{
-		$tanggal = $this->input->post('tanggal_laporan');
+		$tanggal = $this->input->post('tanggal');
 		$ket = $this->input->post('keterangan');
 		$pengeluaran = $this->input->post('pengeluaran');
 		$pemasukan = $this->input->post('pemasukan');
@@ -1582,7 +1659,7 @@ class MainController extends CI_Controller {
 
 	public function update_data_keuangan($id_laporan, $id_detail)
 	{
-		$tanggal = $this->input->post('tanggal_laporan');
+		$tanggal = $this->input->post('tanggal');
 		$ket = $this->input->post('keterangan');
 		$pengeluaran = $this->input->post('pengeluaran');
 		$pemasukan = $this->input->post('pemasukan');
@@ -1610,10 +1687,10 @@ class MainController extends CI_Controller {
 		redirect('MainController/detail_laporan/'.$id_laporan);
 	}
 
-	//Fungsi Teknologi Informasi
+	//Fungsi Pendataan Aset
 
 	public function data_tekfo(){
-		$header['title']	= 'Teknologi Informasi';
+		$header['title']	= 'Pendataan Aset';
 		$header['page']		= 'tekfo';
 
 		if ($this->session->has_userdata('msg')) {
@@ -1639,7 +1716,7 @@ class MainController extends CI_Controller {
 	{
 		$this->auth_ikm();
 
-		$header['title']	= 'Teknologi Informasi';
+		$header['title']	= 'Pendataan Aset';
 		$header['page']		= 'tekfo';
 
 		if ($this->session->has_userdata('msg')) {
@@ -1657,7 +1734,7 @@ class MainController extends CI_Controller {
 
 	public function detail_tekfo($id_tekfo)
 	{
-		$header['title']	= 'Teknologi Informasi';
+		$header['title']	= 'Pendataan Aset';
 		$header['page']		= 'tekfo';
 
 		if ($this->session->has_userdata('msg')) {
@@ -1684,37 +1761,24 @@ class MainController extends CI_Controller {
 		$jumlah_kurang = $this->input->post('jumlah_kurang');
 		$jumlah_buruk = $this->input->post('jumlah_buruk');
 
-		$cek_barang = $this->MainModel->getWhere('teknologi_informasi', array('nama_barang' => $nama_barang))->num_rows();
-		$cek_tipe_merk = $this->MainModel->getWhere('teknologi_informasi', array('tipe_merk' => $tipe_merk))->num_rows();
+		$data = array(
+			'id_ikm'		=> $this->session->userdata('id_ikm'),
+			'nama_barang'	=> $nama_barang,
+			'tipe_merk'		=> $tipe_merk,
+			'sumber_dana'	=> $dana,
+			'kondisi_baik'	=> $jumlah_baik,
+			'kondisi_kurang'=> $jumlah_kurang,
+			'kondisi_buruk'	=> $jumlah_buruk
+		);
 
-		if ($cek_barang > 0 && $cek_tipe_merk > 0) {
-			$session = array (
-				'msg' => 'Barang dengan nama '.$nama_barang.' dan Tipe/Merk '.$tipe_merk.' sudah terdaftar',
-				'alert' => 'danger'
-			);
+		$this->MainModel->inputData('teknologi_informasi', $data);
+		$session = array (
+			'msg' => 'Data Pendataan Aset berhasil ditambahkan',
+			'alert' => 'success'
+		);
 
-			$this->session->set_userdata($session);
-			redirect('MainController/tambah_tekfo');
-		} else {
-			$data = array(
-				'id_ikm'		=> $this->session->userdata('id_ikm'),
-				'nama_barang'	=> $nama_barang,
-				'tipe_merk'		=> $tipe_merk,
-				'sumber_dana'	=> $dana,
-				'kondisi_baik'	=> $jumlah_baik,
-				'kondisi_kurang'=> $jumlah_kurang,
-				'kondisi_buruk'	=> $jumlah_buruk
-			);
-
-			$this->MainModel->inputData('teknologi_informasi', $data);
-			$session = array (
-				'msg' => 'Data Teknologi Informasi berhasil ditambahkan',
-				'alert' => 'success'
-			);
-
-			$this->session->set_userdata($session);
-			redirect('MainController/data_tekfo');
-		}
+		$this->session->set_userdata($session);
+		redirect('MainController/data_tekfo');
 	}
 
 	public function update_tekfo($id_tekfo)
@@ -1742,7 +1806,7 @@ class MainController extends CI_Controller {
 
 		$this->MainModel->updateData('teknologi_informasi', $data, $where);
 		$session = array (
-			'msg' => 'Data Teknologi Informasi berhasil diubah',
+			'msg' => 'Data Pendataan Aset berhasil diubah',
 			'alert' => 'success'
 		);
 
@@ -1754,7 +1818,7 @@ class MainController extends CI_Controller {
 	{
 		$this->MainModel->deleteData('teknologi_informasi', array('id_tekfo' => $id_tekfo));
 		$session = array (
-			'msg' => 'Data Teknologi Informasi berhasil dihapus',
+			'msg' => 'Data Pendataan Aset berhasil dihapus',
 			'alert' => 'success'
 		);
 

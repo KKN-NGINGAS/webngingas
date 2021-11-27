@@ -23,8 +23,8 @@
           <form action="<?php echo base_url() . 'MainController/input_data_keuangan/'.$id_laporan; ?>" method="post" class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;">
             <div class="row">
                 <div class="col-lg-6 mb-3">
-                    <label for="tanggal_laporan" class="form-label">Tanggal Laporan</label>
-                    <input type="date" class="form-control input-field" name="tanggal_laporan" id="tanggal_laporan">
+                    <label for="tanggal" class="form-label">Tanggal</label>
+                    <input type="date" class="form-control input-field" name="tanggal" id="tanggal">
                 </div>
             </div>
             <div class="row">

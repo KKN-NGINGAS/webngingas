@@ -28,7 +28,9 @@
                     <th scope="col">No</th>
                     <th scope="col">NIK</th>
                     <th scope="col">Nama</th>
-                    <th scope="col">IKM</th>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <th scope="col">Nama IKM</th>
+                    <?php } ?>
                     <th scope="col">Jabatan</th>
                     <th scope="col">Aksi</th>
                 </tr>
@@ -41,7 +43,9 @@
                         <td><?= $i++ ?></td>
                         <td><?= ucwords($row->nik) ?></td>
                         <td><?= ucwords($row->nama_karyawan) ?></td>
-                        <td><?= ucwords($row->nama_ikm) ?></td>
+                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                            <td><?= ucwords($row->nama_ikm) ?></td>
+                        <?php } ?>
                         <td><?= $row->jabatan ?></td>
                         <td>
                             <a class="btn btn-info" href="<?= base_url().'MainController/detail_sdm/'.$row->id_karyawan ?>" style="text-decoration: none; color: white;">Info Detail</a>

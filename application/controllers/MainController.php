@@ -425,9 +425,7 @@ class MainController extends CI_Controller {
 		}
 		$header['title']	= 'Data User';
 		$header['page']		= 'data user';
-		// if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
-		// 	$data['data_sdm']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', 'data_user.role NOT IN ("admin_bumdes", "pimpinan_bumdes", "pimpinan_ikm", "admin_ikm")')->result();
-		// } else {
+
 		$data['data_sdm']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_karyawan.id_karyawan = data_user.id_karyawan', array('data_karyawan.id_ikm' => $this->session->userdata('id_ikm')))->result();
 		// }
 
@@ -632,7 +630,7 @@ class MainController extends CI_Controller {
 		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
 			$data['data_produk']	= $this->MainModel->getJoin('data_ikm', 'data_produk', 'data_produk.id_ikm = data_ikm.id_ikm')->result();
 		} else {
-			$data['data_produk']	= $this->MainModel->getJoinWhere('data_produk', 'data_ikm', 'data_produk.id_ikm = data_ikm.id_ikm', array('data_produk.id_ikm' => $this->session->userdata('id_ikm')))->result();
+			$data['data_produk']	= $this->MainModel->getWhere('data_produk', array('data_produk.id_ikm' => $this->session->userdata('id_ikm')))->result();
 		}
 
 		$this->load->view('layouts/header', $header);
@@ -780,7 +778,7 @@ class MainController extends CI_Controller {
 		}
 		
 		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
-			$data['transaksi'] = $this->MainModel->getJoin('data_pelanggan', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan')->result();
+			$data['transaksi'] = $this->MainModel->getDoubleJoin('data_pelanggan', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan', 'data_ikm', 'data_transaksi.id_ikm = data_ikm.id_ikm')->result();
 		} else {
 			$data['transaksi'] = $this->MainModel->getJoinWhere('data_pelanggan', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan', array('data_transaksi.id_ikm' => $this->session->id_ikm))->result();
 		}
@@ -803,8 +801,14 @@ class MainController extends CI_Controller {
 		} else {
 			$data['msg']		= '';
 		}
+
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['transaksi'] = $this->MainModel->getDoubleJoinWhere('data_pelanggan', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan', 'data_ikm', 'data_transaksi.id_ikm = data_ikm.id_ikm', array('data_transaksi.id_transaksi' => $id_transaksi))->result();
+		} else {
+			$data['transaksi'] = $this->MainModel->getJoinWhere('data_pelanggan', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan', array('data_transaksi.id_transaksi' => $id_transaksi))->result();
+		}
 		
-		$data['transaksi'] = $this->MainModel->getJoinWhere('data_pelanggan', 'data_transaksi', 'data_pelanggan.id_perusahaan = data_transaksi.id_pelanggan', array('data_transaksi.id_transaksi' => $id_transaksi))->result();
+		
 
 		$data['detail_transaksi'] = $this->MainModel->getJoinWhere('data_produk', 'detail_transaksi', 'data_produk.id_data_produk = detail_transaksi.id_produk', array('id_transaksi' => $id_transaksi))->result();
 		$data['id_transaksi'] = $id_transaksi;
@@ -1079,11 +1083,6 @@ class MainController extends CI_Controller {
 	{
 		$header['title']	= 'Sumber Daya Manusia';
 		$header['page']		= 'sdm';
-		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
-			$data['data_sdm']	= $this->MainModel->getJoin('data_ikm', 'data_karyawan', 'data_karyawan.id_ikm = data_ikm.id_ikm')->result();
-		} else {
-			$data['data_sdm']	= $this->MainModel->getJoinWhere('data_karyawan', 'data_ikm', 'data_karyawan.id_ikm = data_ikm.id_ikm', array('data_karyawan.id_ikm' => $this->session->userdata('id_ikm')))->result();
-		}
 
 		if ($this->session->has_userdata('msg')) {
 			$data['msg']		= $this->session->msg;
@@ -1091,6 +1090,12 @@ class MainController extends CI_Controller {
 			$this->session->unset_userdata(array ('msg', 'alert'));
 		} else {
 			$data['msg']		= '';
+		}
+		
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['data_sdm']	= $this->MainModel->getJoin('data_ikm', 'data_karyawan', 'data_karyawan.id_ikm = data_ikm.id_ikm')->result();
+		} else {
+			$data['data_sdm']	= $this->MainModel->getWhere('data_karyawan', array('data_karyawan.id_ikm' => $this->session->userdata('id_ikm')))->result();
 		}
 
 		$this->load->view('layouts/header', $header);
@@ -1244,7 +1249,7 @@ class MainController extends CI_Controller {
 		}
 
 		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
-			$data['produksi']	= $this->MainModel->getJoin('data_produk', 'data_produksi', 'data_produksi.id_produk = data_produk.id_data_produk')->result();
+			$data['produksi']	= $this->MainModel->getDoubleJoin('data_produksi', 'data_produk', 'data_produksi.id_produk = data_produk.id_data_produk', 'data_ikm', 'data_ikm.id_ikm = data_produksi.id_ikm')->result();
 		} else {
 			$data['produksi']	= $this->MainModel->getJoinWhere('data_produksi', 'data_produk', 'data_produksi.id_produk = data_produk.id_data_produk', array('data_produksi.id_ikm' => $this->session->userdata('id_ikm')))->result();
 		}
@@ -1292,6 +1297,10 @@ class MainController extends CI_Controller {
 		$data['data_produksi'] = $data['data_produksi']->result();
 		
 		$data['produk']	= $this->MainModel->getWhere('data_produk', array('id_ikm' => $id_ikm))->result();
+
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['nama_ikm'] = $this->MainModel->getWhere('data_ikm', array('id_ikm' => $id_ikm))->row()->nama_ikm;
+		}
 
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/produksi/detail_produksi', $data);
@@ -1433,7 +1442,7 @@ class MainController extends CI_Controller {
 		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
 			$data['pelayanan']	= $this->MainModel->getJoin('data_ikm', 'data_pelanggan', 'data_pelanggan.id_ikm = data_ikm.id_ikm')->result();
 		} else {
-			$data['pelayanan']	= $this->MainModel->getJoinWhere('data_pelanggan', 'data_ikm', 'data_pelanggan.id_ikm = data_ikm.id_ikm', array('data_pelanggan.id_ikm' => $this->session->userdata('id_ikm')))->result();
+			$data['pelayanan']	= $this->MainModel->getWhere('data_pelanggan', array('data_pelanggan.id_ikm' => $this->session->userdata('id_ikm')))->result();
 		}
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/pelayanan/list_pelayanan', $data);
@@ -1473,7 +1482,13 @@ class MainController extends CI_Controller {
 			$data['msg']		= '';
 		}
 
-		$data['konsumen']	= $this->MainModel->getWhere('data_pelanggan', array('id_perusahaan' => $id_perusahaan))->result();
+		$get = $this->MainModel->getWhere('data_pelanggan', array('id_perusahaan' => $id_perusahaan));
+		$data['konsumen']	= $get->result();
+
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['nama_ikm']	= $this->MainModel->getWhere('data_ikm', array('id_ikm' => $get->row()->id_ikm))->row()->nama_ikm;
+		}
+
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/pelayanan/detail_pelayanan', $data);
 		$this->load->view('layouts/footer');
@@ -1629,11 +1644,15 @@ class MainController extends CI_Controller {
 
 		$laporan = $this->MainModel->getWhere('laporan_keuangan', array('id_laporan' => $id_laporan))->row();
 		$data['id_laporan'] = $laporan->id_laporan;
-		$data['laporan'] = date("F Y", strtotime($laporan->tanggal));
+		$data['title'] = date("F Y", strtotime($laporan->tanggal));
 		
 		$data['keuangan'] = $this->MainModel->getWhere('detail_laporan_keuangan', array('id_laporan' => $id_laporan))->result();
 
 		$data['total'] = $this->MainModel->getTotalKeuangan($id_laporan)->row()->total;
+
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['title']	= $data['title'].' '.$this->MainModel->getWhere('data_ikm', array('id_ikm' => $laporan->id_ikm))->row()->nama_ikm;
+		}
 		
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/keuangan/detail_laporan', $data);
@@ -1785,7 +1804,7 @@ class MainController extends CI_Controller {
 		}
 
 		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
-			$data['teknologi'] = $this->MainModel->get('teknologi_informasi')->result();
+			$data['teknologi'] = $this->MainModel->getJoin('data_ikm', 'teknologi_informasi', 'data_ikm.id_ikm = teknologi_informasi.id_ikm')->result();
 		} else {
 			$data['teknologi'] = $this->MainModel->getWhere('teknologi_informasi', array('id_ikm' => $this->session->id_ikm))->result();
 		}
@@ -1828,7 +1847,12 @@ class MainController extends CI_Controller {
 			$data['msg']		= '';
 		}
 
-		$data['teknologi'] = $this->MainModel->getWhere('teknologi_informasi', array('id_tekfo' => $id_tekfo))->result();
+		$get = $this->MainModel->getWhere('teknologi_informasi', array('id_tekfo' => $id_tekfo));
+		$data['teknologi'] = $get->result();
+
+		if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
+			$data['nama_ikm']	= $this->MainModel->getWhere('data_ikm', array('id_ikm' => $get->row()->id_ikm))->row()->nama_ikm;
+		}
 
 		$this->load->view('layouts/header', $header);
 		$this->load->view('pages/tekfo/detail_tekfo', $data);

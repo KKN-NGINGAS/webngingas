@@ -8,7 +8,11 @@
     </nav>
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1>Ubah Data Produksi</h1>
+        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+            <h1>Detail Data Produksi</h1>
+        <?php } else { ?>
+            <h1>Ubah Data Produksi</h1>
+        <?php } ?>
     </div>
 
     <?php if ($msg != '') { ?>
@@ -26,6 +30,14 @@
                         <label for="tanggal_produksi" class="form-label">Tanggal</label>
                         <input type="date" class="form-control input-field" name="tanggal_produksi" id="tanggal_produksi" value="<?= $row->tanggal ?>" required>
                     </div>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <div class="col-lg-6 mb-3">
+                            <label for="tanggal_produksi" class="form-label">Nama IKM</label>
+                            <div>
+                                <?= $nama_ikm ?>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 mb-3">

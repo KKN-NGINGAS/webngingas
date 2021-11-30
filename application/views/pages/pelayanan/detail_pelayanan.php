@@ -8,8 +8,11 @@
     </nav>
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1>Detail Data Konsumen</h1>
-        <!-- <span data-feather="bell"></span> -->
+        <h1>Detail Data Konsumen 
+            <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                <?= $nama_ikm ?>
+            <?php } ?>
+        </h1>
     </div>
 
     <?php if ($msg != '') { ?>

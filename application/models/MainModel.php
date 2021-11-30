@@ -29,11 +29,30 @@ class MainModel extends CI_Model{
 		return $this->db->get();
 	}
 
+	function getDoubleJoin($table, $join1, $join_param1, $join2, $join_param2)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->join($join1,$join_param1);
+		$this->db->join($join2,$join_param2);
+		return $this->db->get();
+	}
+
 	function getJoinWhere($table, $join, $join_param, $where)
 	{
 		$this->db->select('*');
 		$this->db->from($table);
 		$this->db->join($join,$join_param, 'right');
+		$this->db->where($where);
+		return $this->db->get();
+	}
+
+	function getDoubleJoinWhere($table, $join1, $join_param1, $join2, $join_param2, $where)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->join($join1,$join_param1);
+		$this->db->join($join2,$join_param2);
 		$this->db->where($where);
 		return $this->db->get();
 	}

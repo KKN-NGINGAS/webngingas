@@ -40,6 +40,9 @@
                     <th scope="col">No</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">No. Transaksi</th>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <th scope="col">Nama IKM</th>
+                    <?php } ?>
                     <th scope="col">Nama Perusahaan</th>
                     <th scope="col">Total</th>
                     <th scope="col">Aksi</th>
@@ -55,6 +58,9 @@
                         <td><?= $i++ ?></td>
                         <td><?= $tgl ?></td>
                         <td><?= $row->no_transaksi ?></td>
+                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <td><?= $row->nama_ikm ?></td>
+                    <?php } ?>
                         <td><?= $row->nama_perusahaan ?></td>
                         <td><?= "Rp " . number_format($row->total,2,',','.'); ?></td>
                         <td><a class="btn btn-info" href="<?= base_url().'MainController/detail_transaksi/'.$row->id_transaksi ?>" style="text-decoration: none; color: white;">Info Detail</a>

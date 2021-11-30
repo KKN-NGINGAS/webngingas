@@ -32,19 +32,23 @@
                 ?>
                 <table width="100%">
                     <tr>
-                        <td class="align-middle" width="20%">
+                        <td class="align-middle" width="15%">
+                            <label>Nama IKM:</label><br>
+                            <?= $row->nama_ikm ?>
+                        </td>
+                        <td class="align-middle" width="15%">
                             <label>Tanggal Transaksi:</label><br>
                             <?= $tgl ?>
                         </td>
-                        <td class="align-middle" width="20%">
+                        <td class="align-middle" width="15%">
                             <label>No Transaksi:</label><br>
                             <?= $row->no_transaksi ?>
                         </td>
-                        <td class="align-middle" width="20%">
+                        <td class="align-middle" width="15%">
                             <label>Nama Perusahaan:</label><br>
                             <?= $row->nama_perusahaan ?>
                         </td>
-                        <td class="align-middle" width="20%">
+                        <td class="align-middle" width="15%">
                             <label>Total:</label><br>
                             <?= "Rp " . number_format($row->total,2,',','.'); ?>
                         </td>

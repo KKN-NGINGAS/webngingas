@@ -27,6 +27,9 @@
             <thead>
                 <tr class="bg-green">
                     <th scope="col">No</th>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <th scope="col">Nama IKM</th>
+                    <?php } ?>
                     <th scope="col">Nama Produk</th>
                     <th scope="col">Harga Satuan</th>
                     <th scope="col">Stok</th>
@@ -39,6 +42,9 @@
                 foreach ($data_produk as $row) { ?>
                     <tr>
                         <td><?= $i++ ?></td>
+                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                            <td><?= $row->nama_ikm ?></td>
+                        <?php } ?>
                         <td><?= $row->nama_produk ?></td>
                         <td><?= "Rp " . number_format($row->harga_satuan,2,',','.'); ?></td>
                         <td><?= $row->stok ?></td>

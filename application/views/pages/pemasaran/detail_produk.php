@@ -23,6 +23,13 @@
         <div class="col-10 mx-auto">
             <?php foreach ($data_produk as $row) { ?>
                 <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/update_produk/'.$row->id_data_produk ?>" method="POST">
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                <label for="stok" class="form-label">Nama IKM: <?= $row->nama_ikm ?></label>
+                            </div>
+                        </div>
+                    <?php } ?>
                     <div class="row">
                         <div class="col-lg-12 mb-3">
                             <label for="nama_produk" class="form-label">Nama Produk</label>
@@ -37,7 +44,6 @@
                         <div class="col-lg-6 mb-3">
                             <label for="stok" class="form-label">Stok</label>
                             <div class=""><?= $row->stok ?></div>
-                            <!-- <input type="number" class="form-control input-field" id="stok" name="stok" placeholder="<?= $row->stok ?>" readonly> -->
                         </div>
                     </div>
                     <?php if (in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
@@ -47,9 +53,7 @@
                             </div>
                         </div>
                     </form>
-                <?php } else {
-                    echo "Nama IKM: ".$row->nama_ikm;
-                }
+                <?php }
             } ?>
         </form>
     </div>

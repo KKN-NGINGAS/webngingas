@@ -26,6 +26,9 @@
             <thead>
                 <tr class="bg-green">
                     <th scope="col">No</th>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <th scope="col">Nama IKM</th>
+                    <?php } ?>
                     <th scope="col">Nama Perusahaan</th>
                     <th scope="col">Nama Pemilik</th>
                     <th scope="col">Alamat</th>
@@ -39,6 +42,9 @@
                 foreach ($pelayanan as $row) { ?>
                     <tr>
                         <td><?= $i++ ?></td>
+                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                            <td><?= $row->nama_ikm ?></td>
+                        <?php } ?>
                         <td><?= ucwords($row->nama_perusahaan) ?></td>
                         <td><?= ucwords($row->nama_pemilik) ?></td>
                         <td><?= ucwords($row->alamat_perusahaan) ?></td>

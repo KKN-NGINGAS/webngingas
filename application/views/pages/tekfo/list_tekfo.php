@@ -26,6 +26,9 @@
             <thead>
                 <tr class="bg-green">
                     <th scope="col">No</th>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <th scope="col">Nama IKM</th>
+                    <?php } ?>
                     <th scope="col">Nama Barang</th>
                     <th scope="col">Tipe/Merk</th>
                     <th scope="col">Sumber Dana</th>
@@ -41,6 +44,9 @@
                     ?>
                     <tr>
                         <td><?= $i++ ?></td>
+                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                            <td><?= $row->nama_ikm ?></td>
+                        <?php } ?>
                         <td><?= $row->nama_barang ?></td>
                         <td><?= $row->tipe_merk ?></td>
                         <td><?= $row->sumber_dana ?></td>

@@ -98,16 +98,42 @@ class MainController extends CI_Controller {
 		
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
+
+		$data_user = array(
+			'username' => $username,
+			'user_pwd' => md5($password),
+			'tanggal_update' => date("Y-m-d H:i:s")
+		);
+		$this->MainModel->updateData('data_user', $data_user, array('id_user' => $id_user));
+
 		if (!in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) {
 			$nama = $this->input->post('nama');
-			$nik = $this->input->post('nik');
 			$gender = $this->input->post('gender');
 			$no_telp = $this->input->post('no_telp');
 			$email = $this->input->post('email');
 			$pendidikan = $this->input->post('pendidikan');
 			$alamat = $this->input->post('alamat');
+
+			$data_karyawan = array(
+				'nama_karyawan'	=> $nama,
+				'kelamin'		=> $gender,
+				'no_telp'		=> $no_telp,
+				'email'			=> $email,
+				'alamat'		=> $alamat,
+				'pendidikan'	=> $pendidikan,
+				'tanggal_update' => date("Y-m-d H:i:s")
+			);
+
+			$this->MainModel->updateData('data_karyawan', $data_karyawan, array('id_karyawan' => $id_karyawan));
 		}
-		echo "comingsoon";
+
+		$session = array (
+			'msg' => 'Akun Berhasil Diperbarui',
+			'alert' => 'success'
+		);
+
+		$this->session->set_userdata($session);
+		redirect('MainController/pengaturan');
 	}
 
 	// Fungsi Data Master khusus admin bumdes
@@ -330,7 +356,64 @@ class MainController extends CI_Controller {
 
 	public function edit_user($id_user)
 	{
-		echo "comingsoon";
+		$header['title']	= 'Edit User';
+		$header['page']		= 'data master';
+		
+		if ($this->session->has_userdata('msg')) {
+			$data['msg']		= $this->session->msg;
+			$data['alert']		= $this->session->alert;
+			$this->session->unset_userdata(array ('msg', 'alert'));
+		} else {
+			$data['msg']		= '';
+		}
+
+		$id_karyawan = $this->MainModel->getWhere('data_user', array('id_user' => $id_user))->row()->id_karyawan;
+
+		$data['sdm'] = $this->MainModel->getJoinWhere('data_karyawan', 'data_user', 'data_user.id_karyawan = data_karyawan.id_karyawan', array('data_karyawan.id_karyawan' => $id_karyawan))->result();
+
+		$this->load->view('layouts/header', $header);
+		$this->load->view('pages/data_master/edit_user', $data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function update_user($id_user, $id_karyawan, $id_ikm)
+	{
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+
+		$nama = $this->input->post('nama');
+		$gender = $this->input->post('gender');
+		$no_telp = $this->input->post('no_telp');
+		$email = $this->input->post('email');
+		$pendidikan = $this->input->post('pendidikan');
+		$alamat = $this->input->post('alamat');
+
+		$data_user = array(
+			'username' => $username,
+			'user_pwd' => md5($password),
+			'tanggal_update' => date("Y-m-d H:i:s")
+		);
+
+		$data_karyawan = array(
+			'nama_karyawan'	=> $nama,
+			'kelamin'		=> $gender,
+			'no_telp'		=> $no_telp,
+			'email'			=> $email,
+			'pendidikan'	=> $pendidikan,
+			'alamat'		=> $alamat,
+			'tanggal_update' => date("Y-m-d H:i:s")
+		);
+
+		$this->MainModel->updateData('data_user', $data_user, array('id_user' => $id_user));
+		$this->MainModel->updateData('data_karyawan', $data_karyawan, array('id_karyawan' => $id_karyawan));
+
+		$session = array (
+			'msg' => 'Akun Berhasil Diperbarui',
+			'alert' => 'success'
+		);
+
+		$this->session->set_userdata($session);
+		redirect('MainController/detail_ikm/'.$id_ikm);
 	}
 
 	// Fungsi User khusus buat admin bumdes dan admin ikm

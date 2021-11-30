@@ -9,9 +9,16 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>Detail Akun</h1>
     </div>
+
+    <?php if ($msg != '') { ?>
+        <div class="alert alert-<?= $alert ?>" role="alert">
+            <?= $msg ?>
+        </div>
+    <?php } ?>
+
     <div class="card-content">
         <?php foreach ($sdm as $row) { ?>
-            <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/update_sdm/'.$row->id_karyawan ?>" method="POST">
+            <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/update_pengaturan'?>" method="POST">
                 <div class="row">
                     <div class="col-lg-6 mb-3">
                         <label for="username" class="form-label">Username</label>

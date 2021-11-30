@@ -15,10 +15,45 @@
     <script src="<?= base_url() ?>assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 
     <script src="<?= base_url()?>assets/jquery-ui/jquery-ui.min.js"></script>
-    <script src="<?= base_url()?>assets/js/dashboard.js"></script>
+    <!-- <script src="<?= base_url()?>assets/js/dashboard.js"></script> -->
 
     <script type="text/javascript">
+        var minDate, maxDate;
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var min = minDate.val();
+                var max = maxDate.val();
+                var date = new Date( data[4] );
+
+                if (
+                    ( min === null && max === null ) ||
+                    ( min === null && date <= max ) ||
+                    ( min <= date   && max === null ) ||
+                    ( min <= date   && date <= max )
+                    ) {
+                    return true;
+            }
+            return false;
+        }
+        );
+
         $(document).ready(function(){
+            feather.replace({ 'aria-hidden': 'true' });
+            minDate = new DateTime($('#min'), {
+                format: 'MMMM Do YYYY'
+            });
+
+            maxDate = new DateTime($('#max'), {
+                format: 'MMMM Do YYYY'
+            });
+
+            var table = $('#myTable').DataTable({
+                "paging": true
+            });
+
+            $('#min, #max').on('change', function () {
+                table.draw();
+            });
             $(function() {
                 $('#tanggal_laporan').datepicker({
                     changeYear: true,

@@ -9,17 +9,16 @@
     <link rel="icon" href="<?php echo base_url() ?>/assets/img/Logo.png">
     <title><?= $title ?></title>
 
-    <!-- <link href="/css/jquery-ui.css" rel="stylesheet"> -->
+    <link href="<?= base_url() ?>assets/jquery-ui/jquery-ui.min.css" rel="stylesheet">
     
-    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" rel="stylesheet">
-
     <!-- Datepicker -->
     <link href="<?= base_url() ?>assets/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
 
-    <link href="<?= base_url() ?>assets/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/datetime/1.1.1/css/dataTables.dateTime.min.css" rel="stylesheet">
+
+
     <link href="<?= base_url() ?>assets/css/main.css" rel="stylesheet">
   </head>
   <body>

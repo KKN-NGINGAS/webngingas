@@ -20,6 +20,16 @@
             <?= $msg ?>
         </div>
     <?php } ?>
+    <table cellspacing="5" cellpadding="5" border="0">
+        <tbody>
+            <tr>
+                <td>Minimum date:</td>
+                <td><input type="text" id="min" name="min"></td>
+                <td>Maximum date:</td>
+                <td><input type="text" id="max" name="max"></td>
+            </tr>
+        </tbody>
+    </table>
 
     <div class="data-user">
         <table class="table" id="myTable">

@@ -40,7 +40,7 @@
                     <th scope="col">No</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">No. Transaksi</th>
-                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
                         <th scope="col">Nama IKM</th>
                     <?php } ?>
                     <th scope="col">Nama Perusahaan</th>
@@ -58,7 +58,7 @@
                         <td><?= $i++ ?></td>
                         <td><?= $tgl ?></td>
                         <td><?= $row->no_transaksi ?></td>
-                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
                         <td><?= $row->nama_ikm ?></td>
                     <?php } ?>
                         <td><?= $row->nama_perusahaan ?></td>

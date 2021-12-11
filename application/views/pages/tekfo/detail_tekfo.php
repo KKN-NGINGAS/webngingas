@@ -22,7 +22,7 @@
             <?php foreach ($teknologi as $row) { ?>
                 <form action="<?php echo base_url() . 'MainController/update_tekfo/'.$row->id_tekfo; ?>" method="post" class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;">
                     <div class="row">
-                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
                             <div class="col-lg-6 mb-3">
                                 <label for="tanggal_produksi" class="form-label">Nama IKM</label>
                                 <div>

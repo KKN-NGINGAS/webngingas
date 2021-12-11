@@ -27,7 +27,7 @@
             <thead>
                 <tr class="bg-green">
                     <th scope="col">No</th>
-                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
                         <th scope="col">Nama IKM</th>
                     <?php } ?>
                     <th scope="col">Nama Produk</th>
@@ -42,7 +42,7 @@
                 foreach ($data_produk as $row) { ?>
                     <tr>
                         <td><?= $i++ ?></td>
-                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
                             <td><?= $row->nama_ikm ?></td>
                         <?php } ?>
                         <td><?= $row->nama_produk ?></td>

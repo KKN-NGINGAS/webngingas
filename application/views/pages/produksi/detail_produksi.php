@@ -30,7 +30,7 @@
                         <label for="tanggal_produksi" class="form-label">Tanggal</label>
                         <input type="date" class="form-control input-field" name="tanggal_produksi" id="tanggal_produksi" value="<?= $row->tanggal ?>" required>
                     </div>
-                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
                         <div class="col-lg-6 mb-3">
                             <label for="tanggal_produksi" class="form-label">Nama IKM</label>
                             <div>

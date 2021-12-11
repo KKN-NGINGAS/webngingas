@@ -38,7 +38,7 @@
                 <tr class="bg-green">
                     <th scope="col">No</th>
                     <th scope="col">Tanggal</th>
-                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
                         <th scope="col">Nama IKM</th>
                     <?php } ?>
                     <th scope="col">Nama Produk</th>
@@ -56,7 +56,7 @@
                     <tr>
                         <td><?= $i++ ?></td>
                         <td><?= $tgl ?></td>
-                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
                             <td><?= $row->nama_ikm ?></td>
                         <?php } ?>
                         <td><?= $row->nama_produk ?></td>

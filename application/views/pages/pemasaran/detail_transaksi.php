@@ -32,10 +32,12 @@
                 ?>
                 <table width="100%">
                     <tr>
-                        <td class="align-middle" width="15%">
-                            <label>Nama IKM:</label><br>
-                            <?= $row->nama_ikm ?>
-                        </td>
+                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
+                            <td class="align-middle" width="15%">
+                                <label>Nama IKM:</label><br>
+                                <?= $row->nama_ikm ?>
+                            </td>
+                        <?php } ?>
                         <td class="align-middle" width="15%">
                             <label>Tanggal Transaksi:</label><br>
                             <?= $tgl ?>

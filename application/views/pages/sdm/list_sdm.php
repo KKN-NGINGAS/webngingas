@@ -28,7 +28,7 @@
                     <th scope="col">No</th>
                     <th scope="col">NIK</th>
                     <th scope="col">Nama</th>
-                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
                         <th scope="col">Nama IKM</th>
                     <?php } ?>
                     <th scope="col">Jabatan</th>
@@ -43,7 +43,7 @@
                         <td><?= $i++ ?></td>
                         <td><?= ucwords($row->nik) ?></td>
                         <td><?= ucwords($row->nama_karyawan) ?></td>
-                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                        <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
                             <td><?= ucwords($row->nama_ikm) ?></td>
                         <?php } ?>
                         <td><?= $row->jabatan ?></td>

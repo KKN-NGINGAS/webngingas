@@ -23,7 +23,7 @@
         <div class="col-10 mx-auto">
             <?php foreach ($data_produk as $row) { ?>
                 <form class="spacer-2" style="padding-top: 50px;padding-bottom: 50px;" action="<?= base_url().'MainController/update_produk/'.$row->id_data_produk ?>" method="POST">
-                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm'))) { ?>
+                    <?php if (!in_array($this->session->userdata('role'), array('admin_ikm', 'operator_ikm', 'pimpinan_ikm'))) { ?>
                         <div class="row">
                             <div class="col-lg-6 mb-3">
                                 <label for="stok" class="form-label">Nama IKM: <?= $row->nama_ikm ?></label>

@@ -18,14 +18,6 @@ class MainController extends CI_Controller {
 		}
 	}
 
-	// Fungsi Random buat username sama password
-	
-	public function rand_string($length)
-	{
-		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		return substr(str_shuffle($chars), 0, $length);
-	}
-
 	// Fungsi Auth untuk akun ikm
 
 	public function auth_ikm()

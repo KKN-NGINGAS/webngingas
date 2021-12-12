@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="description" content="Dashboard Management System Bumdes Ngingas">
+    <meta name="author" content="Institut Teknologi Sepuluh Nopember">
     <meta name="generator" content="Hugo 0.87.0">
     <link rel="icon" href="<?php echo base_url() ?>/assets/img/Logo.png">
     <title><?= $title ?></title>

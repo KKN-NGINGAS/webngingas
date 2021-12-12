@@ -22,6 +22,8 @@
         </div>
     <?php } ?>
 
+    <p><i>Lakukan refresh setiap kali melakukan filter pencarian tanggal</i></p>
+
     <table cellspacing="5" cellpadding="5" border="0">
         <tbody>
             <tr>

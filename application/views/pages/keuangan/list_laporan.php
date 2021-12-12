@@ -20,19 +20,23 @@
             <?= $msg ?>
         </div>
     <?php } ?>
+
+
+    <p><i>Pastikan memilih tanggal 1 ketika melakukan filter</i></p>
+    <p><i>Lakukan refresh setiap kali melakukan filter pencarian tanggal</i></p>
     <table cellspacing="5" cellpadding="5" border="0">
         <tbody>
             <tr>
                 <td>Minimum date:</td>
-                <td><input type="text" id="min" name="min"></td>
+                <td><input type="text" id="min_keuangan" name="min_keuangan"></td>
                 <td>Maximum date:</td>
-                <td><input type="text" id="max" name="max"></td>
+                <td><input type="text" id="max_keuangan" name="max_keuangan"></td>
             </tr>
         </tbody>
     </table>
 
     <div class="data-user">
-        <table class="table" id="myTable">
+        <table class="table" id="myTable_keuangan">
             <thead>
                 <tr class="bg-green">
                     <th scope="col">No</th>
@@ -53,7 +57,7 @@
                     ?>
                     <tr>
                         <td><?= $i++ ?></td>
-                        <td><?= $row->tanggal ?></td>
+                        <td>15 <?= $row->tanggal ?></td>
                         <?php if (in_array($this->session->userdata('role'), array('admin_bumdes','pimpinan_bumdes'))) { ?>
                             <td><?= $row->nama_ikm ?></td>
                         <?php } ?>

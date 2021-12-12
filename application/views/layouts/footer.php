@@ -9,7 +9,11 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
     <!-- <script src="/js/jquery-ui.min.js" type="text/javascript"></script> -->
-    <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <!-- <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js" type="text/javascript"></script> -->
+
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js" type="text/javascript"></script>
 
     <!-- Datepicker -->
     <script src="<?= base_url() ?>assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
@@ -23,13 +27,19 @@
             function( settings, data, dataIndex ) {
                 var min = minDate.val();
                 var max = maxDate.val();
-                var date = new Date( data[4] );
+                var date = new Date( data[1] ); 
+                // index: tergantung kolom tanggal nya dimana
+
+                console.log("min: ", min);
+                console.log("max: ", max);
+                console.log("data[1]: ", data[1]);
+                console.log("date: ", date);
 
                 if (
                     ( min === null && max === null ) ||
                     ( min === null && date <= max ) ||
-                    ( min <= date   && max === null ) ||
-                    ( min <= date   && date <= max )
+                    ( min <= date && max === null ) ||
+                    ( min <= date && date <= max )
                     ) {
                     return true;
             }
@@ -39,13 +49,13 @@
 
         $(document).ready(function(){
             feather.replace({ 'aria-hidden': 'true' });
-            minDate = new DateTime($('#min'), {
-                format: 'MMMM Do YYYY'
-            });
 
-            maxDate = new DateTime($('#max'), {
-                format: 'MMMM Do YYYY'
+            minDate = new DateTime($('#min'), {
+                format: 'Do MMMM YYYY'
             });
+            maxDate = new DateTime($('#max'), {
+                format: 'Do MMMM YYYY'
+            });            
 
             var table = $('#myTable').DataTable({
                 "paging": true
@@ -54,6 +64,7 @@
             $('#min, #max').on('change', function () {
                 table.draw();
             });
+
             $(function() {
                 $('#tanggal_laporan').datepicker({
                     changeYear: true,
@@ -69,7 +80,67 @@
                 });
             });
         });
-</script>
+
+        // tabel di produksi
+        $(document).ready(function(){
+            feather.replace({ 'aria-hidden': 'true' });
+
+            minDate = new DateTime($('#min_produksi'), {
+                format: 'Do MMMM YYYY'
+            });
+            maxDate = new DateTime($('#max_produksi'), {
+                format: 'Do MMMM YYYY'
+            });            
+
+            var table = $('#myTable_produksi').DataTable({
+                "paging": true
+            });
+
+            $('#min_produksi, #max_produksi').on('change', function () {
+                table.draw();
+            });
+        });        
+
+        // tabel di keuangan
+        $(document).ready(function(){
+            feather.replace({ 'aria-hidden': 'true' });
+
+            minDate = new DateTime($('#min_keuangan'), {
+                format: 'Do MMMM YYYY'
+            });
+            maxDate = new DateTime($('#max_keuangan'), {
+                format: 'Do MMMM YYYY'
+            });            
+
+            var table = $('#myTable_keuangan').DataTable({
+                "paging": true
+            });
+
+            $('#min_keuangan, #max_keuangan').on('change', function () {
+                table.draw();
+            });
+        });  
+        
+        // tabel di detail keuangan
+        $(document).ready(function(){
+            feather.replace({ 'aria-hidden': 'true' });
+
+            minDate = new DateTime($('#min_detail_keuangan'), {
+                format: 'Do MMMM YYYY'
+            });
+            maxDate = new DateTime($('#max_detail_keuangan'), {
+                format: 'Do MMMM YYYY'
+            });            
+
+            var table = $('#myTable_detail_keuangan').DataTable({
+                "paging": true
+            });
+
+            $('#min_detail_keuangan, #max_detail_keuangan').on('change', function () {
+                table.draw();
+            });
+        });        
+    </script>
 
 </body>
 </html>

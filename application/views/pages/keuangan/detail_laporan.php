@@ -38,19 +38,21 @@
         </div>
     <?php } ?>
 
+    <p><i>Lakukan refresh setiap kali melakukan filter pencarian tanggal</i></p>
+
     <table cellspacing="5" cellpadding="5" border="0">
         <tbody>
             <tr>
                 <td>Minimum date:</td>
-                <td><input type="text" id="min" name="min"></td>
+                <td><input type="text" id="min_detail_keuangan" name="min_detail_keuangan"></td>
                 <td>Maximum date:</td>
-                <td><input type="text" id="max" name="max"></td>
+                <td><input type="text" id="max_detail_keuangan" name="max_detail_keuangan"></td>
             </tr>
         </tbody>
     </table>
 
     <div class="data-user">
-        <table class="table" id="myTable">
+        <table class="table" id="myTable_detail_keuangan">
             <thead>
                 <tr class="bg-green">
                     <th scope="col">No</th>
